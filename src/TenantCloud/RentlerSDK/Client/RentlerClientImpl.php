@@ -2,12 +2,12 @@
 
 namespace TenantCloud\RentlerSDK\Client;
 
-use App\Helpers\Guzzle\DumpRequestBody\HeaderObfuscator;
-use App\Helpers\Guzzle\DumpRequestBody\JsonObfuscator;
-use App\Helpers\GuzzleMiddleware;
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\RequestOptions;
+use TenantCloud\GuzzleHelper\DumpRequestBody\HeaderObfuscator;
+use TenantCloud\GuzzleHelper\DumpRequestBody\JsonObfuscator;
+use TenantCloud\GuzzleHelper\GuzzleMiddleware;
 use TenantCloud\RentlerSDK\Amenities\AmenitiesApi;
 use TenantCloud\RentlerSDK\Amenities\AmenitiesApiImpl;
 use TenantCloud\RentlerSDK\Coffee\CoffeeApi;
