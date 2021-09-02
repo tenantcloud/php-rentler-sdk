@@ -8,6 +8,7 @@ return [
 
 		'client_id'     => env('RENTLER_PARTNER_CLIENT_ID', ''),
 		'client_secret' => env('RENTLER_PARTNER_CLIENT_SECRET', ''),
+		'timeout'       => env('RENTLER_PARTNER_CLIENT_TIMEOUT', 10),
 
 		'fake_client' => false,
 	],
