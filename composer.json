@@ -9,7 +9,7 @@
 		"illuminate/support": "^8.0",
 		"spatie/macroable": "1.0.1",
 		"guzzlehttp/guzzle": "~7.2",
-		"tenantcloud/php-standard": "^1.2"
+		"tenantcloud/php-standard": "^1.2.3"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "^9.0",

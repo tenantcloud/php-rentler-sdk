@@ -5,6 +5,7 @@ namespace TenantCloud\RentlerSDK\Client;
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\RequestOptions;
+use Illuminate\Support\Facades\Config;
 use TenantCloud\GuzzleHelper\DumpRequestBody\HeaderObfuscator;
 use TenantCloud\GuzzleHelper\DumpRequestBody\JsonObfuscator;
 use TenantCloud\GuzzleHelper\GuzzleMiddleware;
@@ -74,7 +75,7 @@ class RentlerClientImpl implements RentlerClient
 		$this->httpClient = new Client([
 			'base_uri'              => $baseUrl,
 			'handler'               => $stack,
-			RequestOptions::TIMEOUT => 10,
+			RequestOptions::TIMEOUT => Config::get('rentler.partner.timeout'),
 		]);
 	}
 
