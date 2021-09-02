@@ -1,0 +1,41 @@
+<?php
+
+namespace TenantCloud\RentlerSDK\Enums;
+
+use TenantCloud\Standard\Enum\ValueEnum;
+
+final class ListingType extends ValueEnum
+{
+	public static self $UNDEFINED;
+
+	public static self $HOUSE;
+
+	public static self $APARTMENT;
+
+	public static self $CONDO_MULTIPLEX;
+
+	public static self $TOWNHOME;
+
+	public static self $IN_LAW_BASEMENT;
+
+	public static self $SINGLE_ROOM;
+
+	public static self $SUB_LEASE;
+
+	protected function __construct($value)
+	{
+		parent::__construct($value);
+	}
+
+	protected static function initializeInstances(): void
+	{
+		self::$UNDEFINED = new self('Undefined');
+		self::$HOUSE = new self('House');
+		self::$APARTMENT = new self('Apartment');
+		self::$CONDO_MULTIPLEX = new self('CondoMultiplex');
+		self::$TOWNHOME = new self('Townhome');
+		self::$IN_LAW_BASEMENT = new self('InLawBasement');
+		self::$SINGLE_ROOM = new self('SingleRoom');
+		self::$SUB_LEASE = new self('SubLease');
+	}
+}

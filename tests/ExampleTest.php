@@ -1,7 +1,13 @@
 <?php
 
-use TenantCloud\Example;
+namespace Tests;
 
-test('something works', function () {
-	expect(new Example())->not()->toBeNull();
-});
+use TenantCloud\RentlerSDK\Client\RentlerClient;
+
+class ExampleTest extends TestCase
+{
+	public function testExample(): void
+	{
+		self::assertNotNull(app(RentlerClient::class));
+	}
+}
