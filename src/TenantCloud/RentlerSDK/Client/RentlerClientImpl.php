@@ -75,7 +75,7 @@ class RentlerClientImpl implements RentlerClient
 		$this->httpClient = new Client([
 			'base_uri'              => $baseUrl,
 			'handler'               => $stack,
-			RequestOptions::TIMEOUT => Config::get('rentler.partner.timeout'),
+			RequestOptions::TIMEOUT => Config::get('rentler.timeout'),
 		]);
 	}
 

@@ -31,15 +31,15 @@ class RentlerSDKServiceProvider extends ServiceProvider
 
 		$config = $this->app->make(Repository::class);
 
-		if (!$config->get('rentler.partner.fake_client')) {
+		if (!$config->get('rentler.fake_client')) {
 			$this->app->singleton(RentlerClient::class, static function (Container $container) {
 				$config = $container->make(Repository::class);
 
 				return new RentlerClientImpl(
-					$config->get('rentler.partner.base_url'),
-					$config->get('rentler.partner.auth_base_url'),
-					$config->get('rentler.partner.client_id'),
-					$config->get('rentler.partner.client_secret'),
+					$config->get('rentler.base_url'),
+					$config->get('rentler.auth_base_url'),
+					$config->get('rentler.client_id'),
+					$config->get('rentler.client_secret'),
 					new CombinedTokenCache([$container->make(LaravelCacheTokenCache::class)])
 				);
 			});
