@@ -225,6 +225,10 @@ use TenantCloud\RentlerSDK\Enums\ListingType;
  */
 class ListingDTO extends CamelDataTransferObject
 {
+	public const COORDINATES_LONGITUDE_INDEX = 0;
+	public const COORDINATES_LATITUDE_INDEX = 1;
+	public const COORDINATES_DEFAULT_VALUE = 1;
+
 	protected array $fields = [
 		'listingId',
 		'landlordId',
@@ -308,8 +312,8 @@ class ListingDTO extends CamelDataTransferObject
 			return $this->set('coordinates', null);
 		}
 
-		$longitude = Arr::get($coordinates, 0, 1);
-		$latitude = Arr::get($coordinates, 1, 1);
+		$longitude = Arr::get($coordinates, self::COORDINATES_LONGITUDE_INDEX, self::COORDINATES_DEFAULT_VALUE);
+		$latitude = Arr::get($coordinates, self::COORDINATES_LATITUDE_INDEX, self::COORDINATES_DEFAULT_VALUE);
 
 		return $this->set('coordinates', [$longitude, $latitude]);
 	}
