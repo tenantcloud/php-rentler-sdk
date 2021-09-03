@@ -27,7 +27,7 @@ class TokensApiImpl implements TokensApi
 			->post($url, [
 				'form_params' => [
 					'grant_type'    => 'client_credentials',
-					'scope'         => Config::get('rentler.partner.scope'),
+					'scope'         => Config::get('rentler.scope'),
 					'client_id'     => $clientId,
 					'client_secret' => $clientSecret,
 				],
