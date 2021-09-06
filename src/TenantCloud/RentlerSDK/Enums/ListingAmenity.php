@@ -101,7 +101,7 @@ class ListingAmenity extends ValueEnum
 
 	public function __toString(): string
 	{
-		return $this->label();
+		return $this->value();
 	}
 
 	protected static function initializeInstances(): void
