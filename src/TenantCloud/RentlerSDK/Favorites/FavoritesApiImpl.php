@@ -5,6 +5,7 @@ namespace TenantCloud\RentlerSDK\Favorites;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Http\Response;
+use function TenantCloud\RentlerSDK\cast_http_query_params;
 use TenantCloud\RentlerSDK\Exceptions\Missing404Exception;
 use function TenantCloud\RentlerSDK\psr_response_to_json;
 
@@ -24,7 +25,7 @@ class FavoritesApiImpl implements FavoritesApi
 		$jsonResponse = $this->httpClient->get(
 			static::ENDPOINT_PREFIX . "/{$tenantId}/favorites",
 			[
-				'query' => $filtersDTO->toArray(),
+				'query' => cast_http_query_params($filtersDTO->toArray()),
 			]
 		);
 

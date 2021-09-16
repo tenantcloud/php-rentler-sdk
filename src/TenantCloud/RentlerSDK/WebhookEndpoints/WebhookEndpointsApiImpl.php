@@ -5,6 +5,7 @@ namespace TenantCloud\RentlerSDK\WebhookEndpoints;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Http\Response;
+use function TenantCloud\RentlerSDK\cast_http_query_params;
 use TenantCloud\RentlerSDK\Exceptions\Missing404Exception;
 use function TenantCloud\RentlerSDK\psr_response_to_json;
 
@@ -24,7 +25,7 @@ class WebhookEndpointsApiImpl implements WebhookEndpointsApi
 		$jsonResponse = $this->httpClient->get(
 			static::WEBHOOK_ENDPOINTS_ENDPOINT,
 			[
-				'query' => $filters->toArray(),
+				'query' => cast_http_query_params($filters->toArray()),
 			]
 		);
 

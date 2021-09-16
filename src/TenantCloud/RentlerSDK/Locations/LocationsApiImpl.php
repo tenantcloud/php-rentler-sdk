@@ -3,6 +3,7 @@
 namespace TenantCloud\RentlerSDK\Locations;
 
 use GuzzleHttp\Client;
+use function TenantCloud\RentlerSDK\cast_http_query_params;
 use function TenantCloud\RentlerSDK\psr_response_to_json;
 
 class LocationsApiImpl implements LocationsApi
@@ -21,7 +22,7 @@ class LocationsApiImpl implements LocationsApi
 		$jsonResponse = $this->httpClient->get(
 			static::LOCATIONS_ENDPOINT . '/find',
 			[
-				'query' => $filters->toArray(),
+				'query' => cast_http_query_params($filters->toArray()),
 			]
 		);
 
@@ -38,7 +39,7 @@ class LocationsApiImpl implements LocationsApi
 		$jsonResponse = $this->httpClient->get(
 			static::LOCATIONS_ENDPOINT . '/autocomplete',
 			[
-				'query' => $filters->toArray(),
+				'query' => cast_http_query_params($filters->toArray()),
 			]
 		);
 

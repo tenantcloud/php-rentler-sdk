@@ -5,6 +5,7 @@ namespace TenantCloud\RentlerSDK\Listings;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Http\Response;
+use function TenantCloud\RentlerSDK\cast_http_query_params;
 use TenantCloud\RentlerSDK\Exceptions\InvalidArgumentException;
 use TenantCloud\RentlerSDK\Exceptions\Missing404Exception;
 use function TenantCloud\RentlerSDK\psr_response_to_json;
@@ -25,7 +26,7 @@ class ListingsApiImpl implements ListingsApi
 		$jsonResponse = $this->httpClient->get(
 			static::LISTINGS_ENDPOINT,
 			[
-				'query' => $filters->toArray(),
+				'query' => cast_http_query_params($filters->toArray()),
 			]
 		);
 
@@ -39,7 +40,7 @@ class ListingsApiImpl implements ListingsApi
 		$jsonResponse = $this->httpClient->get(
 			static::LISTINGS_ENDPOINT . '/points',
 			[
-				'query' => $filters->toArray(),
+				'query' => cast_http_query_params($filters->toArray()),
 			]
 		);
 
