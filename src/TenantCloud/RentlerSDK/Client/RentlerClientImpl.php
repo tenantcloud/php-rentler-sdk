@@ -59,8 +59,9 @@ class RentlerClientImpl implements RentlerClient
 
 		$stack = HandlerStack::create();
 
+		// Set api version.
 		if ($version) {
-			$stack->push(Middleware::mapRequest(fn (RequestInterface $request) => $request->withHeader('Content-Type', "application/json; v={$version}")));
+			$stack->push(Middleware::mapRequest(fn (RequestInterface $request) => $request->withHeader('accept', "application/json; v={$version}")));
 		}
 
 		// Return all response body.
