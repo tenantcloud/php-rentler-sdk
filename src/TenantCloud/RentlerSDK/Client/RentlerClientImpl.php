@@ -4,8 +4,10 @@ namespace TenantCloud\RentlerSDK\Client;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Middleware;
 use GuzzleHttp\RequestOptions;
 use Illuminate\Support\Facades\Config;
+use Psr\Http\Message\RequestInterface;
 use TenantCloud\GuzzleHelper\DumpRequestBody\HeaderObfuscator;
 use TenantCloud\GuzzleHelper\DumpRequestBody\JsonObfuscator;
 use TenantCloud\GuzzleHelper\GuzzleMiddleware;
@@ -51,10 +53,16 @@ class RentlerClientImpl implements RentlerClient
 		string $clientSecret,
 		TokenCache $cache
 	) {
+		$version = Config::get('rentler.version');
 		$this->authBaseUrl = $authBaseUrl;
 		$tokenResolver = new TokenResolver($this, $cache);
 
 		$stack = HandlerStack::create();
+
+		// Set api version.
+		if ($version) {
+			$stack->push(Middleware::mapRequest(fn (RequestInterface $request) => $request->withHeader('accept', "application/json; v={$version}")));
+		}
 
 		// Return all response body.
 		$stack->unshift(GuzzleMiddleware::fullErrorResponseBody());
