@@ -5,21 +5,25 @@ namespace TenantCloud\RentlerSDK\Landlords;
 use TenantCloud\DataTransferObjects\CamelDataTransferObject;
 
 /**
- * @method self        setLandlordId(int $id)
- * @method int         getLandlordId()
- * @method bool        hasLandlordId()
- * @method self        setName(?string $name)
- * @method string|null getName()
- * @method bool        hasName()
+ * @method self        setFirstName(?string $name)
+ * @method string|null getFirstName()
+ * @method bool        hasFirstName()
+ * @method self        setLastName()
+ * @method string|null getLastName()
+ * @method bool        hasLastName()
  * @method self        setEmail(?string $email)
  * @method string|null getEmail()
  * @method bool        hasEmail()
+ * @method self        setIsVerified(bool $value)
+ * @method bool        getIsVerified()
+ * @method bool        hasIsVerified()
  */
 class LandlordDTO extends CamelDataTransferObject
 {
 	protected array $fields = [
-		'landlordId',
-		'name',
+		'firstName',
+		'lastName',
 		'email',
+		'isVerified',
 	];
 }

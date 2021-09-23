@@ -7,6 +7,7 @@ use TenantCloud\RentlerSDK\Client\RentlerClient;
 use TenantCloud\RentlerSDK\Coffee\CoffeeApi;
 use TenantCloud\RentlerSDK\Favorites\FavoritesApi;
 use TenantCloud\RentlerSDK\Feeds\FeedsApi;
+use TenantCloud\RentlerSDK\Landlords\LandlordsApi;
 use TenantCloud\RentlerSDK\Listings\ListingsApi;
 use TenantCloud\RentlerSDK\Locations\LocationsApi;
 use TenantCloud\RentlerSDK\Messages\MessagesApi;
@@ -82,5 +83,10 @@ class FakeRentlerClient implements RentlerClient
 	public function webhookEndpoints(): WebhookEndpointsApi
 	{
 		return new FakeWebhookEndpointsApi();
+	}
+
+	public function landlords(): LandlordsApi
+	{
+		return new FakeLandlordsApi();
 	}
 }

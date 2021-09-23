@@ -11,4 +11,11 @@ return [
 	'timeout'       => env('RENTLER_PARTNER_CLIENT_TIMEOUT', 10),
 
 	'fake_client' => false,
+
+	'webhooks' => [
+		'host'   => env('RENTLER_PARTNER_WEBHOOKS_HOST', ''),
+		'secret' => env('RENTLER_PARTNER_WEBHOOKS_SECRET', ''),
+
+		'prefix' => 'api/rentler',
+	],
 ];
