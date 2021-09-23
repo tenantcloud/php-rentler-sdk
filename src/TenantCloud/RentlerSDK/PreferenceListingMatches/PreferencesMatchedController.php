@@ -10,7 +10,7 @@ use TenantCloud\RentlerSDK\Listings\ListingDTO;
 class PreferencesMatchedController
 {
 	/**
-	 * Example URL: POST /v1/rentler/preferences/matched
+	 * Example URL: POST /api/rentler/preferences/matched
 	 */
 	public function __invoke(Request $request, Dispatcher $dispatcher): JsonResponse
 	{
