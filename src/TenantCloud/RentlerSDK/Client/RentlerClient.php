@@ -6,6 +6,7 @@ use TenantCloud\RentlerSDK\Amenities\AmenitiesApi;
 use TenantCloud\RentlerSDK\Coffee\CoffeeApi;
 use TenantCloud\RentlerSDK\Favorites\FavoritesApi;
 use TenantCloud\RentlerSDK\Feeds\FeedsApi;
+use TenantCloud\RentlerSDK\Landlords\LandlordsApi;
 use TenantCloud\RentlerSDK\Listings\ListingsApi;
 use TenantCloud\RentlerSDK\Locations\LocationsApi;
 use TenantCloud\RentlerSDK\Messages\MessagesApi;
@@ -43,4 +44,6 @@ interface RentlerClient
 	public function amenities(): AmenitiesApi;
 
 	public function webhookEndpoints(): WebhookEndpointsApi;
+
+	public function landlords(): LandlordsApi;
 }

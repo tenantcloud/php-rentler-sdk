@@ -9,9 +9,10 @@
 		"illuminate/support": "^8.0",
 		"spatie/macroable": "1.0.1",
 		"guzzlehttp/guzzle": "~7.2",
-		"tenantcloud/php-standard": "^1.2.3",
+		"tenantcloud/php-standard": "^1.2.4",
 		"tenantcloud/data-transfer-objects": "^1.0",
-		"tenantcloud/guzzle-helper": "^1.0"
+		"tenantcloud/guzzle-helper": "^1.0",
+		"league/uri": "^6.5"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "^9.0",

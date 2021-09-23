@@ -19,6 +19,8 @@ use TenantCloud\RentlerSDK\Favorites\FavoritesApi;
 use TenantCloud\RentlerSDK\Favorites\FavoritesApiImpl;
 use TenantCloud\RentlerSDK\Feeds\FeedsApi;
 use TenantCloud\RentlerSDK\Feeds\FeedsApiImpl;
+use TenantCloud\RentlerSDK\Landlords\LandlordsApi;
+use TenantCloud\RentlerSDK\Landlords\LandlordsApiImpl;
 use TenantCloud\RentlerSDK\Listings\ListingsApi;
 use TenantCloud\RentlerSDK\Listings\ListingsApiImpl;
 use TenantCloud\RentlerSDK\Locations\LocationsApi;
@@ -150,5 +152,10 @@ class RentlerClientImpl implements RentlerClient
 	public function webhookEndpoints(): WebhookEndpointsApi
 	{
 		return new WebhookEndpointsApiImpl($this->httpClient);
+	}
+
+	public function landlords(): LandlordsApi
+	{
+		return new LandlordsApiImpl($this->httpClient);
 	}
 }

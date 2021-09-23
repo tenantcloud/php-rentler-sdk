@@ -6,7 +6,11 @@ use TenantCloud\Standard\Enum\ValueEnum;
 
 class EventType extends ValueEnum
 {
-	public static self $TENANT_MATCHED;
+	public static self $GUEST_CARD_SENT;
+
+	public static self $PREFERENCES_MATCHED;
+
+	public static self $LISTINGS_MATCHED;
 
 	public static self $MESSAGE_CREATED;
 
@@ -16,7 +20,9 @@ class EventType extends ValueEnum
 
 	protected static function initializeInstances(): void
 	{
-		self::$TENANT_MATCHED = new self('TenantMatched');
+		self::$GUEST_CARD_SENT = new self('GuestCardSent');
+		self::$PREFERENCES_MATCHED = new self('PreferencesMatched');
+		self::$LISTINGS_MATCHED = new self('ListingsMatched');
 		self::$MESSAGE_CREATED = new self('MessageCreated');
 		self::$MESSAGE_UPDATED = new self('MessageUpdated');
 		self::$MESSAGE_DELETED = new self('MessageDeleted');

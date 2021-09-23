@@ -14,7 +14,7 @@ class FakeListingsApi implements ListingsApi
 {
 	public const FIRST_LISTING = [
 		'listingId'           => 1,
-		'partnerId'           => 'TC',
+		'partnerId'           => 'tc',
 		'partnerListingId'    => 1,
 		'partnerPropertyId'   => 1,
 		'contactName'         => 'Barbara Greenlee Hoffstettler',
@@ -157,8 +157,9 @@ class FakeListingsApi implements ListingsApi
 	];
 	public const SECOND_LISTING = [
 		'listingId'           => 2,
-		'partnerId'           => 'TC',
+		'partnerId'           => 'r',
 		'partnerListingId'    => 2,
+		'partnerUserId'       => 1,
 		'partnerPropertyId'   => 1,
 		'contactName'         => 'Lisa',
 		'contactCompanyName'  => '',
