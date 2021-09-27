@@ -25,7 +25,7 @@ class DisableCommand extends Command
 	 */
 	public function handle(RentlerClient $client, Repository $config, UrlGenerator $urlGenerator): void
 	{
-		$webhooksHost = $config->get('rentler.partner.webhooks.host');
+		$webhooksHost = $config->get('rentler.webhooks.host');
 		Assert::notEmpty($webhooksHost);
 
 		$webhookEndpoints = new PageIterator(
