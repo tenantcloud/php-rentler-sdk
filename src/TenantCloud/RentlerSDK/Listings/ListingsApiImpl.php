@@ -14,6 +14,8 @@ class ListingsApiImpl implements ListingsApi
 {
 	private const LISTINGS_ENDPOINT = '/api/listings';
 
+	private const LISTINGS_BY_IDS_ENDPOINT = '/api/listings/ids';
+
 	private Client $httpClient;
 
 	public function __construct(Client $httpClient)
@@ -33,6 +35,22 @@ class ListingsApiImpl implements ListingsApi
 		$response = psr_response_to_json($jsonResponse);
 
 		return PaginatedListingsResponseDTO::from($response);
+	}
+
+	public function ids(array $ids): array
+	{
+		$jsonResponse = $this->httpClient->get(
+			static::LISTINGS_BY_IDS_ENDPOINT,
+			[
+				'query' => cast_http_query_params([
+					'ListingIds' => implode(',', $ids),
+				]),
+			]
+		);
+
+		$response = psr_response_to_json($jsonResponse);
+
+		return array_map(fn (array $data) => ListingDTO::from($data), $response);
 	}
 
 	public function points(SearchListingsDTO $filters): ListingPointsResponseDTO
