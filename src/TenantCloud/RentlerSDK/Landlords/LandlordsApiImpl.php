@@ -9,6 +9,7 @@ use function TenantCloud\RentlerSDK\psr_response_to_json;
 class LandlordsApiImpl implements LandlordsApi
 {
 	private const LANDLORDS_ENDPOINT = '/api/landlords';
+	private const LANDLORDS_BY_IDS_ENDPOINT = '/api/landlords/ids';
 
 	private Client $httpClient;
 
@@ -29,5 +30,21 @@ class LandlordsApiImpl implements LandlordsApi
 		$response = psr_response_to_json($jsonResponse);
 
 		return PaginatedLandlordsResponseDTO::from($response);
+	}
+
+	public function ids(array $ids): array
+	{
+		$jsonResponse = $this->httpClient->get(
+			static::LANDLORDS_BY_IDS_ENDPOINT,
+			[
+				'query' => cast_http_query_params([
+					'LandlordIds' => implode(',', $ids),
+				]),
+			]
+		);
+
+		$response = psr_response_to_json($jsonResponse);
+
+		return array_map(fn (array $data) => LandlordDTO::from($data), $response);
 	}
 }

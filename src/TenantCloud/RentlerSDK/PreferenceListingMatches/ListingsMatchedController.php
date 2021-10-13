@@ -5,18 +5,18 @@ namespace TenantCloud\RentlerSDK\PreferenceListingMatches;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use TenantCloud\RentlerSDK\Listings\ListingDTO;
+use TenantCloud\RentlerSDK\Preferences\PreferenceDTO;
 
-class PreferencesMatchedController
+class ListingsMatchedController
 {
 	/**
-	 * Example URL: POST /api/rentler/preferences/matched
+	 * Example URL: POST /api/rentler/listings/matched
 	 */
 	public function __invoke(Request $request, Dispatcher $dispatcher): Response
 	{
-		$dispatcher->dispatch(new PreferencesMatchedListingEvent(
-			ListingDTO::from($request->input('data.listing')),
-			$request->input('data.tenantIds'),
+		$dispatcher->dispatch(new ListingsMatchedPreferenceEvent(
+			PreferenceDTO::from($request->input('data.tenantPreference')),
+			$request->input('data.listingIds'),
 		));
 
 		return response()->noContent();

@@ -1,0 +1,2 @@
+providers:
+    - TenantCloud\RentlerSDK\RentlerSDKServiceProvider

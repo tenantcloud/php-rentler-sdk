@@ -314,6 +314,14 @@ class FakeListingsApi implements ListingsApi
 		return $response;
 	}
 
+	public function ids(array $ids): array
+	{
+		return array_filter(
+			array_map(fn (array $data) => ListingDTO::from($data), $this->fakeItems()),
+			fn (ListingDTO $listing)   => in_array($listing->getListingId(), $ids, true),
+		);
+	}
+
 	public function points(SearchListingsDTO $filters): ListingPointsResponseDTO
 	{
 		$response = [

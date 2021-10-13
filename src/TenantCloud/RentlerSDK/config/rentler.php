@@ -13,8 +13,8 @@ return [
 	'fake_client' => false,
 
 	'webhooks' => [
-		'host'   => env('RENTLER_PARTNER_WEBHOOKS_HOST', ''),
-		'secret' => env('RENTLER_PARTNER_WEBHOOKS_SECRET', ''),
+		'host'   => env('RENTLER_PARTNER_WEBHOOKS_HOST', 'test.com'),
+		'secret' => env('RENTLER_PARTNER_WEBHOOKS_SECRET', 'secret'),
 
 		'prefix' => 'api/rentler',
 	],

@@ -14,6 +14,7 @@ use TenantCloud\RentlerSDK\Messages\MessagesApi;
 use TenantCloud\RentlerSDK\Partners\PartnersApi;
 use TenantCloud\RentlerSDK\Preferences\PreferencesApi;
 use TenantCloud\RentlerSDK\Reports\ReportsApi;
+use TenantCloud\RentlerSDK\SyndicationProviders\SyndicationProvidersApi;
 use TenantCloud\RentlerSDK\Tenants\TenantsApi;
 use TenantCloud\RentlerSDK\Tokens\TokensApi;
 use TenantCloud\RentlerSDK\WebhookEndpoints\WebhookEndpointsApi;
@@ -73,6 +74,11 @@ class FakeRentlerClient implements RentlerClient
 	public function reports(): ReportsApi
 	{
 		return new FakeReportsApi();
+	}
+
+	public function syndicationProviders(): SyndicationProvidersApi
+	{
+		return new FakeSyndicationProvidersApi();
 	}
 
 	public function amenities(): AmenitiesApi

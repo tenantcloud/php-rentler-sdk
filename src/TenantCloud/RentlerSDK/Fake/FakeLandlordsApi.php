@@ -3,6 +3,7 @@
 namespace TenantCloud\RentlerSDK\Fake;
 
 use TenantCloud\RentlerSDK\Exceptions\Missing404Exception;
+use TenantCloud\RentlerSDK\Landlords\LandlordDTO;
 use TenantCloud\RentlerSDK\Landlords\LandlordsApi;
 use TenantCloud\RentlerSDK\Landlords\LandlordsFiltersDTO;
 use TenantCloud\RentlerSDK\Landlords\PaginatedLandlordsResponseDTO;
@@ -26,13 +27,10 @@ class FakeLandlordsApi implements LandlordsApi
 
 	public function list(LandlordsFiltersDTO $filters): PaginatedLandlordsResponseDTO
 	{
-		$items = [
-			self::FIRST_LANDLORD,
-			self::SECOND_LANDLORD,
-		];
+		$items = $this->fakeItems();
 
 		if ($filters->hasPartnerLandlordId()) {
-			$items = array_filter($items, fn ($item) => $item['partnerLandlordId'] == $filters->getPartnerLandlordId());
+			$items = array_filter($items, fn ($item) => $item['partnerLandlordId'] === $filters->getPartnerLandlordId());
 
 			if (!$items) {
 				throw new Missing404Exception();
@@ -48,5 +46,21 @@ class FakeLandlordsApi implements LandlordsApi
 			->setItems($items);
 
 		return $response;
+	}
+
+	public function ids(array $ids): array
+	{
+		return array_filter(
+			array_map(fn (array $data) => LandlordDTO::from($data), $this->fakeItems()),
+			fn (LandlordDTO $landlord) => in_array($landlord->getPartnerLandlordId(), $ids, true),
+		);
+	}
+
+	private function fakeItems(): array
+	{
+		return [
+			self::FIRST_LANDLORD,
+			self::SECOND_LANDLORD,
+		];
 	}
 }

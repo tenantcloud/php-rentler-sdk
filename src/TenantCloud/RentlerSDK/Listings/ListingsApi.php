@@ -9,6 +9,13 @@ interface ListingsApi
 	 */
 	public function list(SearchListingsDTO $filters): PaginatedListingsResponseDTO;
 
+	/**
+	 * Get all listings by ids.
+	 *
+	 * @return ListingDTO[]
+	 */
+	public function ids(array $ids): array;
+
 	public function points(SearchListingsDTO $filters): ListingPointsResponseDTO;
 
 	public function get(int $listingId): ListingDTO;

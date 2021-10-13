@@ -28,7 +28,7 @@ class EnableCommand extends Command
 		Repository $config,
 		UrlGenerator $urlGenerator
 	): void {
-		$webhooksHost = $config->get('rentler.partner.webhooks.host');
+		$webhooksHost = $config->get('rentler.webhooks.host');
 		Assert::notEmpty($webhooksHost);
 
 		Artisan::call(DisableCommand::class);
@@ -41,11 +41,12 @@ class EnableCommand extends Command
 	 */
 	private function createNew(string $webhooksHost, RentlerClient $client, Repository $config, UrlGenerator $urlGenerator): void
 	{
-		$webhooksSecret = $config->get('rentler.partner.webhooks.secret');
+		$webhooksSecret = $config->get('rentler.webhooks.secret');
 		Assert::notEmpty($webhooksSecret);
 
 		$combinations = [
-			[EventType::$PREFERENCES_MATCHED, 'rentler.partner.webhooks.preferences.matched'],
+			[EventType::$LISTINGS_MATCHED, 'rentler.webhooks.listings.matched'],
+			[EventType::$PREFERENCES_MATCHED, 'rentler.webhooks.preferences.matched'],
 		];
 
 		foreach ($combinations as [$eventType, $routeName]) {
