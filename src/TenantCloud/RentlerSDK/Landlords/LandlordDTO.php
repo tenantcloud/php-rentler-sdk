@@ -11,7 +11,7 @@ use TenantCloud\DataTransferObjects\CamelDataTransferObject;
  * @method self        setFirstName(?string $name)
  * @method string|null getFirstName()
  * @method bool        hasFirstName()
- * @method self        setLastName()
+ * @method self        setLastName(?string $name)
  * @method string|null getLastName()
  * @method bool        hasLastName()
  * @method self        setEmail(?string $email)

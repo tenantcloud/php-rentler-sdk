@@ -33,6 +33,8 @@ use TenantCloud\RentlerSDK\Preferences\PreferencesApi;
 use TenantCloud\RentlerSDK\Preferences\PreferencesApiImpl;
 use TenantCloud\RentlerSDK\Reports\ReportsApi;
 use TenantCloud\RentlerSDK\Reports\ReportsApiImpl;
+use TenantCloud\RentlerSDK\SyndicationProviders\SyndicationProvidersApi;
+use TenantCloud\RentlerSDK\SyndicationProviders\SyndicationProvidersApiImpl;
 use TenantCloud\RentlerSDK\Tenants\TenantsApi;
 use TenantCloud\RentlerSDK\Tenants\TenantsApiImpl;
 use TenantCloud\RentlerSDK\Tokens\Cache\TokenCache;
@@ -142,6 +144,11 @@ class RentlerClientImpl implements RentlerClient
 	public function reports(): ReportsApi
 	{
 		return new ReportsApiImpl($this->httpClient);
+	}
+
+	public function syndicationProviders(): SyndicationProvidersApi
+	{
+		return new SyndicationProvidersApiImpl($this->httpClient);
 	}
 
 	public function amenities(): AmenitiesApi

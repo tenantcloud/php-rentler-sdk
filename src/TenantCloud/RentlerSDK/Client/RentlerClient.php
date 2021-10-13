@@ -13,6 +13,7 @@ use TenantCloud\RentlerSDK\Messages\MessagesApi;
 use TenantCloud\RentlerSDK\Partners\PartnersApi;
 use TenantCloud\RentlerSDK\Preferences\PreferencesApi;
 use TenantCloud\RentlerSDK\Reports\ReportsApi;
+use TenantCloud\RentlerSDK\SyndicationProviders\SyndicationProvidersApi;
 use TenantCloud\RentlerSDK\Tenants\TenantsApi;
 use TenantCloud\RentlerSDK\Tokens\TokensApi;
 use TenantCloud\RentlerSDK\WebhookEndpoints\WebhookEndpointsApi;
@@ -40,6 +41,8 @@ interface RentlerClient
 	public function messages(): MessagesApi;
 
 	public function reports(): ReportsApi;
+
+	public function syndicationProviders(): SyndicationProvidersApi;
 
 	public function amenities(): AmenitiesApi;
 
