@@ -2,6 +2,8 @@
 
 namespace TenantCloud\RentlerSDK\Listings;
 
+use TenantCloud\RentlerSDK\Reports\ReportDTO;
+
 interface ListingsApi
 {
 	/**
@@ -25,4 +27,6 @@ interface ListingsApi
 	public function update(ListingDTO $listing): ListingDTO;
 
 	public function delete(int $listingId): void;
+
+	public function report(ReportListingDTO $data): ReportDTO;
 }
