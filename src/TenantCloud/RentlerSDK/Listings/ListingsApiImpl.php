@@ -40,6 +40,10 @@ class ListingsApiImpl implements ListingsApi
 
 	public function ids(array $ids): array
 	{
+		if (!$ids) {
+			return [];
+		}
+
 		$jsonResponse = $this->httpClient->get(
 			static::LISTINGS_BY_IDS_ENDPOINT,
 			[
