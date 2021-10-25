@@ -8,7 +8,9 @@ use TenantCloud\RentlerSDK\Listings\ListingDTO;
 use TenantCloud\RentlerSDK\Listings\ListingPointsResponseDTO;
 use TenantCloud\RentlerSDK\Listings\ListingsApi;
 use TenantCloud\RentlerSDK\Listings\PaginatedListingsResponseDTO;
+use TenantCloud\RentlerSDK\Listings\ReportListingDTO;
 use TenantCloud\RentlerSDK\Listings\SearchListingsDTO;
+use TenantCloud\RentlerSDK\Reports\ReportDTO;
 
 class FakeListingsApi implements ListingsApi
 {
@@ -374,6 +376,15 @@ class FakeListingsApi implements ListingsApi
 		if ($listingId === self::NOT_EXISTING_LISTING_ID) {
 			throw new Missing404Exception('Listing does not exists.');
 		}
+	}
+
+	public function report(ReportListingDTO $data): ReportDTO
+	{
+		if ($data->getListingId() === self::NOT_EXISTING_LISTING_ID) {
+			throw new Missing404Exception('Listing does not exists.');
+		}
+
+		return ReportDTO::from(FakeReportsApi::FIRST_REPORT);
 	}
 
 	public function fakeItems(): array

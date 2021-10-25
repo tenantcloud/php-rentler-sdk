@@ -9,6 +9,7 @@ use function TenantCloud\RentlerSDK\cast_http_query_params;
 use TenantCloud\RentlerSDK\Exceptions\InvalidArgumentException;
 use TenantCloud\RentlerSDK\Exceptions\Missing404Exception;
 use function TenantCloud\RentlerSDK\psr_response_to_json;
+use TenantCloud\RentlerSDK\Reports\ReportDTO;
 
 class ListingsApiImpl implements ListingsApi
 {
@@ -116,6 +117,28 @@ class ListingsApiImpl implements ListingsApi
 		} catch (RequestException $exception) {
 			if ($exception->getCode() === Response::HTTP_NOT_FOUND) {
 				throw new Missing404Exception('Listing does not exists.');
+			}
+
+			throw $exception;
+		}
+	}
+
+	public function report(ReportListingDTO $data): ReportDTO
+	{
+		try {
+			$jsonResponse = $this->httpClient->post(
+				$this->entityUrl($data->getListingId()) . '/report',
+				[
+					'json' => $data->toArray(),
+				]
+			);
+
+			$response = psr_response_to_json($jsonResponse);
+
+			return ReportDTO::from($response);
+		} catch (RequestException $exception) {
+			if ($exception->getCode() === Response::HTTP_NOT_FOUND) {
+				throw new Missing404Exception('Listing does not exist.');
 			}
 
 			throw $exception;
