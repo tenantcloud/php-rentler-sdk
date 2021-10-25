@@ -34,6 +34,10 @@ class LandlordsApiImpl implements LandlordsApi
 
 	public function ids(array $ids): array
 	{
+		if (!$ids) {
+			return [];
+		}
+
 		$jsonResponse = $this->httpClient->get(
 			static::LANDLORDS_BY_IDS_ENDPOINT,
 			[
