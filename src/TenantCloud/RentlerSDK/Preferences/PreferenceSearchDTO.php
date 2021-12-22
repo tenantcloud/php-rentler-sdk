@@ -79,6 +79,9 @@ use TenantCloud\RentlerSDK\Enums\SortType;
  * @method self               setAmenities(array $amenities)
  * @method string[]           getAmenities()
  * @method bool               hasAmenities()
+ * @method self               setIsActive(bool $isActive)
+ * @method bool               getIsActive()
+ * @method bool               hasIsActive()
  */
 class PreferenceSearchDTO extends CamelDataTransferObject
 {
@@ -108,6 +111,7 @@ class PreferenceSearchDTO extends CamelDataTransferObject
 		'isAcceptingApplications',
 		'keywords',
 		'amenities',
+		'isActive',
 	];
 
 	public function setBounds($bounds): self
