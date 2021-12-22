@@ -128,7 +128,7 @@ class SearchListingsDTO extends PascalDataTransferDTO
 		$data = $bounds;
 
 		if (is_string($bounds)) {
-			$data = explode(',', $this->getBounds());
+			$data = explode(',', $bounds);
 		}
 
 		return $this->set('Bounds', $data);
