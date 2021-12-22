@@ -14,6 +14,9 @@ use TenantCloud\DataTransferObjects\CamelDataTransferObject;
  * @method bool                hasTenantPreferenceId()
  * @method PreferenceSearchDTO getSearch()
  * @method bool                hasSearch()
+ * @method self                setIsActive(bool $isActive)
+ * @method bool                getIsActive()
+ * @method bool                hasIsActive()
  * @method Carbon              getCreateDateUtc()
  * @method bool                hasCreateDateUtc()
  * @method Carbon              getUpdateDateUtc()
@@ -25,6 +28,7 @@ class PreferenceDTO extends CamelDataTransferObject
 		'tenantId',
 		'tenantPreferenceId',
 		'search',
+		'isActive',
 		'createDateUtc',
 		'updateDateUtc',
 	];

@@ -46,6 +46,7 @@ class FakePreferencesApi implements PreferencesApi
 				'washerdryernone',
 			],
 		],
+		'isActive'      => true,
 		'createDateUtc' => '2020-01-01 00:05:48',
 		'updateDateUtc' => '2021-01-31 17:40:00',
 	];
@@ -84,6 +85,7 @@ class FakePreferencesApi implements PreferencesApi
 				'washerdryernone',
 			],
 		],
+		'isActive'      => false,
 		'createDateUtc' => '2020-12-01 00:05:48',
 		'updateDateUtc' => '2021-12-31 17:40:00',
 	];
