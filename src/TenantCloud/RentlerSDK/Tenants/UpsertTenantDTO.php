@@ -8,7 +8,7 @@ use TenantCloud\DataTransferObjects\CamelDataTransferObject;
  * @method self        setTenantId(int $tenantId)
  * @method int         getTenantId()
  * @method bool        hasTenantId()
- * @method self        setPartnerTenantId(?string $partnerTenantId)
+ * @method self        setPartnerTenantId(?string|int $partnerTenantId)
  * @method string|null getPartnerTenantId()
  * @method bool        hasPartnerTenantId()
  * @method self        setFirstName(string $firstName)

@@ -46,6 +46,8 @@ use TenantCloud\RentlerSDK\WebhookEndpoints\WebhookEndpointsApiImpl;
 
 class RentlerClientImpl implements RentlerClient
 {
+	private const API_VERSION = '1.1';
+
 	private Client $httpClient;
 
 	private string $authBaseUrl;
@@ -57,16 +59,15 @@ class RentlerClientImpl implements RentlerClient
 		string $clientSecret,
 		TokenCache $cache
 	) {
-		$version = Config::get('rentler.version');
 		$this->authBaseUrl = $authBaseUrl;
 		$tokenResolver = new TokenResolver($this, $cache);
 
 		$stack = HandlerStack::create();
 
-		// Set api version.
-		if ($version) {
-			$stack->push(Middleware::mapRequest(fn (RequestInterface $request) => $request->withHeader('accept', "application/json; v={$version}")));
-		}
+		// Force API version for things not to break suddenly.
+		$stack->push(Middleware::mapRequest(
+			static fn (RequestInterface $request) => $request->withHeader('Accept', 'application/json; v=' . self::API_VERSION)
+		));
 
 		// Return all response body.
 		$stack->unshift(GuzzleMiddleware::fullErrorResponseBody());

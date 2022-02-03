@@ -5,8 +5,8 @@ namespace TenantCloud\RentlerSDK\Landlords;
 use TenantCloud\DataTransferObjects\CamelDataTransferObject;
 
 /**
- * @method self        setPartnerLandlordId(string $id)
- * @method string      getPartnerLandlordId()
+ * @method self        setPartnerLandlordId(string|int $id)
+ * @method string|int  getPartnerLandlordId()
  * @method bool        hasPartnerLandlordId()
  * @method self        setFirstName(?string $name)
  * @method string|null getFirstName()
