@@ -156,6 +156,8 @@ class FakeListingsApi implements ListingsApi
 		'applicationUrl'  => null,
 		'applicationFee'  => null,
 		'isReported'      => false,
+		'isVerified'      => true,
+		'currencyCode'    => 'USD',
 	];
 	public const SECOND_LISTING = [
 		'listingId'           => 2,
@@ -300,6 +302,8 @@ class FakeListingsApi implements ListingsApi
 		'applicationUrl'  => null,
 		'applicationFee'  => 0,
 		'isReported'      => false,
+		'isVerified'      => true,
+		'currencyCode'    => 'USD',
 	];
 	public const NOT_EXISTING_LISTING_ID = 10000;
 

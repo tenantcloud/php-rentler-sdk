@@ -82,6 +82,18 @@ use TenantCloud\DataTransferObjects\PascalDataTransferDTO;
  * @method self           setMaxSquareFeet(int $maxSquareFeet)
  * @method int            getMaxSquareFeet()
  * @method bool           hasMaxSquareFeet()
+ * @method self           setPartnerUserId(int $partnerUserId)
+ * @method int            getPartnerUserId()
+ * @method bool           hasPartnerUserId()
+ * @method self           setIsVerified(bool $isVerified)
+ * @method bool           getIsVerified()
+ * @method bool           hasIsVerified()
+ * @method self           setPartners(array $partners)
+ * @method string[]       getPartners()
+ * @method bool           hasPartners()
+ * @method self           setIsPreferencesOnly(bool $isPreferencesOnly)
+ * @method bool           getIsPreferencesOnly()
+ * @method bool           hasIsPreferencesOnly()
  */
 class SearchListingsDTO extends PascalDataTransferDTO
 {
@@ -121,6 +133,11 @@ class SearchListingsDTO extends PascalDataTransferDTO
 
 		'MinSquareFeet',
 		'MaxSquareFeet',
+
+		'Partners',
+		'PartnerUserId',
+		'IsVerified',
+		'IsPreferencesOnly',
 	];
 
 	public function setBounds($bounds): self

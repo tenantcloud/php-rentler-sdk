@@ -232,6 +232,12 @@ use TenantCloud\RentlerSDK\SyndicationProviders\SyndicationProviderDTO;
  * @method self                          setIsApplicationsEnabled(bool $value)
  * @method bool                          getIsApplicationsEnabled()
  * @method bool                          hasIsApplicationsEnabled()
+ * @method self                          setIsVerified(bool $isVerified)
+ * @method bool                          getIsVerified()
+ * @method bool                          hasIsVerified()
+ * @method self                          setCurrencyCode(string $isVerified)
+ * @method string                        getCurrencyCode()
+ * @method bool                          hasCurrencyCode()
  */
 class ListingDTO extends CamelDataTransferObject
 {
@@ -317,6 +323,8 @@ class ListingDTO extends CamelDataTransferObject
 		'hideInPreferences',
 		'isArchived',
 		'isApplicationsEnabled',
+		'currencyCode',
+		'isVerified',
 	];
 
 	public function setCoordinates(?array $coordinates): self
