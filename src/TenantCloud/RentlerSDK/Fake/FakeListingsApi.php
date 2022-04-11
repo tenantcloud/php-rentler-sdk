@@ -2,6 +2,7 @@
 
 namespace TenantCloud\RentlerSDK\Fake;
 
+use Illuminate\Support\Arr;
 use TenantCloud\RentlerSDK\Exceptions\InvalidArgumentException;
 use TenantCloud\RentlerSDK\Exceptions\Missing404Exception;
 use TenantCloud\RentlerSDK\Listings\ListingDTO;
@@ -34,7 +35,7 @@ class FakeListingsApi implements ListingsApi
 		'state'               => 'UT',
 		'zip'                 => '84111',
 		'country'             => 'us',
-		'coordinates'         => null,
+		'coordinates'         => [-82.644125, 38.4749055],
 		'title'               => 'Little Gems are amazing oysters that taste so good',
 		'description'         => '<p>one of the best</p>',
 		'yearBuilt'           => 2019,
@@ -180,7 +181,7 @@ class FakeListingsApi implements ListingsApi
 		'state'               => 'UT',
 		'zip'                 => '84111',
 		'country'             => 'us',
-		'coordinates'         => null,
+		'coordinates'         => [-73.9333022, 40.6997875],
 		'title'               => 'Cozy home',
 		'description'         => '<p>Cozy home</p>',
 		'yearBuilt'           => 2012,
@@ -300,11 +301,12 @@ class FakeListingsApi implements ListingsApi
 		'isInSearch'      => false,
 		'isInPreferences' => false,
 		'applicationUrl'  => null,
-		'applicationFee'  => 0,
+		'applicationFee'  => 100,
 		'isReported'      => false,
 		'isVerified'      => true,
 		'currencyCode'    => 'USD',
 	];
+
 	public const NOT_EXISTING_LISTING_ID = 10000;
 
 	public function list(SearchListingsDTO $filters): PaginatedListingsResponseDTO
@@ -334,20 +336,37 @@ class FakeListingsApi implements ListingsApi
 			'type'     => 'Point',
 			'features' => [
 				[
-					'type'     => 'Point',
+					'type'     => 'Feature',
 					'geometry' => [
 						'type'        => 'Point',
 						'coordinates' => [
-							0,
+							-82.6444125, 38.4749055,
 						],
 					],
 					'properties' => [
 						'price' => [
-							0,
+							750, 750,
 						],
-						'listingId'  => 0,
-						'propertyId' => 0,
-						'geohash'    => 'string',
+						'listingId'  => 1,
+						'propertyId' => 1,
+						'geohash'    => 'dnv4zkhhtd5x',
+					],
+				],
+				[
+					'type'     => 'Feature',
+					'geometry' => [
+						'type'        => 'Point',
+						'coordinates' => [
+							-73.9333022, 40.6997875,
+						],
+					],
+					'properties' => [
+						'price' => [
+							1000, 1000,
+						],
+						'listingId'  => 2,
+						'propertyId' => 1,
+						'geohash'    => 'dr5rt95mmnq1',
 					],
 				],
 			],
@@ -358,7 +377,13 @@ class FakeListingsApi implements ListingsApi
 
 	public function get(int $listingId): ListingDTO
 	{
-		return ListingDTO::from(self::SECOND_LISTING);
+		return ListingDTO::from(
+			Arr::first(
+				$this->fakeItems(),
+				fn ($item) => $listingId === Arr::get($item, 'listingId'),
+				self::SECOND_LISTING
+			)
+		);
 	}
 
 	public function create(ListingDTO $listing): ListingDTO
