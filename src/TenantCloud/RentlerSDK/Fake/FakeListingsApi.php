@@ -2,6 +2,7 @@
 
 namespace TenantCloud\RentlerSDK\Fake;
 
+use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Support\Arr;
 use TenantCloud\RentlerSDK\Exceptions\InvalidArgumentException;
 use TenantCloud\RentlerSDK\Exceptions\Missing404Exception;
@@ -15,6 +16,8 @@ use TenantCloud\RentlerSDK\Reports\ReportDTO;
 
 class FakeListingsApi implements ListingsApi
 {
+	public const CACHE_KEY = 'listings';
+
 	public const FIRST_LISTING = [
 		'listingId'           => 1,
 		'partnerId'           => 'tc',
@@ -311,6 +314,15 @@ class FakeListingsApi implements ListingsApi
 
 	public const NOT_EXISTING_LISTING_ID = 10000;
 
+	private Repository $repository;
+
+	public function __construct(Repository $repository)
+	{
+		$this->repository = $repository;
+
+		$this->updateListings($this->fakeItems());
+	}
+
 	public function list(SearchListingsDTO $filters): PaginatedListingsResponseDTO
 	{
 		$response = PaginatedListingsResponseDTO::create();
@@ -327,51 +339,40 @@ class FakeListingsApi implements ListingsApi
 	public function ids(array $ids): array
 	{
 		return array_filter(
-			array_map(fn (array $data) => ListingDTO::from($data), $this->fakeItems()),
-			fn (ListingDTO $listing)   => in_array($listing->getListingId(), $ids, true),
+			$this->fakeItems(),
+			fn (ListingDTO $listing) => in_array($listing->getListingId(), $ids, true),
 		);
 	}
 
 	public function points(SearchListingsDTO $filters): ListingPointsResponseDTO
 	{
+		$features = [];
+
+		foreach ($this->fakeItems() as $item) {
+			/* @var ListingDTO $item */
+			$features[] = [
+				'type'     => 'Feature',
+				'geometry' => [
+					'type'        => 'Point',
+					'coordinates' => $item->getCoordinates() ?? [
+						-82.6444125, 38.4749055,
+					],
+				],
+				'properties' => [
+					'price' => [
+						$item->getMinPrice() ?? 750.00,
+						$item->getMaxPrice() ?? 750.00,
+					],
+					'listingId'    => $item->getListingId() ?? 1,
+					'propertyId'   => $item->getPartnerPropertyId() ?? 1,
+					'geohash'      => 'dnv4zkhhtd5x',
+					'currencyCode' => 'USD',
+				],
+			];
+		}
 		$response = [
 			'type'     => 'Point',
-			'features' => [
-				[
-					'type'     => 'Feature',
-					'geometry' => [
-						'type'        => 'Point',
-						'coordinates' => [
-							-82.6444125, 38.4749055,
-						],
-					],
-					'properties' => [
-						'price' => [
-							750, 750,
-						],
-						'listingId'  => 1,
-						'propertyId' => 1,
-						'geohash'    => 'dnv4zkhhtd5x',
-					],
-				],
-				[
-					'type'     => 'Feature',
-					'geometry' => [
-						'type'        => 'Point',
-						'coordinates' => [
-							-73.9333022, 40.6997875,
-						],
-					],
-					'properties' => [
-						'price' => [
-							1000, 1000,
-						],
-						'listingId'  => 2,
-						'propertyId' => 1,
-						'geohash'    => 'dr5rt95mmnq1',
-					],
-				],
-			],
+			'features' => $features,
 		];
 
 		return ListingPointsResponseDTO::from($response);
@@ -379,24 +380,47 @@ class FakeListingsApi implements ListingsApi
 
 	public function get(int $listingId): ListingDTO
 	{
-		return ListingDTO::from(
-			Arr::first(
-				$this->fakeItems(),
-				fn ($item) => $listingId === Arr::get($item, 'listingId'),
-				self::SECOND_LISTING
-			)
+		/* @var ListingDTO $item */
+		return Arr::first(
+			$this->fakeItems(),
+			fn ($item) => $listingId === (int) $item->getListingId(),
+			ListingDTO::from(self::SECOND_LISTING)
 		);
 	}
 
 	public function create(ListingDTO $listing): ListingDTO
 	{
-		return ListingDTO::from(self::FIRST_LISTING);
+		$items = $this->fakeItems();
+
+		/** @var ListingDTO $lastListing */
+		$lastListing = last($items);
+
+		$listing->setListingId($lastListing ? $lastListing->getListingId() + 1 : 1);
+		$items[] = $listing;
+
+		$this->updateListings($items);
+
+		return $listing;
 	}
 
 	public function update(ListingDTO $listing): ListingDTO
 	{
 		if (!$listing->hasListingId()) {
 			throw new InvalidArgumentException('listingId cannot be null.');
+		}
+
+		$items = $this->fakeItems();
+
+		foreach ($items as $key => $item) {
+			/** @var ListingDTO $item */
+			if ($listing->getListingId() !== $item->getListingId()) {
+				continue;
+			}
+
+			$items[$key] = $listing;
+			$this->updateListings($items);
+
+			return $listing;
 		}
 
 		return ListingDTO::from(self::SECOND_LISTING);
@@ -407,6 +431,11 @@ class FakeListingsApi implements ListingsApi
 		if ($listingId === self::NOT_EXISTING_LISTING_ID) {
 			throw new Missing404Exception('Listing does not exists.');
 		}
+
+		/** @var ListingDTO $listing */
+		$items = Arr::where($this->fakeItems(), fn ($listing) => $listingId !== (int) $listing->getListingId());
+
+		$this->updateListings($items);
 	}
 
 	public function report(ReportListingDTO $data): ReportDTO
@@ -420,9 +449,11 @@ class FakeListingsApi implements ListingsApi
 
 	public function fakeItems(): array
 	{
-		return [
-			self::FIRST_LISTING,
-			self::SECOND_LISTING,
-		];
+		return $this->repository->get(self::CACHE_KEY . 'list', fn () => [ListingDTO::from(self::FIRST_LISTING), ListingDTO::from(self::SECOND_LISTING)]);
+	}
+
+	public function updateListings(array $items): void
+	{
+		$this->repository->remember(self::CACHE_KEY . 'list', 60, fn () => $items);
 	}
 }

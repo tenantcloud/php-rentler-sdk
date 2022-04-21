@@ -2,6 +2,7 @@
 
 namespace TenantCloud\RentlerSDK\Fake;
 
+use Illuminate\Contracts\Cache\Repository;
 use TenantCloud\RentlerSDK\Amenities\AmenitiesApi;
 use TenantCloud\RentlerSDK\Client\RentlerClient;
 use TenantCloud\RentlerSDK\Coffee\CoffeeApi;
@@ -21,9 +22,16 @@ use TenantCloud\RentlerSDK\WebhookEndpoints\WebhookEndpointsApi;
 
 class FakeRentlerClient implements RentlerClient
 {
+	private Repository $repository;
+
+	public function __construct(Repository $repository)
+	{
+		$this->repository = $repository;
+	}
+
 	public function listings(): ListingsApi
 	{
-		return new FakeListingsApi();
+		return new FakeListingsApi($this->repository);
 	}
 
 	public function tokens(): TokensApi
@@ -58,7 +66,7 @@ class FakeRentlerClient implements RentlerClient
 
 	public function favorites(): FavoritesApi
 	{
-		return new FakeFavoritesApi();
+		return new FakeFavoritesApi($this->repository);
 	}
 
 	public function preferences(): PreferencesApi

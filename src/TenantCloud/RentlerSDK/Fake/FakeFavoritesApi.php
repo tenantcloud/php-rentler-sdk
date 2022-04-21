@@ -2,6 +2,7 @@
 
 namespace TenantCloud\RentlerSDK\Fake;
 
+use Illuminate\Contracts\Cache\Repository;
 use TenantCloud\RentlerSDK\Exceptions\Missing404Exception;
 use TenantCloud\RentlerSDK\Favorites\FavoriteDTO;
 use TenantCloud\RentlerSDK\Favorites\FavoriteFiltersDTO;
@@ -13,6 +14,13 @@ class FakeFavoritesApi implements FavoritesApi
 	public const FIRST_ITEM = [];
 	public const SECOND_ITEM = [];
 	public const NOT_EXISTING_FAVORITES_ID = 10000;
+
+	private Repository $repository;
+
+	public function __construct(Repository $repository)
+	{
+		$this->repository = $repository;
+	}
 
 	public function list(int $tenantId, FavoriteFiltersDTO $filtersDTO): PaginatedFavoritesResponseDTO
 	{

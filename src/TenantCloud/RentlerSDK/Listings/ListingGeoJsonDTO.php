@@ -17,6 +17,9 @@ use TenantCloud\DataTransferObjects\CamelDataTransferObject;
  * @method self    setGeohash(?string $geohash)
  * @method ?string getGeohash()
  * @method bool    hasGeohash()
+ * @method self    setCurrencyCode(string $currencyCode)
+ * @method string  getCurrencyCode()
+ * @method bool    hasCurrencyCode()
  */
 class ListingGeoJsonDTO extends CamelDataTransferObject
 {
@@ -25,5 +28,6 @@ class ListingGeoJsonDTO extends CamelDataTransferObject
 		'listingId',
 		'propertyId',
 		'geohash',
+		'currencyCode',
 	];
 }
