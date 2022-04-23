@@ -26,6 +26,11 @@ use TenantCloud\RentlerSDK\Enums\ReportType;
  */
 class UpsertReportDTO extends CamelDataTransferObject
 {
+	protected array $enums = [
+		'reportType' => ReportType::class,
+		'actionType' => ReportActionType::class,
+	];
+
 	protected array $fields = [
 		'reportType',
 		'actionType',

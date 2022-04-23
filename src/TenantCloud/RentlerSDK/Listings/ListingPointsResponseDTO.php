@@ -13,6 +13,10 @@ use TenantCloud\RentlerSDK\Enums\GeoType;
  */
 class ListingPointsResponseDTO extends CamelDataTransferObject
 {
+	protected array $enums = [
+		'type' => GeoType::class,
+	];
+
 	protected array $fields = [
 		'type',
 		'features',

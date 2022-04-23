@@ -23,6 +23,10 @@ use TenantCloud\RentlerSDK\Enums\LocationAdminLevel;
  */
 class LocationDTO extends CamelDataTransferObject
 {
+	protected array $enums = [
+		'AdminLevels' => LocationAdminLevel::class,
+	];
+
 	protected array $fields = [
 		'centroid',
 		'name',

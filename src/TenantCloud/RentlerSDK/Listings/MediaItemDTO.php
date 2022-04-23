@@ -38,6 +38,10 @@ use TenantCloud\RentlerSDK\Enums\MediaItemType;
  */
 class MediaItemDTO extends CamelDataTransferObject
 {
+	protected array $enums = [
+		'type' => MediaItemType::class,
+	];
+
 	protected array $fields = [
 		'listingMediaItemId',
 		'mediaItemId',

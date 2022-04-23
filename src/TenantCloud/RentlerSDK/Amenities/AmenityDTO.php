@@ -20,6 +20,10 @@ use TenantCloud\RentlerSDK\Enums\AmenityType;
  */
 class AmenityDTO extends DataTransferObject
 {
+	protected array $enums = [
+		'type' => AmenityType::class,
+	];
+
 	protected array $fields = [
 		'id',
 		'name',
