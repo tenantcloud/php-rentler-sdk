@@ -319,8 +319,6 @@ class FakeListingsApi implements ListingsApi
 	public function __construct(Repository $repository)
 	{
 		$this->repository = $repository;
-
-		$this->updateListings($this->fakeItems());
 	}
 
 	public function list(SearchListingsDTO $filters): PaginatedListingsResponseDTO
@@ -454,6 +452,6 @@ class FakeListingsApi implements ListingsApi
 
 	public function updateListings(array $items): void
 	{
-		$this->repository->remember(self::CACHE_KEY . 'list', 60, fn () => $items);
+		$this->repository->put(self::CACHE_KEY . 'list', $items, 600);
 	}
 }
