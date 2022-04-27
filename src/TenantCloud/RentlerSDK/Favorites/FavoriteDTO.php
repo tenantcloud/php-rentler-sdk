@@ -10,6 +10,9 @@ use TenantCloud\RentlerSDK\Listings\ListingDTO;
  * @method self       setListingId(int $listingId)
  * @method int        getListingId()
  * @method bool       hasListingId()
+ * @method self       setTenantId(int $tenantId)
+ * @method int        getTenantId()
+ * @method bool       hasTenantId()
  * @method self       setTenantFavoriteId(int $tenantFavoriteId)
  * @method int        getTenantFavoriteId()
  * @method bool       hasTenantFavoriteId()
@@ -24,6 +27,7 @@ class FavoriteDTO extends CamelDataTransferObject
 {
 	protected array $fields = [
 		'listingId',
+		'tenantId',
 		'tenantFavoriteId',
 		'createDateUtc',
 		'updateDateUtc',

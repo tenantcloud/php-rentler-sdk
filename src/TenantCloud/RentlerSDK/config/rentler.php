@@ -9,8 +9,12 @@ return [
 	'client_secret' => env('RENTLER_PARTNER_CLIENT_SECRET', ''),
 	'timeout'       => env('RENTLER_PARTNER_CLIENT_TIMEOUT', 10),
 
-	'fake_client'       => false,
-	'fake_client_cache' => 3600,
+	'fake_client'   => false,
+	'fake_settings' => [
+		'partner_id' => 'r',
+		'cache_time' => 1000,
+		'prefix'     => 'rentler::fake',
+	],
 
 	'webhooks' => [
 		'host'   => env('RENTLER_PARTNER_WEBHOOKS_HOST', 'test.com'),

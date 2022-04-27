@@ -2,8 +2,11 @@
 
 namespace TenantCloud\RentlerSDK\Fake;
 
+use Carbon\Carbon;
+use Illuminate\Config\Repository as ConfigRepository;
 use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Support\Arr;
+use TenantCloud\RentlerSDK\Enums\ListingStatus;
 use TenantCloud\RentlerSDK\Exceptions\InvalidArgumentException;
 use TenantCloud\RentlerSDK\Exceptions\Missing404Exception;
 use TenantCloud\RentlerSDK\Listings\ListingDTO;
@@ -16,7 +19,7 @@ use TenantCloud\RentlerSDK\Reports\ReportDTO;
 
 class FakeListingsApi implements ListingsApi
 {
-	public const CACHE_KEY = 'listings';
+	public const CACHE_KEY = ':listings_list';
 
 	public const FIRST_LISTING = [
 		'listingId'           => 1,
@@ -316,20 +319,25 @@ class FakeListingsApi implements ListingsApi
 
 	private Repository $repository;
 
-	public function __construct(Repository $repository)
+	private ConfigRepository $config;
+
+	public function __construct(Repository $repository, ConfigRepository $config)
 	{
 		$this->repository = $repository;
+		$this->config = $config;
 	}
 
 	public function list(SearchListingsDTO $filters): PaginatedListingsResponseDTO
 	{
 		$response = PaginatedListingsResponseDTO::create();
+		$items = $this->fakeItems();
+		$limit = $filters->getLimit();
 
-		$response->setLimit(10)
-			->setPage(1)
-			->setTotalItems(2)
-			->setTotalPages(1)
-			->setItems($this->fakeItems());
+		$response->setLimit($limit ?? 10)
+			->setPage($filters->getPage() ?? 1)
+			->setTotalItems(count($items))
+			->setTotalPages(ceil(count($items) / $limit))
+			->setItems($items);
 
 		return $response;
 	}
@@ -394,7 +402,7 @@ class FakeListingsApi implements ListingsApi
 		$lastListing = last($items);
 
 		$listing->setListingId($lastListing ? $lastListing->getListingId() + 1 : 1);
-		$items[] = $listing;
+		$items[] = $this->mergeDefaultFields($listing);
 
 		$this->updateListings($items);
 
@@ -407,21 +415,27 @@ class FakeListingsApi implements ListingsApi
 			throw new InvalidArgumentException('listingId cannot be null.');
 		}
 
+		$existingListingKey = null;
 		$items = $this->fakeItems();
 
 		foreach ($items as $key => $item) {
 			/** @var ListingDTO $item */
-			if ($listing->getListingId() !== $item->getListingId()) {
-				continue;
+			if ($listing->getListingId() === $item->getListingId()) {
+				$existingListingKey = $key;
+
+				break;
 			}
-
-			$items[$key] = $listing;
-			$this->updateListings($items);
-
-			return $listing;
 		}
 
-		return ListingDTO::from(self::SECOND_LISTING);
+		if ($existingListingKey) {
+			$items[$existingListingKey] = $this->mergeDefaultFields($listing);
+		} else {
+			$items[] = $this->mergeDefaultFields($listing);
+		}
+
+		$this->updateListings($items);
+
+		return $listing;
 	}
 
 	public function delete(int $listingId): void
@@ -447,11 +461,84 @@ class FakeListingsApi implements ListingsApi
 
 	public function fakeItems(): array
 	{
-		return $this->repository->get(self::CACHE_KEY . 'list', fn () => [ListingDTO::from(self::FIRST_LISTING), ListingDTO::from(self::SECOND_LISTING)]);
+		return $this->repository->get($this->config->get('rentler.fake_settings.prefix') . self::CACHE_KEY, fn () => [ListingDTO::from(self::FIRST_LISTING), ListingDTO::from(self::SECOND_LISTING)]);
 	}
 
 	public function updateListings(array $items): void
 	{
-		$this->repository->put(self::CACHE_KEY . 'list', $items, 600);
+		$this->repository->put($this->config->get('rentler.fake_settings.prefix') . self::CACHE_KEY, $items, Carbon::now()->addMinutes($this->config->get('rentler.fake_settings.cache_time', 1000)));
+	}
+
+	private function mergeDefaultFields(ListingDTO $listing): ListingDTO
+	{
+		if (!$listing->hasIsVerified()) {
+			$listing->setIsVerified(true);
+		}
+
+		if (!$listing->hasPartnerId()) {
+			$listing->setPartnerId($this->config->get('rentler.fake_settings.partner_id', 'r'));
+		}
+
+		if (!$listing->hasCreateDateUtc()) {
+			$listing->setCreateDateUtc(Carbon::now());
+		}
+
+		if (!$listing->hasUpdateDateUtc()) {
+			$listing->setUpdateDateUtc(Carbon::now());
+		}
+
+		if (!$listing->hasAvailableDateUtc()) {
+			$listing->setAvailableDateUtc(Carbon::now());
+		}
+
+		if (!$listing->hasActivateDateUtc()) {
+			$listing->setActivateDateUtc(Carbon::now());
+		}
+
+		if (!$listing->hasMediaItems()) {
+			$listing->setMediaItems([]);
+		}
+
+		if (!$listing->hasOperatingHours()) {
+			$listing->setOperatingHours([]);
+		}
+
+		if (!$listing->hasStatus()) {
+			$listing->setStatus(ListingStatus::$LISTED);
+		}
+
+		if (!$listing->hasCustomAmenities()) {
+			$listing->setCustomAmenities([]);
+		}
+
+		if (!$listing->hasIsInSearch()) {
+			$listing->setIsInSearch(true);
+		}
+
+		if (!$listing->hasIsInSearch()) {
+			$listing->setIsInSearch(true);
+		}
+
+		if (!$listing->hasIsInPreferences()) {
+			$listing->setIsInPreferences(true);
+		}
+
+		if (!$listing->hasHideInSearch()) {
+			$listing->setHideInSearch(false);
+		}
+
+		if (!$listing->hasHideInPreferences()) {
+			$listing->setHideInPreferences(false);
+		}
+
+		if (!$listing->hasIsApplicationsEnabled()) {
+			$listing->setIsApplicationsEnabled(true);
+		}
+
+		if (!$listing->hasIsVerified()) {
+			$listing->setIsVerified(true);
+		}
+
+		return $listing;
 	}
 }
