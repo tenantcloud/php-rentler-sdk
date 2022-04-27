@@ -332,6 +332,11 @@ class FakeListingsApi implements ListingsApi
 		$response = PaginatedListingsResponseDTO::create();
 		$items = $this->fakeItems();
 
+		if ($filters->getMinPrice()) {
+			/** @var ListingDTO $listing */
+			$items = Arr::where($items, fn ($listing) => (int) $filters->getMinPrice() === (int) $listing->getMinPrice());
+		}
+
 		$response->setLimit(10)
 			->setPage(1)
 			->setTotalItems(count($items))

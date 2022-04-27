@@ -55,9 +55,13 @@ class FakeFavoritesApi implements FavoritesApi
 	{
 		$items = $this->fakeItems();
 
+		/** @var FavoriteDTO $lastFavorite */
+		$lastFavorite = last($items);
+
 		$listing = (new FakeListingsApi($this->repository, $this->config))->get($listingId);
 
 		$favorite = FavoriteDTO::create();
+		$favorite->setTenantFavoriteId($lastFavorite ? $lastFavorite->getTenantFavoriteId() + 1 : 1);
 		$favorite->setTenantId($tenantId);
 		$favorite->setListing($listing->toArray());
 		$favorite->setListingId($listing->getListingId());
