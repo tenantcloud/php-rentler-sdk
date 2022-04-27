@@ -357,8 +357,14 @@ class FakeListingsApi implements ListingsApi
 	public function points(SearchListingsDTO $filters): ListingPointsResponseDTO
 	{
 		$features = [];
+		$items = $this->fakeItems();
 
-		foreach ($this->fakeItems() as $item) {
+		if ($filters->getMinPrice()) {
+			/** @var ListingDTO $listing */
+			$items = Arr::where($items, fn ($listing) => (int) $filters->getMinPrice() === (int) $listing->getMinPrice());
+		}
+
+		foreach ($items as $item) {
 			/* @var ListingDTO $item */
 			$features[] = [
 				'type'     => 'Feature',
