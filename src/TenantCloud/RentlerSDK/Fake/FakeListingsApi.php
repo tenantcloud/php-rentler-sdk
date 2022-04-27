@@ -331,12 +331,11 @@ class FakeListingsApi implements ListingsApi
 	{
 		$response = PaginatedListingsResponseDTO::create();
 		$items = $this->fakeItems();
-		$limit = $filters->getLimit();
 
-		$response->setLimit($limit ?? 10)
-			->setPage($filters->getPage() ?? 1)
+		$response->setLimit(10)
+			->setPage(1)
 			->setTotalItems(count($items))
-			->setTotalPages(ceil(count($items) / $limit))
+			->setTotalPages(1)
 			->setItems($items);
 
 		return $response;
