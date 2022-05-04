@@ -27,6 +27,10 @@ use TenantCloud\RentlerSDK\Enums\DayOfWeek;
  */
 class OperatingDayDTO extends CamelDataTransferObject
 {
+	protected array $enums = [
+		'dayOfWeek' => DayOfWeek::class,
+	];
+
 	protected array $fields = [
 		'operatingDayId',
 		'listingId',

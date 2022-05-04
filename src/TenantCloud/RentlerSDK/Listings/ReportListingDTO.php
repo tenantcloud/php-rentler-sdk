@@ -20,6 +20,10 @@ use TenantCloud\RentlerSDK\Enums\ReportType;
  */
 class ReportListingDTO extends CamelDataTransferObject
 {
+	protected array $enums = [
+		'type' => ReportType::class,
+	];
+
 	protected array $fields = [
 		'listingId',
 		'description',

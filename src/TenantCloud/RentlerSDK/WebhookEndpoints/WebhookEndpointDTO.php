@@ -20,6 +20,10 @@ use TenantCloud\RentlerSDK\Enums\EventType;
  */
 class WebhookEndpointDTO extends CamelDataTransferObject
 {
+	protected array $enums = [
+		'eventTypes' => EventType::class,
+	];
+
 	protected array $fields = [
 		'url',
 		'secret',

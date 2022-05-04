@@ -2,6 +2,11 @@
 
 namespace TenantCloud\RentlerSDK\Fake;
 
+use Carbon\Carbon;
+use Illuminate\Config\Repository as ConfigRepository;
+use Illuminate\Contracts\Cache\Repository;
+use Illuminate\Support\Arr;
+use TenantCloud\RentlerSDK\Enums\ListingStatus;
 use TenantCloud\RentlerSDK\Exceptions\InvalidArgumentException;
 use TenantCloud\RentlerSDK\Exceptions\Missing404Exception;
 use TenantCloud\RentlerSDK\Listings\ListingDTO;
@@ -14,6 +19,8 @@ use TenantCloud\RentlerSDK\Reports\ReportDTO;
 
 class FakeListingsApi implements ListingsApi
 {
+	public const CACHE_KEY = ':listings_list';
+
 	public const FIRST_LISTING = [
 		'listingId'           => 1,
 		'partnerId'           => 'tc',
@@ -22,7 +29,7 @@ class FakeListingsApi implements ListingsApi
 		'contactName'         => 'Barbara Greenlee Hoffstettler',
 		'contactCompanyName'  => null,
 		'contactEmail'        => 'barbara@test.com',
-		'contactPhone'        => '8014441232',
+		'contactPhone'        => '+18014441232',
 		'canReceiveTexts'     => false,
 		'createDateUtc'       => '2020-05-29 00:05:48',
 		'updateDateUtc'       => '2021-03-18 17:40:00',
@@ -34,7 +41,7 @@ class FakeListingsApi implements ListingsApi
 		'state'               => 'UT',
 		'zip'                 => '84111',
 		'country'             => 'us',
-		'coordinates'         => null,
+		'coordinates'         => [-82.644125, 38.4749055],
 		'title'               => 'Little Gems are amazing oysters that taste so good',
 		'description'         => '<p>one of the best</p>',
 		'yearBuilt'           => 2019,
@@ -150,14 +157,15 @@ class FakeListingsApi implements ListingsApi
 				'largeUrl'  => 'https://www.youtube.com/watch?v=X9tU8ybzcFs',
 			],
 		],
-		'activateDateUtc' => '2021-03-18 17:40:00',
-		'isInSearch'      => false,
-		'isInPreferences' => false,
-		'applicationUrl'  => null,
-		'applicationFee'  => null,
-		'isReported'      => false,
-		'isVerified'      => true,
-		'currencyCode'    => 'USD',
+		'activateDateUtc'       => '2021-03-18 17:40:00',
+		'isInSearch'            => false,
+		'isInPreferences'       => false,
+		'applicationUrl'        => null,
+		'applicationFee'        => null,
+		'isReported'            => false,
+		'isVerified'            => true,
+		'isApplicationsEnabled' => true,
+		'currencyCode'          => 'USD',
 	];
 	public const SECOND_LISTING = [
 		'listingId'           => 2,
@@ -168,7 +176,7 @@ class FakeListingsApi implements ListingsApi
 		'contactName'         => 'Lisa',
 		'contactCompanyName'  => '',
 		'contactEmail'        => null,
-		'contactPhone'        => '6789999999',
+		'contactPhone'        => '+16789999999',
 		'canReceiveTexts'     => false,
 		'createDateUtc'       => '2020-06-29 00:05:48',
 		'updateDateUtc'       => '2021-04-18 17:40:00',
@@ -180,7 +188,7 @@ class FakeListingsApi implements ListingsApi
 		'state'               => 'UT',
 		'zip'                 => '84111',
 		'country'             => 'us',
-		'coordinates'         => null,
+		'coordinates'         => [-73.9333022, 40.6997875],
 		'title'               => 'Cozy home',
 		'description'         => '<p>Cozy home</p>',
 		'yearBuilt'           => 2012,
@@ -296,26 +304,44 @@ class FakeListingsApi implements ListingsApi
 				'largeUrl'  => 'https://media.reltner.com/user-515/d67c09b5-36de-4330-9e19-95f03690c468-960x720.jpg?timestamp=637489867236257917',
 			],
 		],
-		'activateDateUtc' => '2021-04-18 17:40:00',
-		'isInSearch'      => false,
-		'isInPreferences' => false,
-		'applicationUrl'  => null,
-		'applicationFee'  => 0,
-		'isReported'      => false,
-		'isVerified'      => true,
-		'currencyCode'    => 'USD',
+		'activateDateUtc'       => '2021-04-18 17:40:00',
+		'isInSearch'            => false,
+		'isInPreferences'       => false,
+		'applicationUrl'        => null,
+		'applicationFee'        => 100,
+		'isReported'            => false,
+		'isVerified'            => true,
+		'isApplicationsEnabled' => true,
+		'currencyCode'          => 'USD',
 	];
+
 	public const NOT_EXISTING_LISTING_ID = 10000;
+
+	private Repository $repository;
+
+	private ConfigRepository $config;
+
+	public function __construct(Repository $repository, ConfigRepository $config)
+	{
+		$this->repository = $repository;
+		$this->config = $config;
+	}
 
 	public function list(SearchListingsDTO $filters): PaginatedListingsResponseDTO
 	{
 		$response = PaginatedListingsResponseDTO::create();
+		$items = $this->fakeItems();
+
+		if ($filters->getMinPrice()) {
+			/** @var ListingDTO $listing */
+			$items = Arr::where($items, fn ($listing) => (int) $filters->getMinPrice() === (int) $listing->getMinPrice());
+		}
 
 		$response->setLimit(10)
 			->setPage(1)
-			->setTotalItems(2)
+			->setTotalItems(count($items))
 			->setTotalPages(1)
-			->setItems($this->fakeItems());
+			->setItems($items);
 
 		return $response;
 	}
@@ -323,34 +349,46 @@ class FakeListingsApi implements ListingsApi
 	public function ids(array $ids): array
 	{
 		return array_filter(
-			array_map(fn (array $data) => ListingDTO::from($data), $this->fakeItems()),
-			fn (ListingDTO $listing)   => in_array($listing->getListingId(), $ids, true),
+			$this->fakeItems(),
+			fn (ListingDTO $listing) => in_array($listing->getListingId(), $ids, true),
 		);
 	}
 
 	public function points(SearchListingsDTO $filters): ListingPointsResponseDTO
 	{
-		$response = [
-			'type'     => 'Point',
-			'features' => [
-				[
-					'type'     => 'Point',
-					'geometry' => [
-						'type'        => 'Point',
-						'coordinates' => [
-							0,
-						],
-					],
-					'properties' => [
-						'price' => [
-							0,
-						],
-						'listingId'  => 0,
-						'propertyId' => 0,
-						'geohash'    => 'string',
+		$features = [];
+		$items = $this->fakeItems();
+
+		if ($filters->getMinPrice()) {
+			/** @var ListingDTO $listing */
+			$items = Arr::where($items, fn ($listing) => (int) $filters->getMinPrice() === (int) $listing->getMinPrice());
+		}
+
+		foreach ($items as $item) {
+			/* @var ListingDTO $item */
+			$features[] = [
+				'type'     => 'Feature',
+				'geometry' => [
+					'type'        => 'Point',
+					'coordinates' => $item->getCoordinates() ?? [
+						-82.6444125, 38.4749055,
 					],
 				],
-			],
+				'properties' => [
+					'price' => [
+						$item->getMinPrice() ?? 750.00,
+						$item->getMaxPrice() ?? 750.00,
+					],
+					'listingId'    => $item->getListingId() ?? 1,
+					'propertyId'   => $item->getPartnerPropertyId() ?? 1,
+					'geohash'      => 'dnv4zkhhtd5x',
+					'currencyCode' => 'USD',
+				],
+			];
+		}
+		$response = [
+			'type'     => 'Point',
+			'features' => $features,
 		];
 
 		return ListingPointsResponseDTO::from($response);
@@ -358,12 +396,27 @@ class FakeListingsApi implements ListingsApi
 
 	public function get(int $listingId): ListingDTO
 	{
-		return ListingDTO::from(self::SECOND_LISTING);
+		/* @var ListingDTO $item */
+		return Arr::first(
+			$this->fakeItems(),
+			fn ($item) => $listingId === (int) $item->getListingId(),
+			ListingDTO::from(self::SECOND_LISTING)
+		);
 	}
 
 	public function create(ListingDTO $listing): ListingDTO
 	{
-		return ListingDTO::from(self::FIRST_LISTING);
+		$items = $this->fakeItems();
+
+		/** @var ListingDTO $lastListing */
+		$lastListing = last($items);
+
+		$listing->setListingId($lastListing ? $lastListing->getListingId() + 1 : 1);
+		$items[] = $this->mergeDefaultFields($listing);
+
+		$this->updateListings($items);
+
+		return $listing;
 	}
 
 	public function update(ListingDTO $listing): ListingDTO
@@ -372,7 +425,27 @@ class FakeListingsApi implements ListingsApi
 			throw new InvalidArgumentException('listingId cannot be null.');
 		}
 
-		return ListingDTO::from(self::SECOND_LISTING);
+		$existingListingKey = null;
+		$items = $this->fakeItems();
+
+		foreach ($items as $key => $item) {
+			/** @var ListingDTO $item */
+			if ($listing->getListingId() === $item->getListingId()) {
+				$existingListingKey = $key;
+
+				break;
+			}
+		}
+
+		if ($existingListingKey) {
+			$items[$existingListingKey] = $this->mergeDefaultFields($listing);
+		} else {
+			$items[] = $this->mergeDefaultFields($listing);
+		}
+
+		$this->updateListings($items);
+
+		return $listing;
 	}
 
 	public function delete(int $listingId): void
@@ -380,6 +453,11 @@ class FakeListingsApi implements ListingsApi
 		if ($listingId === self::NOT_EXISTING_LISTING_ID) {
 			throw new Missing404Exception('Listing does not exists.');
 		}
+
+		/** @var ListingDTO $listing */
+		$items = Arr::where($this->fakeItems(), fn ($listing) => $listingId !== (int) $listing->getListingId());
+
+		$this->updateListings($items);
 	}
 
 	public function report(ReportListingDTO $data): ReportDTO
@@ -393,9 +471,84 @@ class FakeListingsApi implements ListingsApi
 
 	public function fakeItems(): array
 	{
-		return [
-			self::FIRST_LISTING,
-			self::SECOND_LISTING,
-		];
+		return $this->repository->get($this->config->get('rentler.fake_settings.prefix') . self::CACHE_KEY, fn () => [ListingDTO::from(self::FIRST_LISTING), ListingDTO::from(self::SECOND_LISTING)]);
+	}
+
+	public function updateListings(array $items): void
+	{
+		$this->repository->put($this->config->get('rentler.fake_settings.prefix') . self::CACHE_KEY, $items, Carbon::now()->addMinutes($this->config->get('rentler.fake_settings.cache_time', 1000)));
+	}
+
+	private function mergeDefaultFields(ListingDTO $listing): ListingDTO
+	{
+		if (!$listing->hasIsVerified()) {
+			$listing->setIsVerified(true);
+		}
+
+		if (!$listing->hasPartnerId()) {
+			$listing->setPartnerId($this->config->get('rentler.fake_settings.partner_id', 'r'));
+		}
+
+		if (!$listing->hasCreateDateUtc()) {
+			$listing->setCreateDateUtc(Carbon::now());
+		}
+
+		if (!$listing->hasUpdateDateUtc()) {
+			$listing->setUpdateDateUtc(Carbon::now());
+		}
+
+		if (!$listing->hasAvailableDateUtc()) {
+			$listing->setAvailableDateUtc(Carbon::now());
+		}
+
+		if (!$listing->hasActivateDateUtc()) {
+			$listing->setActivateDateUtc(Carbon::now());
+		}
+
+		if (!$listing->hasMediaItems()) {
+			$listing->setMediaItems([]);
+		}
+
+		if (!$listing->hasOperatingHours()) {
+			$listing->setOperatingHours([]);
+		}
+
+		if (!$listing->hasStatus()) {
+			$listing->setStatus(ListingStatus::$LISTED);
+		}
+
+		if (!$listing->hasCustomAmenities()) {
+			$listing->setCustomAmenities([]);
+		}
+
+		if (!$listing->hasIsInSearch()) {
+			$listing->setIsInSearch(true);
+		}
+
+		if (!$listing->hasIsInSearch()) {
+			$listing->setIsInSearch(true);
+		}
+
+		if (!$listing->hasIsInPreferences()) {
+			$listing->setIsInPreferences(true);
+		}
+
+		if (!$listing->hasHideInSearch()) {
+			$listing->setHideInSearch(false);
+		}
+
+		if (!$listing->hasHideInPreferences()) {
+			$listing->setHideInPreferences(false);
+		}
+
+		if (!$listing->hasIsApplicationsEnabled()) {
+			$listing->setIsApplicationsEnabled(true);
+		}
+
+		if (!$listing->hasIsVerified()) {
+			$listing->setIsVerified(true);
+		}
+
+		return $listing;
 	}
 }

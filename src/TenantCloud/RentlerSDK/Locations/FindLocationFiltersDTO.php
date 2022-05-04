@@ -26,6 +26,10 @@ use TenantCloud\RentlerSDK\Enums\LocationAdminLevel;
  */
 class FindLocationFiltersDTO extends PascalDataTransferDTO
 {
+	protected array $enums = [
+		'AdminLevels' => LocationAdminLevel::class,
+	];
+
 	protected array $fields = [
 		'Name',
 		'AdminLevels',

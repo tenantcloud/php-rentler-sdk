@@ -85,6 +85,11 @@ use TenantCloud\RentlerSDK\Enums\SortType;
  */
 class PreferenceSearchDTO extends CamelDataTransferObject
 {
+	protected array $enums = [
+		'sortType'      => SortType::class,
+		'propertyTypes' => ListingType::class,
+	];
+
 	protected array $fields = [
 		'sortType',
 		'bounds',
