@@ -5,8 +5,6 @@ namespace TenantCloud\RentlerSDK\SyndicationProviders;
 use TenantCloud\DataTransferObjects\CamelDataTransferObject;
 
 /**
- * @method self       setSyndicationProviderId(int $id)
- * @method int        getSyndicationProviderId()
  * @method bool       hasSyndicationProviderId()
  * @method self       setDescription(array|null $data)
  * @method array|null getDescription()
@@ -18,4 +16,14 @@ class SyndicationProviderDTO extends CamelDataTransferObject
 		'syndicationProviderId',
 		'description',
 	];
+
+	public function setSyndicationProviderId(SyndicationProviderId $id): void
+	{
+		$this->set('syndicationProviderId', $id->value());
+	}
+
+	public function getSyndicationProviderId(): SyndicationProviderId
+	{
+		return SyndicationProviderId::fromValue($this->get('syndicationProviderId'));
+	}
 }
