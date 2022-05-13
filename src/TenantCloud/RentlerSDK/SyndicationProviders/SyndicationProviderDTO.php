@@ -17,15 +17,13 @@ class SyndicationProviderDTO extends CamelDataTransferObject
 		'description',
 	];
 
-	public function setSyndicationProviderId(SyndicationProviderId $id): self
+	/**
+	 * @param SyndicationProviderId|string $id
+	 */
+	public function setSyndicationProviderId($id): self
 	{
-		$this->set('syndicationProviderId', $id->value());
+		$this->set('syndicationProviderId', $id instanceof SyndicationProviderId ? $id->value() : $id);
 
 		return $this;
-	}
-
-	public function getSyndicationProviderId(): SyndicationProviderId
-	{
-		return SyndicationProviderId::fromValue($this->get('syndicationProviderId'));
 	}
 }
