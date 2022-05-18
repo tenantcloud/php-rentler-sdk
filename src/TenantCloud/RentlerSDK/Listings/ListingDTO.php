@@ -8,6 +8,7 @@ use TenantCloud\DataTransferObjects\CamelDataTransferObject;
 use TenantCloud\RentlerSDK\Common\OperatingDayDTO;
 use TenantCloud\RentlerSDK\Enums\ListingStatus;
 use TenantCloud\RentlerSDK\Enums\ListingType;
+use TenantCloud\RentlerSDK\Enums\UtilityType;
 use TenantCloud\RentlerSDK\SyndicationProviders\SyndicationProviderDTO;
 
 /**
@@ -148,6 +149,9 @@ use TenantCloud\RentlerSDK\SyndicationProviders\SyndicationProviderDTO;
  * @method self                          setAllowCats(?bool $allowCats)
  * @method bool|null                     getAllowCats()
  * @method bool                          hasAllowCats()
+ * @method self                          setAllowOtherPets(?bool $allowOtherPets)
+ * @method bool|null                     getAllowOtherPets()
+ * @method bool                          hasAllowOtherPets()
  * @method self                          setAllowSmoking(?bool $allowSmoking)
  * @method bool|null                     getAllowSmoking()
  * @method bool                          hasAllowSmoking()
@@ -166,6 +170,8 @@ use TenantCloud\RentlerSDK\SyndicationProviders\SyndicationProviderDTO;
  * @method self                          setMoveInSpecialLine2(?string $moveInSpecialLine2)
  * @method string|null                   getMoveInSpecialLine2()
  * @method bool                          hasMoveInSpecialLine2()
+ * @method Carbon                        getMoveInSpecialExpirationDateUtc()
+ * @method bool                          hasMoveInSpecialExpirationDateUtc()
  * @method self                          setDepositAmount(?float $depositAmount)
  * @method float|null                    getDepositAmount()
  * @method bool                          hasDepositAmount()
@@ -178,6 +184,9 @@ use TenantCloud\RentlerSDK\SyndicationProviders\SyndicationProviderDTO;
  * @method self                          setIsOAC(bool $isOAC)
  * @method bool                          getIsOAC()
  * @method bool                          hasIsOAC()
+ * @method self                          setIsScreeningRequired(bool $isScreeningRequired)
+ * @method bool                          getIsScreeningRequired()
+ * @method bool                          hasIsScreeningRequired()
  * @method self                          setAmenities(array $amenities)
  * @method array                         getAmenities()
  * @method bool                          hasAmenities()
@@ -235,6 +244,26 @@ use TenantCloud\RentlerSDK\SyndicationProviders\SyndicationProviderDTO;
  * @method self                          setIsVerified(bool $isVerified)
  * @method bool                          getIsVerified()
  * @method bool                          hasIsVerified()
+ * @method UtilityType                   getCableSatelliteUtility()
+ * @method bool                          hasCableSatelliteUtility()
+ * @method UtilityType                   getElectricUtility()
+ * @method bool                          hasElectricUtility()
+ * @method UtilityType                   getGarbageUtility()
+ * @method bool                          hasGarbageUtility()
+ * @method UtilityType                   getGasUtility()
+ * @method bool                          hasGasUtility()
+ * @method UtilityType                   getHoaFeesUtility()
+ * @method bool                          hasHoaFeesUtility()
+ * @method UtilityType                   getInternetUtility()
+ * @method bool                          hasInternetUtility()
+ * @method UtilityType                   getSewerUtility()
+ * @method bool                          hasSewerUtility()
+ * @method UtilityType                   getWaterUtility()
+ * @method bool                          hasWaterUtility()
+ * @method UtilityType                   getRentersInsuranceUtility()
+ * @method bool                          hasRentersInsuranceUtility()
+ * @method UtilityType                   getHeatUtility()
+ * @method bool                          hasHeatUtility()
  * @method self                          setCurrencyCode(string $isVerified)
  * @method string                        getCurrencyCode()
  * @method bool                          hasCurrencyCode()
@@ -246,8 +275,18 @@ class ListingDTO extends CamelDataTransferObject
 	public const COORDINATES_DEFAULT_VALUE = 1;
 
 	protected array $enums = [
-		'status' => ListingStatus::class,
-		'type'   => ListingType::class,
+		'status'                  => ListingStatus::class,
+		'type'                    => ListingType::class,
+		'cableSatelliteUtility'   => UtilityType::class,
+		'electricUtility'         => UtilityType::class,
+		'garbageUtility'          => UtilityType::class,
+		'gasUtility'              => UtilityType::class,
+		'hoaFeesUtility'          => UtilityType::class,
+		'internetUtility'         => UtilityType::class,
+		'sewerUtility'            => UtilityType::class,
+		'waterUtility'            => UtilityType::class,
+		'rentersInsuranceUtility' => UtilityType::class,
+		'heatUtility'             => UtilityType::class,
 	];
 
 	protected array $fields = [
@@ -299,16 +338,19 @@ class ListingDTO extends CamelDataTransferObject
 		'allowLargeDogs',
 		'breedRestrictions',
 		'allowCats',
+		'allowOtherPets',
 		'allowSmoking',
 		'smokingDescription',
 		'communityTitle',
 		'communityWebsiteUrl',
 		'moveInSpecialLine1',
 		'moveInSpecialLine2',
+		'moveInSpecialExpirationDateUtc',
 		'depositAmount',
 		'depositRefundable',
 		'depositDescription',
 		'isOAC',
+		'isScreeningRequired',
 		'amenities',
 		'customAmenities',
 		'communityCustomAmenities',
@@ -330,6 +372,16 @@ class ListingDTO extends CamelDataTransferObject
 		'isApplicationsEnabled',
 		'currencyCode',
 		'isVerified',
+		'cableSatelliteUtility',
+		'electricUtility',
+		'garbageUtility',
+		'gasUtility',
+		'hoaFeesUtility',
+		'internetUtility',
+		'sewerUtility',
+		'waterUtility',
+		'rentersInsuranceUtility',
+		'heatUtility',
 	];
 
 	public function setCoordinates(?array $coordinates): self
@@ -357,6 +409,16 @@ class ListingDTO extends CamelDataTransferObject
 	public function setCreateDateUtc($createDateUtc): self
 	{
 		return $this->set('createDateUtc', Carbon::parse($createDateUtc));
+	}
+
+	/**
+	 * @param Carbon|string $moveInSpecialExpirationDateUtc
+	 *
+	 * @return $this
+	 */
+	public function setMoveInSpecialExpirationDateUtc($moveInSpecialExpirationDateUtc): self
+	{
+		return $this->set('moveInSpecialExpirationDateUtc', Carbon::parse($moveInSpecialExpirationDateUtc));
 	}
 
 	/**
@@ -420,6 +482,146 @@ class ListingDTO extends CamelDataTransferObject
 	{
 		if ($type) {
 			return $this->set('type', ListingType::fromValue($type));
+		}
+
+		return $this;
+	}
+
+	/**
+	 * @param string|UtilityType $cableSatelliteUtility
+	 *
+	 * @return ListingDTO
+	 */
+	public function setCableSatelliteUtility($cableSatelliteUtility): self
+	{
+		if ($cableSatelliteUtility) {
+			return $this->set('cableSatelliteUtility', UtilityType::fromValue($cableSatelliteUtility));
+		}
+
+		return $this;
+	}
+
+	/**
+	 * @param string|UtilityType $electricUtility
+	 *
+	 * @return ListingDTO
+	 */
+	public function setElectricUtility($electricUtility): self
+	{
+		if ($electricUtility) {
+			return $this->set('electricUtility', UtilityType::fromValue($electricUtility));
+		}
+
+		return $this;
+	}
+
+	/**
+	 * @param string|UtilityType $garbageUtility
+	 *
+	 * @return ListingDTO
+	 */
+	public function setGarbageUtility($garbageUtility): self
+	{
+		if ($garbageUtility) {
+			return $this->set('garbageUtility', UtilityType::fromValue($garbageUtility));
+		}
+
+		return $this;
+	}
+
+	/**
+	 * @param string|UtilityType $gasUtility
+	 *
+	 * @return ListingDTO
+	 */
+	public function setGasUtility($gasUtility): self
+	{
+		if ($gasUtility) {
+			return $this->set('gasUtility', UtilityType::fromValue($gasUtility));
+		}
+
+		return $this;
+	}
+
+	/**
+	 * @param string|UtilityType $hoaFeesUtility
+	 *
+	 * @return ListingDTO
+	 */
+	public function setHoaFeesUtility($hoaFeesUtility): self
+	{
+		if ($hoaFeesUtility) {
+			return $this->set('hoaFeesUtility', UtilityType::fromValue($hoaFeesUtility));
+		}
+
+		return $this;
+	}
+
+	/**
+	 * @param string|UtilityType $internetUtility
+	 *
+	 * @return ListingDTO
+	 */
+	public function setInternetUtility($internetUtility): self
+	{
+		if ($internetUtility) {
+			return $this->set('internetUtility', UtilityType::fromValue($internetUtility));
+		}
+
+		return $this;
+	}
+
+	/**
+	 * @param string|UtilityType $sewerUtility
+	 *
+	 * @return ListingDTO
+	 */
+	public function setSewerUtility($sewerUtility): self
+	{
+		if ($sewerUtility) {
+			return $this->set('sewerUtility', UtilityType::fromValue($sewerUtility));
+		}
+
+		return $this;
+	}
+
+	/**
+	 * @param string|UtilityType $waterUtility
+	 *
+	 * @return ListingDTO
+	 */
+	public function setWaterUtility($waterUtility): self
+	{
+		if ($waterUtility) {
+			return $this->set('waterUtility', UtilityType::fromValue($waterUtility));
+		}
+
+		return $this;
+	}
+
+	/**
+	 * @param string|UtilityType $rentersInsuranceUtility
+	 *
+	 * @return ListingDTO
+	 */
+	public function setRentersInsuranceUtility($rentersInsuranceUtility): self
+	{
+		if ($rentersInsuranceUtility) {
+			return $this->set('rentersInsuranceUtility', UtilityType::fromValue($rentersInsuranceUtility));
+		}
+
+		return $this;
+	}
+
+	/**
+	 * @param string|UtilityType $heatUtility
+	 *
+	 * @return ListingDTO
+	 */
+	public function setHeatUtility($heatUtility): self
+	{
+		if ($heatUtility) {
+			return $this->set('heatUtility', UtilityType::fromValue($heatUtility));
 		}
 
 		return $this;

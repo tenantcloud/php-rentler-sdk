@@ -12,6 +12,7 @@ use TenantCloud\RentlerSDK\Locations\LocationsApi;
 use TenantCloud\RentlerSDK\Messages\MessagesApi;
 use TenantCloud\RentlerSDK\Partners\PartnersApi;
 use TenantCloud\RentlerSDK\Preferences\PreferencesApi;
+use TenantCloud\RentlerSDK\ProfileShares\ProfileSharesApi;
 use TenantCloud\RentlerSDK\Reports\ReportsApi;
 use TenantCloud\RentlerSDK\SyndicationProviders\SyndicationProvidersApi;
 use TenantCloud\RentlerSDK\Tenants\TenantsApi;
@@ -49,4 +50,6 @@ interface RentlerClient
 	public function webhookEndpoints(): WebhookEndpointsApi;
 
 	public function landlords(): LandlordsApi;
+
+	public function profileShares(): ProfileSharesApi;
 }

@@ -13,6 +13,23 @@ use TenantCloud\RentlerSDK\Tenants\TenantDTO;
  * @method self      setTenantId(int $tenantId)
  * @method int       getTenantId()
  * @method bool      hasTenantId()
+ * @method self      setPartnerUserId(int $partnerUserId)
+ * @method int       getPartnerUserId()
+ * @method bool      hasPartnerUserId()
+ * @method self      setPartnerPropertyId(int $partnerPropertyId)
+ * @method int       getPartnerPropertyId()
+ * @method bool      hasPartnerPropertyId()
+ * @method self      setAddressLine1(string $addressLine1)
+ * @method string    getAddressLine1()
+ * @method bool      hasAddressLine1()
+ * @method self      setPhone(string $phone)
+ * @method string    getPhone()
+ * @method bool      hasPhone()
+ * @method self      setEmail(string $email)
+ * @method string    getEmail()
+ * @method bool      hasEmail()
+ * @method Carbon    getMoveInDate()
+ * @method bool      hasMoveInDate()
  * @method self      setMessageId(int $messageId)
  * @method int       getMessageId()
  * @method bool      hasMessageId()
@@ -30,8 +47,14 @@ class MessageDTO extends CamelDataTransferObject
 {
 	protected array $fields = [
 		'listingId',
+		'partnerUserId',
+		'partnerPropertyId',
 		'tenantId',
 		'messageId',
+		'addressLine1',
+		'phone',
+		'email',
+		'moveInDate',
 		'content',
 		'createDateUtc',
 		'updateDateUtc',
@@ -41,6 +64,16 @@ class MessageDTO extends CamelDataTransferObject
 	public function setCreateDateUtc(string $createDateUtc): self
 	{
 		return $this->set('createDateUtc', Carbon::parse($createDateUtc));
+	}
+
+	/**
+	 * @param Carbon|string $createDateUtc
+	 *
+	 * @return $this
+	 */
+	public function setMoveInDate($createDateUtc): self
+	{
+		return $this->set('moveInDate', Carbon::parse($createDateUtc));
 	}
 
 	public function setUpdateDateUtc(string $updateDateUtc): self

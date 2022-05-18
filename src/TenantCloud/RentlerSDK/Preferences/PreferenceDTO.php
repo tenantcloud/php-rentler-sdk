@@ -9,6 +9,12 @@ use TenantCloud\DataTransferObjects\CamelDataTransferObject;
  * @method self                setTenantId(?int $tenantId)
  * @method int|null            getTenantId()
  * @method bool                hasTenantId()
+ * @method self                setPartnerId(?string $partnerId)
+ * @method string|null         getPartnerId()
+ * @method bool                hasPartnerId()
+ * @method self                setTitle(?string $title)
+ * @method string|null         getTitle()
+ * @method bool                hasTitle()
  * @method self                setTenantPreferenceId(int $tenantPreferenceId)
  * @method int                 getTenantPreferenceId()
  * @method bool                hasTenantPreferenceId()
@@ -25,10 +31,12 @@ use TenantCloud\DataTransferObjects\CamelDataTransferObject;
 class PreferenceDTO extends CamelDataTransferObject
 {
 	protected array $fields = [
-		'tenantId',
 		'tenantPreferenceId',
-		'search',
+		'partnerId',
+		'tenantId',
+		'title',
 		'isActive',
+		'search',
 		'createDateUtc',
 		'updateDateUtc',
 	];

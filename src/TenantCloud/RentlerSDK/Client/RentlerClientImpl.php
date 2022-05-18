@@ -31,6 +31,8 @@ use TenantCloud\RentlerSDK\Partners\PartnersApi;
 use TenantCloud\RentlerSDK\Partners\PartnersApiImpl;
 use TenantCloud\RentlerSDK\Preferences\PreferencesApi;
 use TenantCloud\RentlerSDK\Preferences\PreferencesApiImpl;
+use TenantCloud\RentlerSDK\ProfileShares\ProfileSharesApi;
+use TenantCloud\RentlerSDK\ProfileShares\ProfileSharesApiImpl;
 use TenantCloud\RentlerSDK\Reports\ReportsApi;
 use TenantCloud\RentlerSDK\Reports\ReportsApiImpl;
 use TenantCloud\RentlerSDK\SyndicationProviders\SyndicationProvidersApi;
@@ -46,7 +48,7 @@ use TenantCloud\RentlerSDK\WebhookEndpoints\WebhookEndpointsApiImpl;
 
 class RentlerClientImpl implements RentlerClient
 {
-	private const API_VERSION = '1.1';
+	private const API_VERSION = '1.2';
 
 	private Client $httpClient;
 
@@ -165,5 +167,10 @@ class RentlerClientImpl implements RentlerClient
 	public function landlords(): LandlordsApi
 	{
 		return new LandlordsApiImpl($this->httpClient);
+	}
+
+	public function profileShares(): ProfileSharesApi
+	{
+		return new ProfileSharesApiImpl($this->httpClient);
 	}
 }
