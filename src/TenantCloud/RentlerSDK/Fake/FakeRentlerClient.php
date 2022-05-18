@@ -11,6 +11,7 @@ use TenantCloud\RentlerSDK\Favorites\FavoritesApi;
 use TenantCloud\RentlerSDK\Feeds\FeedsApi;
 use TenantCloud\RentlerSDK\GuestCards\GuestCardsApi;
 use TenantCloud\RentlerSDK\Landlords\LandlordsApi;
+use TenantCloud\RentlerSDK\LandlordVerification\LandlordVerificationApi;
 use TenantCloud\RentlerSDK\Listings\ListingsApi;
 use TenantCloud\RentlerSDK\Locations\LocationsApi;
 use TenantCloud\RentlerSDK\Messages\MessagesApi;
@@ -118,5 +119,10 @@ class FakeRentlerClient implements RentlerClient
 	public function guestCards(): GuestCardsApi
 	{
 		return new FakeGuestCardsApi();
+	}
+
+	public function landlordVerification(): LandlordVerificationApi
+	{
+		return new FakeLandlordVerificationApi();
 	}
 }

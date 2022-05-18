@@ -23,6 +23,8 @@ use TenantCloud\RentlerSDK\GuestCards\GuestCardsApi;
 use TenantCloud\RentlerSDK\GuestCards\GuestCardsApiImpl;
 use TenantCloud\RentlerSDK\Landlords\LandlordsApi;
 use TenantCloud\RentlerSDK\Landlords\LandlordsApiImpl;
+use TenantCloud\RentlerSDK\LandlordVerification\LandlordVerificationApi;
+use TenantCloud\RentlerSDK\LandlordVerification\LandlordVerificationApiImpl;
 use TenantCloud\RentlerSDK\Listings\ListingsApi;
 use TenantCloud\RentlerSDK\Listings\ListingsApiImpl;
 use TenantCloud\RentlerSDK\Locations\LocationsApi;
@@ -179,5 +181,10 @@ class RentlerClientImpl implements RentlerClient
 	public function guestCards(): GuestCardsApi
 	{
 		return new GuestCardsApiImpl($this->httpClient);
+	}
+
+	public function landlordVerification(): LandlordVerificationApi
+	{
+		return new LandlordVerificationApiImpl($this->httpClient);
 	}
 }
