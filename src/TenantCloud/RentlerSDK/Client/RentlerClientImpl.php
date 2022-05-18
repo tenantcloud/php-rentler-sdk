@@ -19,6 +19,8 @@ use TenantCloud\RentlerSDK\Favorites\FavoritesApi;
 use TenantCloud\RentlerSDK\Favorites\FavoritesApiImpl;
 use TenantCloud\RentlerSDK\Feeds\FeedsApi;
 use TenantCloud\RentlerSDK\Feeds\FeedsApiImpl;
+use TenantCloud\RentlerSDK\GuestCards\GuestCardsApi;
+use TenantCloud\RentlerSDK\GuestCards\GuestCardsApiImpl;
 use TenantCloud\RentlerSDK\Landlords\LandlordsApi;
 use TenantCloud\RentlerSDK\Landlords\LandlordsApiImpl;
 use TenantCloud\RentlerSDK\Listings\ListingsApi;
@@ -172,5 +174,10 @@ class RentlerClientImpl implements RentlerClient
 	public function profileShares(): ProfileSharesApi
 	{
 		return new ProfileSharesApiImpl($this->httpClient);
+	}
+
+	public function guestCards(): GuestCardsApi
+	{
+		return new GuestCardsApiImpl($this->httpClient);
 	}
 }

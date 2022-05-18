@@ -6,6 +6,7 @@ use TenantCloud\RentlerSDK\Amenities\AmenitiesApi;
 use TenantCloud\RentlerSDK\Coffee\CoffeeApi;
 use TenantCloud\RentlerSDK\Favorites\FavoritesApi;
 use TenantCloud\RentlerSDK\Feeds\FeedsApi;
+use TenantCloud\RentlerSDK\GuestCards\GuestCardsApi;
 use TenantCloud\RentlerSDK\Landlords\LandlordsApi;
 use TenantCloud\RentlerSDK\Listings\ListingsApi;
 use TenantCloud\RentlerSDK\Locations\LocationsApi;
@@ -52,4 +53,6 @@ interface RentlerClient
 	public function landlords(): LandlordsApi;
 
 	public function profileShares(): ProfileSharesApi;
+
+	public function guestCards(): GuestCardsApi;
 }

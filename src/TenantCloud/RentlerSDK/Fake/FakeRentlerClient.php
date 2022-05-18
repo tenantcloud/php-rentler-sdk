@@ -9,6 +9,7 @@ use TenantCloud\RentlerSDK\Client\RentlerClient;
 use TenantCloud\RentlerSDK\Coffee\CoffeeApi;
 use TenantCloud\RentlerSDK\Favorites\FavoritesApi;
 use TenantCloud\RentlerSDK\Feeds\FeedsApi;
+use TenantCloud\RentlerSDK\GuestCards\GuestCardsApi;
 use TenantCloud\RentlerSDK\Landlords\LandlordsApi;
 use TenantCloud\RentlerSDK\Listings\ListingsApi;
 use TenantCloud\RentlerSDK\Locations\LocationsApi;
@@ -112,5 +113,10 @@ class FakeRentlerClient implements RentlerClient
 	public function profileShares(): ProfileSharesApi
 	{
 		return new FakeProfileSharesApi();
+	}
+
+	public function guestCards(): GuestCardsApi
+	{
+		return new FakeGuestCardsApi();
 	}
 }
