@@ -10,8 +10,11 @@ use TenantCloud\RentlerSDK\Landlords\PaginatedLandlordsResponseDTO;
 
 class FakeLandlordsApi implements LandlordsApi
 {
+	public const NOT_EXISTING_ID = 10000;
+
 	public const FIRST_LANDLORD = [
 		'partnerLandlordId' => 1,
+		'landlordId'        => 1,
 		'firstName'         => 'Alex',
 		'lastName'          => 'Wells',
 		'email'             => 'alex.wells@gmail.com',
@@ -19,6 +22,7 @@ class FakeLandlordsApi implements LandlordsApi
 	];
 	public const SECOND_LANDLORD = [
 		'partnerLandlordId' => 2,
+		'landlordId'        => 2,
 		'firstName'         => 'John',
 		'lastName'          => 'Smith',
 		'email'             => 'john.smith@gmail.com',
@@ -54,6 +58,32 @@ class FakeLandlordsApi implements LandlordsApi
 			array_map(fn (array $data) => LandlordDTO::from($data), $this->fakeItems()),
 			fn (LandlordDTO $landlord) => in_array($landlord->getPartnerLandlordId(), $ids, true),
 		);
+	}
+
+	public function create(LandlordDTO $data): LandlordDTO
+	{
+		$item = array_merge(self::FIRST_LANDLORD, $data->toArray());
+
+		return LandlordDTO::from($item);
+	}
+
+	public function update(int $id, LandlordDTO $data): LandlordDTO
+	{
+		$item = array_merge(self::SECOND_LANDLORD, $data->toArray());
+
+		return LandlordDTO::from($item);
+	}
+
+	public function get(int $id): LandlordDTO
+	{
+		return LandlordDTO::from(self::FIRST_LANDLORD);
+	}
+
+	public function delete(int $id): void
+	{
+		if ($id === self::NOT_EXISTING_ID) {
+			throw new Missing404Exception('Listing does not exists.');
+		}
 	}
 
 	private function fakeItems(): array
