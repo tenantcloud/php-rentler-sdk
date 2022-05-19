@@ -47,6 +47,10 @@ use TenantCloud\RentlerSDK\Enums\LandlordVerificationPhoneType;
  */
 class LandlordVerificationDTO extends CamelDataTransferObject
 {
+	protected array $enums = [
+		'phoneType' => LandlordVerificationPhoneType::class,
+	];
+
 	protected array $fields = [
 		'landlordId',
 		'businessName',

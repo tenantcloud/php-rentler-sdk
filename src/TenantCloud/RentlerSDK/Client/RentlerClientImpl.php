@@ -25,6 +25,8 @@ use TenantCloud\RentlerSDK\Landlords\LandlordsApi;
 use TenantCloud\RentlerSDK\Landlords\LandlordsApiImpl;
 use TenantCloud\RentlerSDK\LandlordVerification\LandlordVerificationApi;
 use TenantCloud\RentlerSDK\LandlordVerification\LandlordVerificationApiImpl;
+use TenantCloud\RentlerSDK\Leads\LeadsApi;
+use TenantCloud\RentlerSDK\Leads\LeadsApiImpl;
 use TenantCloud\RentlerSDK\Listings\ListingsApi;
 use TenantCloud\RentlerSDK\Listings\ListingsApiImpl;
 use TenantCloud\RentlerSDK\Locations\LocationsApi;
@@ -186,5 +188,10 @@ class RentlerClientImpl implements RentlerClient
 	public function landlordVerification(): LandlordVerificationApi
 	{
 		return new LandlordVerificationApiImpl($this->httpClient);
+	}
+
+	public function leads(): LeadsApi
+	{
+		return new LeadsApiImpl($this->httpClient);
 	}
 }
