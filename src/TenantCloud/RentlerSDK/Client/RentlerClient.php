@@ -19,6 +19,7 @@ use TenantCloud\RentlerSDK\ProfileShares\ProfileSharesApi;
 use TenantCloud\RentlerSDK\Properties\PropertiesApi;
 use TenantCloud\RentlerSDK\Reports\ReportsApi;
 use TenantCloud\RentlerSDK\SyndicationProviders\SyndicationProvidersApi;
+use TenantCloud\RentlerSDK\TenantProfiles\TenantProfilesApi;
 use TenantCloud\RentlerSDK\Tenants\TenantsApi;
 use TenantCloud\RentlerSDK\Tokens\TokensApi;
 use TenantCloud\RentlerSDK\WebhookEndpoints\WebhookEndpointsApi;
@@ -64,4 +65,6 @@ interface RentlerClient
 	public function leads(): LeadsApi;
 
 	public function properties(): PropertiesApi;
+
+	public function tenantProfiles(): TenantProfilesApi;
 }
