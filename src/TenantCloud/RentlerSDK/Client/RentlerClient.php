@@ -16,6 +16,7 @@ use TenantCloud\RentlerSDK\Messages\MessagesApi;
 use TenantCloud\RentlerSDK\Partners\PartnersApi;
 use TenantCloud\RentlerSDK\Preferences\PreferencesApi;
 use TenantCloud\RentlerSDK\ProfileShares\ProfileSharesApi;
+use TenantCloud\RentlerSDK\Properties\PropertiesApi;
 use TenantCloud\RentlerSDK\Reports\ReportsApi;
 use TenantCloud\RentlerSDK\SyndicationProviders\SyndicationProvidersApi;
 use TenantCloud\RentlerSDK\Tenants\TenantsApi;
@@ -61,4 +62,6 @@ interface RentlerClient
 	public function landlordVerification(): LandlordVerificationApi;
 
 	public function leads(): LeadsApi;
+
+	public function properties(): PropertiesApi;
 }

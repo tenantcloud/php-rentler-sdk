@@ -39,6 +39,8 @@ use TenantCloud\RentlerSDK\Preferences\PreferencesApi;
 use TenantCloud\RentlerSDK\Preferences\PreferencesApiImpl;
 use TenantCloud\RentlerSDK\ProfileShares\ProfileSharesApi;
 use TenantCloud\RentlerSDK\ProfileShares\ProfileSharesApiImpl;
+use TenantCloud\RentlerSDK\Properties\PropertiesApi;
+use TenantCloud\RentlerSDK\Properties\PropertiesApiImpl;
 use TenantCloud\RentlerSDK\Reports\ReportsApi;
 use TenantCloud\RentlerSDK\Reports\ReportsApiImpl;
 use TenantCloud\RentlerSDK\SyndicationProviders\SyndicationProvidersApi;
@@ -193,5 +195,10 @@ class RentlerClientImpl implements RentlerClient
 	public function leads(): LeadsApi
 	{
 		return new LeadsApiImpl($this->httpClient);
+	}
+
+	public function properties(): PropertiesApi
+	{
+		return new PropertiesApiImpl($this->httpClient);
 	}
 }

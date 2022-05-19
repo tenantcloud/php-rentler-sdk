@@ -54,6 +54,10 @@ use TenantCloud\RentlerSDK\Enums\LeadType;
  */
 class LeadDTO extends CamelDataTransferObject
 {
+	protected array $enums = [
+		'leadType' => LeadType::class,
+	];
+
 	protected array $fields = [
 		'listingId',
 		'leadType',
