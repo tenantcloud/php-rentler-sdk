@@ -22,6 +22,12 @@ final class ListingType extends ValueEnum
 
 	public static self $SUB_LEASE;
 
+	public static self $UNIVERSITY_APARTMENT;
+
+	public static self $RESIDENCE_HALL;
+
+	public static self $OTHER;
+
 	protected function __construct($value)
 	{
 		parent::__construct($value);
@@ -37,5 +43,8 @@ final class ListingType extends ValueEnum
 		self::$IN_LAW_BASEMENT = new self('InLawBasement');
 		self::$SINGLE_ROOM = new self('SingleRoom');
 		self::$SUB_LEASE = new self('SubLease');
+		self::$UNIVERSITY_APARTMENT = new self('UniversityApartment');
+		self::$RESIDENCE_HALL = new self('ResidenceHall');
+		self::$OTHER = new self('Other');
 	}
 }
