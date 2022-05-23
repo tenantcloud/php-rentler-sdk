@@ -72,6 +72,8 @@ class ListingAmenity extends ValueEnum
 
 	public static self $PARKING_PRIVATE_LOT;
 
+	public static self $PARKING_CALL_FOR_AVAILABILITY;
+
 	public static self $PARKING_OTHER;
 
 	public static self $PARKING_NONE;
@@ -139,6 +141,7 @@ class ListingAmenity extends ValueEnum
 		self::$PARKING_DRIVEWAY = new self('parkingdriveway', 'Driveway', self::GROUP_PARKING);
 		self::$PARKING_COVERED = new self('parkingcovered', 'Covered', self::GROUP_PARKING);
 		self::$PARKING_PRIVATE_LOT = new self('parkingprivatelot', 'Private Lot', self::GROUP_PARKING);
+		self::$PARKING_CALL_FOR_AVAILABILITY = new self('parkingcallforavailability', 'Call for Availability', self::GROUP_PARKING);
 		self::$PARKING_OTHER = new self('parkingother', 'Other', self::GROUP_PARKING);
 		self::$PARKING_NONE = new self('parkingnone', 'None', self::GROUP_PARKING);
 
