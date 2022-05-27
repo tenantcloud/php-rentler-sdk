@@ -78,7 +78,9 @@ class RentlerClientImpl implements RentlerClient
 
 		// Force API version for things not to break suddenly.
 		$stack->push(Middleware::mapRequest(
-			static fn (RequestInterface $request) => $request->withHeader('Accept', 'application/json; v=' . self::API_VERSION)
+			static fn (RequestInterface $request) => $request
+				->withHeader('Accept', 'application/json; v=' . self::API_VERSION)
+				->withHeader('Content-Type', $request->getHeaderLine('Content-Type') . '; v=' . self::API_VERSION)
 		));
 
 		// Return all response body.
