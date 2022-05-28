@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use TenantCloud\DataTransferObjects\CamelDataTransferObject;
 use TenantCloud\RentlerSDK\Common\OperatingDayDTO;
+use TenantCloud\RentlerSDK\Enums\ListingAmenity;
 use TenantCloud\RentlerSDK\Enums\ListingStatus;
 use TenantCloud\RentlerSDK\Enums\ListingType;
 use TenantCloud\RentlerSDK\Enums\UtilityType;
@@ -276,6 +277,7 @@ class ListingDTO extends CamelDataTransferObject
 
 	protected array $enums = [
 		'status'                  => ListingStatus::class,
+		'amenities'               => ListingAmenity::class,
 		'type'                    => ListingType::class,
 		'cableSatelliteUtility'   => UtilityType::class,
 		'electricUtility'         => UtilityType::class,
