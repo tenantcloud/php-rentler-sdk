@@ -14,6 +14,10 @@ final class ListingType extends ValueEnum
 
 	public static self $CONDO_MULTIPLEX;
 
+	public static self $CONDO;
+
+	public static self $MULTIPLEX;
+
 	public static self $TOWNHOME;
 
 	public static self $IN_LAW_BASEMENT;
@@ -39,6 +43,8 @@ final class ListingType extends ValueEnum
 		self::$HOUSE = new self('House');
 		self::$APARTMENT = new self('Apartment');
 		self::$CONDO_MULTIPLEX = new self('CondoMultiplex');
+		self::$CONDO = new self('Condo');
+		self::$MULTIPLEX = new self('Multiplex');
 		self::$TOWNHOME = new self('Townhome');
 		self::$IN_LAW_BASEMENT = new self('InLawBasement');
 		self::$SINGLE_ROOM = new self('SingleRoom');
