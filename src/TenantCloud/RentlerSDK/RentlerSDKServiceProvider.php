@@ -9,6 +9,8 @@ use Illuminate\Support\ServiceProvider;
 use TenantCloud\RentlerSDK\Client\RentlerClient;
 use TenantCloud\RentlerSDK\Client\RentlerClientImpl;
 use TenantCloud\RentlerSDK\Fake\FakeRentlerClient;
+use TenantCloud\RentlerSDK\Leads\Create\LeadCreatedController;
+use TenantCloud\RentlerSDK\Leads\Update\LeadUpdatedController;
 use TenantCloud\RentlerSDK\PreferenceListingMatches\ListingsMatchedController;
 use TenantCloud\RentlerSDK\PreferenceListingMatches\PreferencesMatchedController;
 use TenantCloud\RentlerSDK\Tokens\Cache\CombinedTokenCache;
@@ -44,6 +46,11 @@ class RentlerSDKServiceProvider extends ServiceProvider
 					->name('rentler.webhooks.listings.matched');
 				$router->post('preferences/matched', PreferencesMatchedController::class)
 					->name('rentler.webhooks.preferences.matched');
+
+				$router->post('leads/created', LeadCreatedController::class)
+					->name('rentler.webhooks.leads.created');
+				$router->post('leads/updated', LeadUpdatedController::class)
+					->name('rentler.webhooks.leads.updated');
 			});
 	}
 

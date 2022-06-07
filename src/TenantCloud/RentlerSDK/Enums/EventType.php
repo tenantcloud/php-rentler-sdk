@@ -18,6 +18,10 @@ class EventType extends ValueEnum
 
 	public static self $MESSAGE_DELETED;
 
+	public static self $LEAD_CREATED;
+
+	public static self $LEAD_UPDATED;
+
 	protected static function initializeInstances(): void
 	{
 		self::$GUEST_CARD_SENT = new self('GuestCardSent');
@@ -26,5 +30,7 @@ class EventType extends ValueEnum
 		self::$MESSAGE_CREATED = new self('MessageCreated');
 		self::$MESSAGE_UPDATED = new self('MessageUpdated');
 		self::$MESSAGE_DELETED = new self('MessageDeleted');
+		self::$LEAD_CREATED = new self('LeadCreated');
+		self::$LEAD_UPDATED = new self('LeadUpdated');
 	}
 }

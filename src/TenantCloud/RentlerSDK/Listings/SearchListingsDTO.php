@@ -100,7 +100,7 @@ use TenantCloud\DataTransferObjects\PascalDataTransferDTO;
  */
 class SearchListingsDTO extends PascalDataTransferDTO
 {
-	/** {@inheritdoc} */
+	/** @inheritDoc */
 	protected array $fields = [
 		'Page',
 		'Limit',
