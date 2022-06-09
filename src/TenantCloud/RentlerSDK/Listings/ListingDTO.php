@@ -466,6 +466,6 @@ class ListingDTO extends CamelDataTransferObject
 	 */
 	public function setRentStyle($rentStyle): self
 	{
-		return $this->set('rentSchedule', $rentStyle ? ListingRentStyle::fromValue($rentStyle) : null);
+		return $this->set('rentStyle', $rentStyle ? ListingRentStyle::fromValue($rentStyle) : null);
 	}
 }
