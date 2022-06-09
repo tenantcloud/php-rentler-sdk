@@ -68,6 +68,7 @@ class FakeListingsApi implements ListingsApi
 		'allowLargeDogs'      => null,
 		'breedRestrictions'   => true,
 		'allowCats'           => null,
+		'allowOtherPets'      => null,
 		'allowSmoking'        => null,
 		'smokingDescription'  => 'We do allow vaping in the vaping area',
 		'communityTitle'      => 'Undercurrent LLC',
@@ -166,6 +167,8 @@ class FakeListingsApi implements ListingsApi
 		'isVerified'            => true,
 		'isApplicationsEnabled' => true,
 		'currencyCode'          => 'USD',
+		'rentSchedule'          => 'Monthly',
+		'rentStyle'             => null,
 	];
 	public const SECOND_LISTING = [
 		'listingId'           => 2,
@@ -215,6 +218,7 @@ class FakeListingsApi implements ListingsApi
 		'allowLargeDogs'      => true,
 		'breedRestrictions'   => null,
 		'allowCats'           => true,
+		'allowOtherPets'      => true,
 		'allowSmoking'        => false,
 		'smokingDescription'  => null,
 		'communityTitle'      => null,
@@ -313,6 +317,8 @@ class FakeListingsApi implements ListingsApi
 		'isVerified'            => true,
 		'isApplicationsEnabled' => true,
 		'currencyCode'          => 'USD',
+		'rentSchedule'          => 'Semester',
+		'rentStyle'             => 'PerPerson',
 	];
 
 	public const NOT_EXISTING_LISTING_ID = 10000;
