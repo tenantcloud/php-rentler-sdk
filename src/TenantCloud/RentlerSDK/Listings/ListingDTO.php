@@ -241,6 +241,10 @@ use TenantCloud\RentlerSDK\SyndicationProviders\SyndicationProviderDTO;
  * @method self                          setCurrencyCode(string $isVerified)
  * @method string                        getCurrencyCode()
  * @method bool                          hasCurrencyCode()
+ * @method ListingRentSchedule           getRentSchedule()
+ * @method bool                          hasRentSchedule()
+ * @method ListingRentStyle              getRentStyle()
+ * @method bool                          hasRentStyle()
  */
 class ListingDTO extends CamelDataTransferObject
 {
