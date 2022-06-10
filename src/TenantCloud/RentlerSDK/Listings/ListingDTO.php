@@ -268,6 +268,10 @@ use TenantCloud\RentlerSDK\SyndicationProviders\SyndicationProviderDTO;
  * @method self                          setCurrencyCode(string $isVerified)
  * @method string                        getCurrencyCode()
  * @method bool                          hasCurrencyCode()
+ * @method ListingRentSchedule           getRentSchedule()
+ * @method bool                          hasRentSchedule()
+ * @method ListingRentStyle              getRentStyle()
+ * @method bool                          hasRentStyle()
  */
 class ListingDTO extends CamelDataTransferObject
 {
@@ -384,6 +388,8 @@ class ListingDTO extends CamelDataTransferObject
 		'waterUtility',
 		'rentersInsuranceUtility',
 		'heatUtility',
+		'rentSchedule',
+		'rentStyle',
 	];
 
 	public function setCoordinates(?array $coordinates): self
@@ -645,5 +651,21 @@ class ListingDTO extends CamelDataTransferObject
 		$result = array_map(fn ($item) => OperatingDayDTO::from($item), $operatingHours);
 
 		return $this->set('operatingHours', $result);
+	}
+
+	/**
+	 * @param string|ListingRentSchedule|null $rentSchedule
+	 */
+	public function setRentSchedule($rentSchedule): self
+	{
+		return $this->set('rentSchedule', $rentSchedule ? ListingRentSchedule::fromValue($rentSchedule) : null);
+	}
+
+	/**
+	 * @param string|ListingRentStyle|null $rentStyle
+	 */
+	public function setRentStyle($rentStyle): self
+	{
+		return $this->set('rentStyle', $rentStyle ? ListingRentStyle::fromValue($rentStyle) : null);
 	}
 }
