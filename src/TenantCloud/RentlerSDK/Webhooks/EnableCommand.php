@@ -5,7 +5,6 @@ namespace TenantCloud\RentlerSDK\Webhooks;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Routing\UrlGenerator;
-use Illuminate\Support\Facades\Artisan;
 use League\Uri\Http;
 use TenantCloud\RentlerSDK\Client\RentlerClient;
 use TenantCloud\RentlerSDK\Enums\EventType;
