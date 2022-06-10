@@ -293,8 +293,8 @@ class ListingDTO extends CamelDataTransferObject
 		'waterUtility'            => UtilityType::class,
 		'rentersInsuranceUtility' => UtilityType::class,
 		'heatUtility'             => UtilityType::class,
-		'rentSchedule' => ListingRentSchedule::class,
-		'rentStyle'    => ListingRentStyle::class,
+		'rentSchedule'            => ListingRentSchedule::class,
+		'rentStyle'               => ListingRentStyle::class,
 	];
 
 	protected array $fields = [
