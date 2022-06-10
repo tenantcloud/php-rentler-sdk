@@ -253,8 +253,10 @@ class ListingDTO extends CamelDataTransferObject
 	public const COORDINATES_DEFAULT_VALUE = 1;
 
 	protected array $enums = [
-		'status' => ListingStatus::class,
-		'type'   => ListingType::class,
+		'status'       => ListingStatus::class,
+		'type'         => ListingType::class,
+		'rentSchedule' => ListingRentSchedule::class,
+		'rentStyle'    => ListingRentStyle::class,
 	];
 
 	protected array $fields = [
