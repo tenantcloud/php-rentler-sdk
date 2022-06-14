@@ -20,6 +20,9 @@ use TenantCloud\DataTransferObjects\CamelDataTransferObject;
  * @method self        setEmail(string $email)
  * @method string      getEmail()
  * @method bool        hasEmail()
+ * @method self        setPhone(?string $phone)
+ * @method string|null getPhone()
+ * @method bool        hasPhone()
  */
 class UpsertTenantDTO extends CamelDataTransferObject
 {
@@ -29,5 +32,6 @@ class UpsertTenantDTO extends CamelDataTransferObject
 		'firstName',
 		'lastName',
 		'email',
+		'phone',
 	];
 }

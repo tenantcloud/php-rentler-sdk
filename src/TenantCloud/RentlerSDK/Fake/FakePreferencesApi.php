@@ -15,6 +15,8 @@ class FakePreferencesApi implements PreferencesApi
 	public const FIRST_ITEM = [
 		'tenantId'           => 1,
 		'tenantPreferenceId' => 1,
+		'partnerId'          => null,
+		'title'              => 'Title',
 		'search'             => [
 			'sortType'                => 'DateDescending',
 			'bounds'                  => null,
@@ -54,6 +56,8 @@ class FakePreferencesApi implements PreferencesApi
 	public const SECOND_ITEM = [
 		'tenantId'           => 2,
 		'tenantPreferenceId' => 2,
+		'title'              => 'Title',
+		'partnerId'          => null,
 		'search'             => [
 			'sortType'                => 'DateAscending',
 			'bounds'                  => '48.9398753,24.681277,48.9471616,24.6766851',

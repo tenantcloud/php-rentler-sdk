@@ -9,14 +9,20 @@ use TenantCloud\RentlerSDK\Client\RentlerClient;
 use TenantCloud\RentlerSDK\Coffee\CoffeeApi;
 use TenantCloud\RentlerSDK\Favorites\FavoritesApi;
 use TenantCloud\RentlerSDK\Feeds\FeedsApi;
+use TenantCloud\RentlerSDK\GuestCards\GuestCardsApi;
 use TenantCloud\RentlerSDK\Landlords\LandlordsApi;
+use TenantCloud\RentlerSDK\LandlordVerification\LandlordVerificationApi;
+use TenantCloud\RentlerSDK\Leads\LeadsApi;
 use TenantCloud\RentlerSDK\Listings\ListingsApi;
 use TenantCloud\RentlerSDK\Locations\LocationsApi;
 use TenantCloud\RentlerSDK\Messages\MessagesApi;
 use TenantCloud\RentlerSDK\Partners\PartnersApi;
 use TenantCloud\RentlerSDK\Preferences\PreferencesApi;
+use TenantCloud\RentlerSDK\ProfileShares\ProfileSharesApi;
+use TenantCloud\RentlerSDK\Properties\PropertiesApi;
 use TenantCloud\RentlerSDK\Reports\ReportsApi;
 use TenantCloud\RentlerSDK\SyndicationProviders\SyndicationProvidersApi;
+use TenantCloud\RentlerSDK\TenantProfiles\TenantProfilesApi;
 use TenantCloud\RentlerSDK\Tenants\TenantsApi;
 use TenantCloud\RentlerSDK\Tokens\TokensApi;
 use TenantCloud\RentlerSDK\WebhookEndpoints\WebhookEndpointsApi;
@@ -106,5 +112,35 @@ class FakeRentlerClient implements RentlerClient
 	public function landlords(): LandlordsApi
 	{
 		return new FakeLandlordsApi();
+	}
+
+	public function profileShares(): ProfileSharesApi
+	{
+		return new FakeProfileSharesApi();
+	}
+
+	public function guestCards(): GuestCardsApi
+	{
+		return new FakeGuestCardsApi();
+	}
+
+	public function landlordVerification(): LandlordVerificationApi
+	{
+		return new FakeLandlordVerificationApi();
+	}
+
+	public function leads(): LeadsApi
+	{
+		return new FakeLeadsApi();
+	}
+
+	public function properties(): PropertiesApi
+	{
+		return new FakePropertiesApi();
+	}
+
+	public function tenantProfiles(): TenantProfilesApi
+	{
+		return new FakeTenantProfilesApi();
 	}
 }

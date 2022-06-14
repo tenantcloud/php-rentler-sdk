@@ -40,6 +40,9 @@ use TenantCloud\DataTransferObjects\PascalDataTransferDTO;
  * @method self           setIsAcceptingApplications(bool $isAcceptingApplications)
  * @method bool           getIsAcceptingApplications()
  * @method bool           hasIsAcceptingApplications()
+ * @method self           setIsSmokingAllowed(bool $isSmokingAllowed)
+ * @method bool           getIsSmokingAllowed()
+ * @method bool           hasIsSmokingAllowed()
  * @method self           setMinPrice(int $minPrice)
  * @method int            getMinPrice()
  * @method bool           hasMinPrice()
@@ -97,7 +100,7 @@ use TenantCloud\DataTransferObjects\PascalDataTransferDTO;
  */
 class SearchListingsDTO extends PascalDataTransferDTO
 {
-	/** {@inheritdoc} */
+	/** @inheritDoc */
 	protected array $fields = [
 		'Page',
 		'Limit',
@@ -112,6 +115,7 @@ class SearchListingsDTO extends PascalDataTransferDTO
 		'AreLargeDogsAllowed',
 		'AreCatsAllowed',
 		'IsAcceptingApplications',
+		'IsSmokingAllowed',
 
 		'MinPrice',
 		'MaxPrice',

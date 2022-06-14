@@ -32,11 +32,6 @@ final class ListingType extends ValueEnum
 
 	public static self $OTHER;
 
-	protected function __construct($value)
-	{
-		parent::__construct($value);
-	}
-
 	protected static function initializeInstances(): void
 	{
 		self::$UNDEFINED = new self('Undefined');

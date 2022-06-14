@@ -6,14 +6,20 @@ use TenantCloud\RentlerSDK\Amenities\AmenitiesApi;
 use TenantCloud\RentlerSDK\Coffee\CoffeeApi;
 use TenantCloud\RentlerSDK\Favorites\FavoritesApi;
 use TenantCloud\RentlerSDK\Feeds\FeedsApi;
+use TenantCloud\RentlerSDK\GuestCards\GuestCardsApi;
 use TenantCloud\RentlerSDK\Landlords\LandlordsApi;
+use TenantCloud\RentlerSDK\LandlordVerification\LandlordVerificationApi;
+use TenantCloud\RentlerSDK\Leads\LeadsApi;
 use TenantCloud\RentlerSDK\Listings\ListingsApi;
 use TenantCloud\RentlerSDK\Locations\LocationsApi;
 use TenantCloud\RentlerSDK\Messages\MessagesApi;
 use TenantCloud\RentlerSDK\Partners\PartnersApi;
 use TenantCloud\RentlerSDK\Preferences\PreferencesApi;
+use TenantCloud\RentlerSDK\ProfileShares\ProfileSharesApi;
+use TenantCloud\RentlerSDK\Properties\PropertiesApi;
 use TenantCloud\RentlerSDK\Reports\ReportsApi;
 use TenantCloud\RentlerSDK\SyndicationProviders\SyndicationProvidersApi;
+use TenantCloud\RentlerSDK\TenantProfiles\TenantProfilesApi;
 use TenantCloud\RentlerSDK\Tenants\TenantsApi;
 use TenantCloud\RentlerSDK\Tokens\TokensApi;
 use TenantCloud\RentlerSDK\WebhookEndpoints\WebhookEndpointsApi;
@@ -49,4 +55,16 @@ interface RentlerClient
 	public function webhookEndpoints(): WebhookEndpointsApi;
 
 	public function landlords(): LandlordsApi;
+
+	public function profileShares(): ProfileSharesApi;
+
+	public function guestCards(): GuestCardsApi;
+
+	public function landlordVerification(): LandlordVerificationApi;
+
+	public function leads(): LeadsApi;
+
+	public function properties(): PropertiesApi;
+
+	public function tenantProfiles(): TenantProfilesApi;
 }

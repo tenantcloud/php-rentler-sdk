@@ -6,25 +6,31 @@ use Carbon\Carbon;
 use TenantCloud\DataTransferObjects\CamelDataTransferObject;
 
 /**
- * @method self     setTenantId(int $tenantId)
- * @method int      getTenantId()
- * @method bool     hasTenantId()
- * @method self     setPartnerTenantId(?string|int $partnerTenantId)
- * @method int|null getPartnerTenantId()
- * @method bool     hasPartnerTenantId()
- * @method self     setFirstName(string $firstName)
- * @method string   getFirstName()
- * @method bool     hasFirstName()
- * @method self     setLastName(string $lastName)
- * @method string   getLastName()
- * @method bool     hasLastName()
- * @method self     setEmail(string $email)
- * @method string   getEmail()
- * @method bool     hasEmail()
- * @method Carbon   getCreateDateUtc()
- * @method bool     hasCreateDateUtc()
- * @method Carbon   getUpdateDateUtc()
- * @method bool     hasUpdateDateUtc()
+ * @method self        setTenantId(int $tenantId)
+ * @method int         getTenantId()
+ * @method bool        hasTenantId()
+ * @method self        setPartnerTenantId(?string|int $partnerTenantId)
+ * @method int|null    getPartnerTenantId()
+ * @method bool        hasPartnerTenantId()
+ * @method self        setFirstName(string $firstName)
+ * @method string      getFirstName()
+ * @method bool        hasFirstName()
+ * @method self        setLastName(string $lastName)
+ * @method string      getLastName()
+ * @method bool        hasLastName()
+ * @method self        setEmail(string $email)
+ * @method string      getEmail()
+ * @method bool        hasEmail()
+ * @method self        setPhone(?string $phone)
+ * @method string|null getPhone()
+ * @method bool        hasPhone()
+ * @method self        setPartnerId(?string $partnerId)
+ * @method string|null getPartnerId()
+ * @method bool        hasPartnerId()
+ * @method Carbon      getCreateDateUtc()
+ * @method bool        hasCreateDateUtc()
+ * @method Carbon      getUpdateDateUtc()
+ * @method bool        hasUpdateDateUtc()
  */
 class TenantDTO extends CamelDataTransferObject
 {
@@ -34,6 +40,8 @@ class TenantDTO extends CamelDataTransferObject
 		'firstName',
 		'lastName',
 		'email',
+		'phone',
+		'partnerId',
 		'createDateUtc',
 		'updateDateUtc',
 	];

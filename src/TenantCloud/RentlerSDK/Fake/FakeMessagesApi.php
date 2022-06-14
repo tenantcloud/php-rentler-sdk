@@ -12,23 +12,35 @@ use TenantCloud\RentlerSDK\Messages\UpsertMessageDTO;
 class FakeMessagesApi implements MessagesApi
 {
 	public const FIRST_MESSAGE = [
-		'listingId'     => 1,
-		'tenantId'      => 2,
-		'messageId'     => 1,
-		'content'       => 'Some text',
-		'createDateUtc' => '2021-02-29T12:14:22.429Z',
-		'updateDateUtc' => '2021-03-02T12:00:22.429Z',
-		'tenant'        => FakeTenantsApi::FIRST_TENANT,
+		'listingId'         => 1,
+		'tenantId'          => 2,
+		'partnerUserId'     => 1,
+		'partnerPropertyId' => 1,
+		'addressLine1'      => '961 E Colorado Blvd',
+		'phone'             => '+1-202-555-0136',
+		'email'             => 'test@test.com',
+		'moveInDate'        => '2021-02-29',
+		'messageId'         => 1,
+		'content'           => 'Some text',
+		'createDateUtc'     => '2021-02-29T12:14:22.429Z',
+		'updateDateUtc'     => '2021-03-02T12:00:22.429Z',
+		'tenant'            => FakeTenantsApi::FIRST_TENANT,
 	];
 
 	public const SECOND_MESSAGE = [
-		'listingId'     => 1,
-		'tenantId'      => 1,
-		'messageId'     => 2,
-		'content'       => 'Text example',
-		'createDateUtc' => '2021-01-29T12:14:22.429Z',
-		'updateDateUtc' => '2021-02-20T12:14:22.429Z',
-		'tenant'        => FakeTenantsApi::SECOND_TENANT,
+		'listingId'         => 1,
+		'tenantId'          => 1,
+		'messageId'         => 2,
+		'partnerUserId'     => 1,
+		'partnerPropertyId' => 1,
+		'addressLine1'      => '961 E Colorado Blvd',
+		'phone'             => '+1-202-555-0136',
+		'email'             => 'test@test.com',
+		'moveInDate'        => '2021-02-29',
+		'content'           => 'Text example',
+		'createDateUtc'     => '2021-01-29T12:14:22.429Z',
+		'updateDateUtc'     => '2021-02-20T12:14:22.429Z',
+		'tenant'            => FakeTenantsApi::SECOND_TENANT,
 	];
 	public const NOT_EXISTING_MESSAGE_ID = 10000;
 

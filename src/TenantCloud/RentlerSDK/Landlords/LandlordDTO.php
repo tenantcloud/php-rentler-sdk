@@ -8,6 +8,9 @@ use TenantCloud\DataTransferObjects\CamelDataTransferObject;
  * @method self        setPartnerLandlordId(string|int $id)
  * @method string|int  getPartnerLandlordId()
  * @method bool        hasPartnerLandlordId()
+ * @method self        setLandlordId(?int $landlordId)
+ * @method int|null    getLandlordId()
+ * @method bool        hasLandlordId()
  * @method self        setFirstName(?string $name)
  * @method string|null getFirstName()
  * @method bool        hasFirstName()
@@ -25,6 +28,7 @@ class LandlordDTO extends CamelDataTransferObject
 {
 	protected array $fields = [
 		'partnerLandlordId',
+		'landlordId',
 		'firstName',
 		'lastName',
 		'email',

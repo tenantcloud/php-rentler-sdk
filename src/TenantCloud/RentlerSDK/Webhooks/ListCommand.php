@@ -13,14 +13,14 @@ use TenantCloud\Standard\Iterators\PageIterator;
 
 class ListCommand extends Command
 {
-	/** {@inheritdoc} */
+	/** @inheritDoc */
 	protected $signature = 'rentler:webhooks:list {--H|host= : Filter by host. Use "this" to filter by host from the config}';
 
-	/** {@inheritdoc} */
+	/** @inheritDoc */
 	protected $description = 'List webhook endpoints on Rentler side.';
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function handle(RentlerClient $client, Repository $config, UrlGenerator $urlGenerator): void
 	{

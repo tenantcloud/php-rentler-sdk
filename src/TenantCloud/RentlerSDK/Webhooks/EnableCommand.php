@@ -5,7 +5,6 @@ namespace TenantCloud\RentlerSDK\Webhooks;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Routing\UrlGenerator;
-use Illuminate\Support\Facades\Artisan;
 use League\Uri\Http;
 use TenantCloud\RentlerSDK\Client\RentlerClient;
 use TenantCloud\RentlerSDK\Enums\EventType;
@@ -14,14 +13,14 @@ use Webmozart\Assert\Assert;
 
 class EnableCommand extends Command
 {
-	/** {@inheritdoc} */
+	/** @inheritDoc */
 	protected $signature = 'rentler:webhooks:enable';
 
-	/** {@inheritdoc} */
-	protected $description = 'Add webhook endpoints on Rentler side.';
+	/** @inheritDoc */
+	protected $description = 'Add or update webhook endpoints on Rentler side.';
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function handle(
 		RentlerClient $client,
@@ -31,9 +30,13 @@ class EnableCommand extends Command
 		$webhooksHost = $config->get('rentler.webhooks.host');
 		Assert::notEmpty($webhooksHost);
 
-		Artisan::call(DisableCommand::class);
+		$this->call(DisableCommand::class);
 
 		$this->createNew($webhooksHost, $client, $config, $urlGenerator);
+
+		$this->call(ListCommand::class, [
+			'--host' => $webhooksHost,
+		]);
 	}
 
 	/**
@@ -47,18 +50,24 @@ class EnableCommand extends Command
 		$combinations = [
 			[EventType::$LISTINGS_MATCHED, 'rentler.webhooks.listings.matched'],
 			[EventType::$PREFERENCES_MATCHED, 'rentler.webhooks.preferences.matched'],
+			[EventType::$LEAD_CREATED, 'rentler.webhooks.leads.created'],
+			[EventType::$LEAD_UPDATED, 'rentler.webhooks.leads.updated'],
 		];
 
 		foreach ($combinations as [$eventType, $routeName]) {
 			$url = Http::createFromString($urlGenerator->route($routeName))
 				->withHost($webhooksHost);
 
-			$client->webhookEndpoints()->create(
+			$webhookEndpoint = $client->webhookEndpoints()->create(
 				UpsertWebhookEndpointDTO::create()
 					->setUrl((string) $url)
 					->setSecret($webhooksSecret)
 					->setEventTypes([$eventType])
 			);
+
+			$this->warn("Created new webhook endpoint #{$webhookEndpoint->getWebhookEndpointId()}");
 		}
+
+		$this->info("Created new webhook endpoints for host {$webhooksHost}");
 	}
 }
