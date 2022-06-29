@@ -2,11 +2,14 @@
 
 namespace TenantCloud\RentlerSDK\Fake;
 
+use Illuminate\Contracts\Events\Dispatcher;
 use TenantCloud\RentlerSDK\Exceptions\Missing404Exception;
+use TenantCloud\RentlerSDK\Leads\Create\LeadCreatedEvent;
 use TenantCloud\RentlerSDK\Leads\LeadDTO;
 use TenantCloud\RentlerSDK\Leads\LeadsApi;
 use TenantCloud\RentlerSDK\Leads\LeadsFiltersDTO;
 use TenantCloud\RentlerSDK\Leads\PaginatedLeadsResponseDTO;
+use TenantCloud\RentlerSDK\Leads\Update\LeadUpdatedEvent;
 
 class FakeLeadsApi implements LeadsApi
 {
@@ -52,6 +55,11 @@ class FakeLeadsApi implements LeadsApi
 		'updateDateUtc'    => '2022-05-19T11:46:40.152Z',
 	];
 
+	public function __construct(
+		private readonly Dispatcher $dispatcher,
+	) {
+	}
+
 	public function list(LeadsFiltersDTO $filters): PaginatedLeadsResponseDTO
 	{
 		$items = [self::FAKE_ITEM];
@@ -79,14 +87,22 @@ class FakeLeadsApi implements LeadsApi
 	{
 		$item = array_merge(self::FAKE_ITEM, $data->toArray());
 
-		return LeadDTO::from($item);
+		$lead = LeadDTO::from($item);
+
+		$this->dispatcher->dispatch(new LeadCreatedEvent($lead));
+
+		return $lead;
 	}
 
 	public function update(int $id, LeadDTO $data): LeadDTO
 	{
 		$item = array_merge(self::FAKE_ITEM, $data->toArray());
 
-		return LeadDTO::from($item);
+		$lead = LeadDTO::from($item);
+
+		$this->dispatcher->dispatch(new LeadUpdatedEvent($lead));
+
+		return $lead;
 	}
 
 	public function get(int $id): LeadDTO
