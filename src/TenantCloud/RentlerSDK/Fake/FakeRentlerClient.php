@@ -4,6 +4,7 @@ namespace TenantCloud\RentlerSDK\Fake;
 
 use Illuminate\Config\Repository as ConfigRepository;
 use Illuminate\Contracts\Cache\Repository;
+use Illuminate\Contracts\Events\Dispatcher;
 use TenantCloud\RentlerSDK\Amenities\AmenitiesApi;
 use TenantCloud\RentlerSDK\Client\RentlerClient;
 use TenantCloud\RentlerSDK\Coffee\CoffeeApi;
@@ -29,14 +30,11 @@ use TenantCloud\RentlerSDK\WebhookEndpoints\WebhookEndpointsApi;
 
 class FakeRentlerClient implements RentlerClient
 {
-	private Repository $repository;
-
-	private ConfigRepository $config;
-
-	public function __construct(Repository $repository, ConfigRepository $config)
-	{
-		$this->repository = $repository;
-		$this->config = $config;
+	public function __construct(
+		private readonly Repository $repository,
+		private readonly ConfigRepository $config,
+		private readonly Dispatcher $eventDispatcher
+	) {
 	}
 
 	public function listings(): ListingsApi
@@ -131,7 +129,7 @@ class FakeRentlerClient implements RentlerClient
 
 	public function leads(): LeadsApi
 	{
-		return new FakeLeadsApi();
+		return new FakeLeadsApi($this->eventDispatcher);
 	}
 
 	public function properties(): PropertiesApi
