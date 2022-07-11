@@ -31,15 +31,16 @@ use TenantCloud\RentlerSDK\WebhookEndpoints\WebhookEndpointsApi;
 class FakeRentlerClient implements RentlerClient
 {
 	public function __construct(
-		private readonly Repository $repository,
+		private readonly Repository $cache,
 		private readonly ConfigRepository $config,
-		private readonly Dispatcher $eventDispatcher
+		private readonly Dispatcher $eventDispatcher,
+		public readonly string $partnerId,
 	) {
 	}
 
 	public function listings(): ListingsApi
 	{
-		return new FakeListingsApi($this->repository, $this->config);
+		return new FakeListingsApi($this->cache, $this->config);
 	}
 
 	public function tokens(): TokensApi
@@ -74,7 +75,7 @@ class FakeRentlerClient implements RentlerClient
 
 	public function favorites(): FavoritesApi
 	{
-		return new FakeFavoritesApi($this->repository, $this->config);
+		return new FakeFavoritesApi($this->cache, $this->config);
 	}
 
 	public function preferences(): PreferencesApi
@@ -129,7 +130,7 @@ class FakeRentlerClient implements RentlerClient
 
 	public function leads(): LeadsApi
 	{
-		return new FakeLeadsApi($this->eventDispatcher);
+		return new FakeLeadsApi($this->eventDispatcher, $this);
 	}
 
 	public function properties(): PropertiesApi

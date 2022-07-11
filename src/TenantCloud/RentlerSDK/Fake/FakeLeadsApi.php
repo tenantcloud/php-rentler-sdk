@@ -57,6 +57,7 @@ class FakeLeadsApi implements LeadsApi
 
 	public function __construct(
 		private readonly Dispatcher $dispatcher,
+		private readonly FakeRentlerClient $rentlerClient,
 	) {
 	}
 
@@ -89,7 +90,9 @@ class FakeLeadsApi implements LeadsApi
 
 		$lead = LeadDTO::from($item);
 
-		$this->dispatcher->dispatch(new LeadCreatedEvent($lead));
+		if ($this->shouldDispatchFakeEvent($lead->getListingId())) {
+			$this->dispatcher->dispatch(new LeadCreatedEvent($lead));
+		}
 
 		return $lead;
 	}
@@ -100,7 +103,9 @@ class FakeLeadsApi implements LeadsApi
 
 		$lead = LeadDTO::from($item);
 
-		$this->dispatcher->dispatch(new LeadUpdatedEvent($lead));
+		if ($this->shouldDispatchFakeEvent($lead->getListingId())) {
+			$this->dispatcher->dispatch(new LeadUpdatedEvent($lead));
+		}
 
 		return $lead;
 	}
@@ -115,5 +120,15 @@ class FakeLeadsApi implements LeadsApi
 		if ($id === self::NOT_EXISTING_ID) {
 			throw new Missing404Exception('Lead does not exists.');
 		}
+	}
+
+	private function shouldDispatchFakeEvent(int $listingId): bool
+	{
+		$listingPartnerId = $this->rentlerClient
+			->listings()
+			->get($listingId)
+			->getPartnerId();
+
+		return $listingPartnerId === $this->rentlerClient->partnerId;
 	}
 }
