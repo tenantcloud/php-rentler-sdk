@@ -2,8 +2,10 @@
 
 namespace TenantCloud\RentlerSDK;
 
-use Illuminate\Config\Repository;
+use Illuminate\Config\Repository as ConfigRepository;
+use Illuminate\Contracts\Cache\Repository as CacheRepository;
 use Illuminate\Contracts\Container\Container;
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 use TenantCloud\RentlerSDK\Client\RentlerClient;
@@ -36,7 +38,7 @@ class RentlerSDKServiceProvider extends ServiceProvider
 			]);
 		}
 
-		$config = $this->app->make(Repository::class);
+		$config = $this->app->make(ConfigRepository::class);
 		$router = $this->app->make(Router::class);
 
 		$router->middleware(ValidateSignatureMiddleware::class)
@@ -64,18 +66,18 @@ class RentlerSDKServiceProvider extends ServiceProvider
 		);
 
 		$this->app->bind(ValidateSignatureMiddleware::class, function (Container $container) {
-			$config = $container->make(Repository::class);
+			$config = $container->make(ConfigRepository::class);
 
 			return new ValidateSignatureMiddleware(
 				$config->get('rentler.webhooks.secret'),
 			);
 		});
 
-		$config = $this->app->make(Repository::class);
+		$config = $this->app->make(ConfigRepository::class);
 
 		if (!$config->get('rentler.fake_client')) {
 			$this->app->singleton(RentlerClient::class, static function (Container $container) {
-				$config = $container->make(Repository::class);
+				$config = $container->make(ConfigRepository::class);
 
 				return new RentlerClientImpl(
 					$config->get('rentler.base_url'),
@@ -86,7 +88,16 @@ class RentlerSDKServiceProvider extends ServiceProvider
 				);
 			});
 		} else {
-			$this->app->singleton(RentlerClient::class, FakeRentlerClient::class);
+			$this->app->singleton(RentlerClient::class, static function (Container $container) {
+				$config = $container->make(ConfigRepository::class);
+
+				return new FakeRentlerClient(
+					$container->make(CacheRepository::class),
+					$config,
+					$container->make(Dispatcher::class),
+					$config->get('rentler.client_id'),
+				);
+			});
 		}
 	}
 }
