@@ -110,16 +110,6 @@ class FakeLeadsApi implements LeadsApi
 		return $lead;
 	}
 
-	private function shouldDispatchFakeEvent(int $listingId): bool
-	{
-		$listingPartnerId = $this->rentlerClient
-			->listings()
-			->get($listingId)
-			->getPartnerId();
-
-		return $listingPartnerId === $this->rentlerClient->partnerId;
-	}
-
 	public function get(int $id): LeadDTO
 	{
 		return LeadDTO::from(self::FAKE_ITEM);
@@ -130,5 +120,15 @@ class FakeLeadsApi implements LeadsApi
 		if ($id === self::NOT_EXISTING_ID) {
 			throw new Missing404Exception('Lead does not exists.');
 		}
+	}
+
+	private function shouldDispatchFakeEvent(int $listingId): bool
+	{
+		$listingPartnerId = $this->rentlerClient
+			->listings()
+			->get($listingId)
+			->getPartnerId();
+
+		return $listingPartnerId === $this->rentlerClient->partnerId;
 	}
 }

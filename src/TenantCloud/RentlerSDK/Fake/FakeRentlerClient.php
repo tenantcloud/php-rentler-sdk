@@ -31,10 +31,10 @@ use TenantCloud\RentlerSDK\WebhookEndpoints\WebhookEndpointsApi;
 class FakeRentlerClient implements RentlerClient
 {
 	public function __construct(
-		private readonly Repository       $cache,
+		private readonly Repository $cache,
 		private readonly ConfigRepository $config,
-		private readonly Dispatcher       $eventDispatcher,
-		public readonly string            $partnerId,
+		private readonly Dispatcher $eventDispatcher,
+		public readonly string $partnerId,
 	) {
 	}
 
