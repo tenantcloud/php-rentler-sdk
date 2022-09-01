@@ -272,6 +272,9 @@ use TenantCloud\RentlerSDK\SyndicationProviders\SyndicationProviderDTO;
  * @method bool                          hasRentSchedule()
  * @method ListingRentStyle              getRentStyle()
  * @method bool                          hasRentStyle()
+ * @method self                          setIsActivated(bool $isActivated)
+ * @method bool                          getIsActivated()
+ * @method bool                          hasIsActivated()
  */
 class ListingDTO extends CamelDataTransferObject
 {
@@ -392,6 +395,7 @@ class ListingDTO extends CamelDataTransferObject
 		'heatUtility',
 		'rentSchedule',
 		'rentStyle',
+		'isActivated',
 	];
 
 	public function setCoordinates(?array $coordinates): self

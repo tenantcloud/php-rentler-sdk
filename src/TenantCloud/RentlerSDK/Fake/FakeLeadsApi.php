@@ -48,6 +48,11 @@ class FakeLeadsApi implements LeadsApi
 				'updateDateUtc'     => '2022-05-19T11:46:40.152Z',
 			],
 		],
+		'tourDates' => [
+			'2022-09-01T11:24:54.508Z',
+			'2022-09-01T18:24:54.508Z',
+			'2022-09-02T11:24:54.508Z',
+		],
 		'leadId'           => 0,
 		'partnerId'        => 'string',
 		'listingPartnerId' => 'string',

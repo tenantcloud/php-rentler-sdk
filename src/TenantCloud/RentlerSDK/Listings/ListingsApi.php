@@ -29,4 +29,8 @@ interface ListingsApi
 	public function delete(int $listingId): void;
 
 	public function report(ReportListingDTO $data): ReportDTO;
+
+	public function activate(int $listingId): ListingDTO;
+
+	public function deactivate(int $listingId): ListingDTO;
 }
