@@ -34,7 +34,7 @@ class FakeListingsApi implements ListingsApi
 		'createDateUtc'                  => '2020-05-29 00:05:48',
 		'updateDateUtc'                  => '2021-03-18 17:40:00',
 		'status'                         => 'Listed',
-		'type'                           => 'CondoMultiplex',
+		'type'                           => 'Condo',
 		'address1'                       => '270 S 300 E',
 		'address2'                       => '',
 		'city'                           => 'Salt Lake City',

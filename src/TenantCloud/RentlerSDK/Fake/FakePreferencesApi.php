@@ -61,7 +61,7 @@ class FakePreferencesApi implements PreferencesApi
 		'search'             => [
 			'sortType'                => 'DateAscending',
 			'bounds'                  => '48.9398753,24.681277,48.9471616,24.6766851',
-			'propertyTypes'           => ['CondoMultiplex'],
+			'propertyTypes'           => ['Condo', 'Multiplex'],
 			'minPrice'                => 1000,
 			'maxPrice'                => 1000,
 			'minBedrooms'             => 2,
