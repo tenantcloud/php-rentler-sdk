@@ -4,10 +4,12 @@ namespace TenantCloud\RentlerSDK\Client;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
+use GuzzleHttp\MessageFormatter;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\RequestOptions;
 use Illuminate\Support\Facades\Config;
 use Psr\Http\Message\RequestInterface;
+use Psr\Log\LoggerInterface;
 use TenantCloud\GuzzleHelper\DumpRequestBody\HeaderObfuscator;
 use TenantCloud\GuzzleHelper\DumpRequestBody\JsonObfuscator;
 use TenantCloud\GuzzleHelper\GuzzleMiddleware;
@@ -69,7 +71,8 @@ class RentlerClientImpl implements RentlerClient
 		string $authBaseUrl,
 		string $clientId,
 		string $clientSecret,
-		TokenCache $cache
+		TokenCache $cache,
+		?LoggerInterface $logger = null
 	) {
 		$this->authBaseUrl = $authBaseUrl;
 		$tokenResolver = new TokenResolver($this, $cache);
@@ -99,9 +102,14 @@ class RentlerClientImpl implements RentlerClient
 		$stack->unshift(AuthenticationMiddleware::create($tokenResolver, $clientId, $clientSecret));
 		$stack->unshift(AuthenticationMiddleware::retry());
 
+		if ($logger) {
+			$stack->push(GuzzleMiddleware::tracingLog($logger));
+		}
+
 		$this->httpClient = new Client([
 			'base_uri'              => $baseUrl,
 			'handler'               => $stack,
+			RequestOptions::CONNECT_TIMEOUT => Config::get('rentler.timeout'),
 			RequestOptions::TIMEOUT => Config::get('rentler.timeout'),
 		]);
 	}
