@@ -80,6 +80,11 @@ class LeadDTO extends CamelDataTransferObject
 		'updateDateUtc',
 	];
 
+	public function __construct()
+	{
+		$this->setTourDates([]);
+	}
+
 	/**
 	 * @param string|LeadType $leadType
 	 */
