@@ -97,6 +97,9 @@ use TenantCloud\DataTransferObjects\PascalDataTransferDTO;
  * @method self           setIsPreferencesOnly(bool $isPreferencesOnly)
  * @method bool           getIsPreferencesOnly()
  * @method bool           hasIsPreferencesOnly()
+ * @method self           setShowHideInSearch(bool $showHideInSearch)
+ * @method bool           getShowHideInSearch()
+ * @method bool           hasShowHideInSearch()
  */
 class SearchListingsDTO extends PascalDataTransferDTO
 {
@@ -142,6 +145,7 @@ class SearchListingsDTO extends PascalDataTransferDTO
 		'PartnerUserId',
 		'IsVerified',
 		'IsPreferencesOnly',
+		'ShowHideInSearch',
 	];
 
 	public function setBounds($bounds): self
