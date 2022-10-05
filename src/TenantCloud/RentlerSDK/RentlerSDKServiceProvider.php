@@ -8,6 +8,7 @@ use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
+use Psr\Log\LoggerInterface;
 use TenantCloud\RentlerSDK\Client\RentlerClient;
 use TenantCloud\RentlerSDK\Client\RentlerClientImpl;
 use TenantCloud\RentlerSDK\Fake\FakeRentlerClient;
@@ -84,7 +85,8 @@ class RentlerSDKServiceProvider extends ServiceProvider
 					$config->get('rentler.auth_base_url'),
 					$config->get('rentler.client_id'),
 					$config->get('rentler.client_secret'),
-					new CombinedTokenCache([$container->make(LaravelCacheTokenCache::class)])
+					new CombinedTokenCache([$container->make(LaravelCacheTokenCache::class)]),
+					$container->make(LoggerInterface::class),
 				);
 			});
 		} else {

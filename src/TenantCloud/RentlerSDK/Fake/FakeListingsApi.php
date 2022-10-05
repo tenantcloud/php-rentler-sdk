@@ -34,7 +34,7 @@ class FakeListingsApi implements ListingsApi
 		'createDateUtc'                  => '2020-05-29 00:05:48',
 		'updateDateUtc'                  => '2021-03-18 17:40:00',
 		'status'                         => 'Listed',
-		'type'                           => 'CondoMultiplex',
+		'type'                           => 'Condo',
 		'address1'                       => '270 S 300 E',
 		'address2'                       => '',
 		'city'                           => 'Salt Lake City',
@@ -499,6 +499,39 @@ class FakeListingsApi implements ListingsApi
 		return ReportDTO::from(FakeReportsApi::FIRST_REPORT);
 	}
 
+	public function activate(int $listingId): ListingDTO
+	{
+		if ($listingId === self::NOT_EXISTING_LISTING_ID) {
+			throw new Missing404Exception('Listing does not exists.');
+		}
+
+		$this->updateListing(
+			$listingId,
+			fn (ListingDTO $data) => $data
+				->setStatus(ListingStatus::$LISTED)
+				->setActivateDateUtc(Carbon::now())
+				->setIsActivated(true)
+		);
+
+		return $this->get($listingId);
+	}
+
+	public function deactivate(int $listingId): ListingDTO
+	{
+		if ($listingId === self::NOT_EXISTING_LISTING_ID) {
+			throw new Missing404Exception('Listing does not exists.');
+		}
+
+		$this->updateListing(
+			$listingId,
+			fn (ListingDTO $data) => $data
+				->setStatus(ListingStatus::$UNLISTED)
+				->setIsActivated(false)
+		);
+
+		return $this->get($listingId);
+	}
+
 	public function fakeItems(): array
 	{
 		return $this->repository->get($this->config->get('rentler.fake_settings.prefix') . self::CACHE_KEY, fn () => [ListingDTO::from(self::FIRST_LISTING), ListingDTO::from(self::SECOND_LISTING)]);
@@ -507,6 +540,21 @@ class FakeListingsApi implements ListingsApi
 	public function updateListings(array $items): void
 	{
 		$this->repository->put($this->config->get('rentler.fake_settings.prefix') . self::CACHE_KEY, $items, Carbon::now()->addMinutes($this->config->get('rentler.fake_settings.cache_time', 1000)));
+	}
+
+	private function updateListing(int $listingId, callable $modify): void
+	{
+		$items = $this->fakeItems();
+
+		$listing = Arr::first($items, fn (ListingDTO $listing) => $listingId === $listing->getListingId());
+
+		if (!$listing) {
+			return;
+		}
+
+		$modify($listing);
+
+		$this->updateListings($items);
 	}
 
 	private function mergeDefaultFields(ListingDTO $listing): ListingDTO
@@ -531,10 +579,6 @@ class FakeListingsApi implements ListingsApi
 			$listing->setAvailableDateUtc(Carbon::now());
 		}
 
-		if (!$listing->hasActivateDateUtc()) {
-			$listing->setActivateDateUtc(Carbon::now());
-		}
-
 		if (!$listing->hasMediaItems()) {
 			$listing->setMediaItems([]);
 		}
@@ -544,7 +588,11 @@ class FakeListingsApi implements ListingsApi
 		}
 
 		if (!$listing->hasStatus()) {
-			$listing->setStatus(ListingStatus::$LISTED);
+			$listing->setStatus(ListingStatus::$IN_PROGRESS);
+		}
+
+		if (!$listing->hasIsActivated()) {
+			$listing->setIsActivated(false);
 		}
 
 		if (!$listing->hasCustomAmenities()) {

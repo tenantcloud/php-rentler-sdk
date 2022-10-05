@@ -38,6 +38,8 @@ use TenantCloud\RentlerSDK\Enums\LeadType;
  * @method bool                      hasCallDuration()
  * @method LeadAttributionDTO[]|null getLeadAttributions()
  * @method bool                      hasLeadAttributions()
+ * @method Carbon[]                  getTourDates()
+ * @method bool                      hasTourDates()
  * @method self                      setLeadId(int $leadId)
  * @method int                       getLeadId()
  * @method bool                      hasLeadId()
@@ -70,12 +72,18 @@ class LeadDTO extends CamelDataTransferObject
 		'message',
 		'callDuration',
 		'leadAttributions',
+		'tourDates',
 		'leadId',
 		'partnerId',
 		'listingPartnerId',
 		'createDateUtc',
 		'updateDateUtc',
 	];
+
+	public function __construct()
+	{
+		$this->setTourDates([]);
+	}
 
 	/**
 	 * @param string|LeadType $leadType
@@ -107,6 +115,17 @@ class LeadDTO extends CamelDataTransferObject
 		$result = array_map(static fn ($item) => LeadAttributionDTO::from($item), $leadAttributions);
 
 		return $this->set('leadAttributions', $result);
+	}
+
+	public function setTourDates(?array $dates): self
+	{
+		if (!$dates) {
+			return $this->set('tourDates', []);
+		}
+
+		$result = array_map(static fn ($item) => Carbon::parse($item), $dates);
+
+		return $this->set('tourDates', $result);
 	}
 
 	/**

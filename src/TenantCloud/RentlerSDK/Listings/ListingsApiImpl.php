@@ -149,6 +149,40 @@ class ListingsApiImpl implements ListingsApi
 		}
 	}
 
+	public function activate(int $listingId): ListingDTO
+	{
+		try {
+			$jsonResponse = $this->httpClient->post($this->entityUrl($listingId) . '/activate');
+
+			$response = psr_response_to_json($jsonResponse);
+
+			return ListingDTO::from($response);
+		} catch (RequestException $exception) {
+			if ($exception->getCode() === Response::HTTP_NOT_FOUND) {
+				throw new Missing404Exception('Listing does not exist.');
+			}
+
+			throw $exception;
+		}
+	}
+
+	public function deactivate(int $listingId): ListingDTO
+	{
+		try {
+			$jsonResponse = $this->httpClient->post($this->entityUrl($listingId) . '/deactivate');
+
+			$response = psr_response_to_json($jsonResponse);
+
+			return ListingDTO::from($response);
+		} catch (RequestException $exception) {
+			if ($exception->getCode() === Response::HTTP_NOT_FOUND) {
+				throw new Missing404Exception('Listing does not exist.');
+			}
+
+			throw $exception;
+		}
+	}
+
 	private function entityUrl(int $id): string
 	{
 		return static::LISTINGS_ENDPOINT . '/' . $id;
