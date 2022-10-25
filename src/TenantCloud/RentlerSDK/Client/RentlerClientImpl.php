@@ -105,6 +105,7 @@ class RentlerClientImpl implements RentlerClient
 			$stack->push(GuzzleMiddleware::tracingLog($logger));
 		}
 
+		// client
 		$this->httpClient = new Client([
 			'base_uri'                      => $baseUrl,
 			'handler'                       => $stack,
