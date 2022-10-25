@@ -4,6 +4,9 @@ namespace TenantCloud\RentlerSDK\Enums;
 
 use TenantCloud\Standard\Enum\ValueEnum;
 
+/**
+ * @extends LeadType<string>
+ */
 class LeadType extends ValueEnum
 {
 	public static self $MESSAGE;

@@ -4,6 +4,9 @@ namespace TenantCloud\RentlerSDK\Enums;
 
 use TenantCloud\Standard\Enum\ValueEnum;
 
+/**
+ * @extends AmenityType<string>
+ */
 class AmenityType extends ValueEnum
 {
 	public static self $PROPERTY;

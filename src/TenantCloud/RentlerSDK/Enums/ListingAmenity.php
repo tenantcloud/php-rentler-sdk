@@ -4,6 +4,9 @@ namespace TenantCloud\RentlerSDK\Enums;
 
 use TenantCloud\Standard\Enum\ValueEnum;
 
+/**
+ * @extends ListingAmenity<string>
+ */
 class ListingAmenity extends ValueEnum
 {
 	public const GROUP_DEFAULT = 'default';

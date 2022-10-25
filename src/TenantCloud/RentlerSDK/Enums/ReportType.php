@@ -4,6 +4,9 @@ namespace TenantCloud\RentlerSDK\Enums;
 
 use TenantCloud\Standard\Enum\ValueEnum;
 
+/**
+ * @extends ReportType<string>
+ */
 class ReportType extends ValueEnum
 {
 	public static self $MISCATEGORIZED;

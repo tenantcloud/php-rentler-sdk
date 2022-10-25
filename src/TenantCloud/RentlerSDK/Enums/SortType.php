@@ -4,6 +4,9 @@ namespace TenantCloud\RentlerSDK\Enums;
 
 use TenantCloud\Standard\Enum\ValueEnum;
 
+/**
+ * @extends SortType<string>
+ */
 class SortType extends ValueEnum
 {
 	public static self $DATE_DESCENDING;

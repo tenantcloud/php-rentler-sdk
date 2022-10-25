@@ -4,6 +4,9 @@ namespace TenantCloud\RentlerSDK\Enums;
 
 use TenantCloud\Standard\Enum\ValueEnum;
 
+/**
+ * @extends EventType<string>
+ */
 class EventType extends ValueEnum
 {
 	public static self $GUEST_CARD_SENT;

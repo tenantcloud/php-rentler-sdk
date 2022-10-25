@@ -4,6 +4,9 @@ namespace TenantCloud\RentlerSDK\Enums;
 
 use TenantCloud\Standard\Enum\ValueEnum;
 
+/**
+ * @extends MediaItemType<string>
+ */
 final class MediaItemType extends ValueEnum
 {
 	public static self $PHOTO;

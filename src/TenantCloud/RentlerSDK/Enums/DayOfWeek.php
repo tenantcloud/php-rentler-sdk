@@ -4,6 +4,9 @@ namespace TenantCloud\RentlerSDK\Enums;
 
 use TenantCloud\Standard\Enum\ValueEnum;
 
+/**
+ * @extends DayOfWeek<string>
+ */
 class DayOfWeek extends ValueEnum
 {
 	public static self $SUNDAY;

@@ -4,6 +4,9 @@ namespace TenantCloud\RentlerSDK\Enums;
 
 use TenantCloud\Standard\Enum\ValueEnum;
 
+/**
+ * @extends ExamStatus<string>
+ */
 class ExamStatus extends ValueEnum
 {
 	public static self $QUESTIONED;

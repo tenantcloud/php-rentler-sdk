@@ -4,6 +4,9 @@ namespace TenantCloud\RentlerSDK\Enums;
 
 use TenantCloud\Standard\Enum\ValueEnum;
 
+/**
+ * @extends ScreeningStatus<string>
+ */
 class ScreeningStatus extends ValueEnum
 {
 	public static self $IDENTITY_VERIFICATION_PENDING;

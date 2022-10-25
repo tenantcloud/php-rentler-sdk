@@ -4,6 +4,9 @@ namespace TenantCloud\RentlerSDK\Enums;
 
 use TenantCloud\Standard\Enum\ValueEnum;
 
+/**
+ * @extends LandlordVerificationPhoneType<string>
+ */
 class LandlordVerificationPhoneType extends ValueEnum
 {
 	public static self $MOBILE;

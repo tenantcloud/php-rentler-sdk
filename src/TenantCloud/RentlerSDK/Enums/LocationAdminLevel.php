@@ -4,6 +4,9 @@ namespace TenantCloud\RentlerSDK\Enums;
 
 use TenantCloud\Standard\Enum\ValueEnum;
 
+/**
+ * @extends LocationAdminLevel<string>
+ */
 class LocationAdminLevel extends ValueEnum
 {
 	public static self $POSTCODE;
