@@ -9,7 +9,7 @@
 		"illuminate/support": "^8.0 || ^9.0",
 		"spatie/macroable": "1.0.1",
 		"guzzlehttp/guzzle": "~7.2",
-		"tenantcloud/php-standard": "^1.2.4",
+		"tenantcloud/php-standard": "^2.0",
 		"tenantcloud/data-transfer-objects": "^1.2",
 		"tenantcloud/guzzle-helper": "^1.3",
 		"league/uri": "^6.5"
