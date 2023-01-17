@@ -59,7 +59,7 @@ use TenantCloud\RentlerSDK\WebhookEndpoints\WebhookEndpointsApiImpl;
 
 class RentlerClientImpl implements RentlerClient
 {
-	private const API_VERSION = '2.0';
+	public const API_VERSION = '2.0';
 
 	private Client $httpClient;
 

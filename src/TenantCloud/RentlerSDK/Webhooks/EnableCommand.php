@@ -7,6 +7,7 @@ use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use League\Uri\Http;
 use TenantCloud\RentlerSDK\Client\RentlerClient;
+use TenantCloud\RentlerSDK\Client\RentlerClientImpl;
 use TenantCloud\RentlerSDK\Enums\EventType;
 use TenantCloud\RentlerSDK\WebhookEndpoints\UpsertWebhookEndpointDTO;
 use Webmozart\Assert\Assert;
@@ -63,6 +64,7 @@ class EnableCommand extends Command
 					->setUrl((string) $url)
 					->setSecret($webhooksSecret)
 					->setEventTypes([$eventType])
+					->setApiVersion(RentlerClientImpl::API_VERSION)
 			);
 
 			$this->warn("Created new webhook endpoint #{$webhookEndpoint->getWebhookEndpointId()}");
