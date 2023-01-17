@@ -14,6 +14,9 @@ use TenantCloud\RentlerSDK\Enums\EventType;
  * @method bool        hasSecret()
  * @method EventType[] getEventTypes()
  * @method bool        hasEventTypes()
+ * @method self        setApiVersion(string $version)
+ * @method string      getApiVersion()
+ * @method bool        hasApiVersion()
  */
 class UpsertWebhookEndpointDTO extends CamelDataTransferObject
 {
@@ -25,6 +28,7 @@ class UpsertWebhookEndpointDTO extends CamelDataTransferObject
 		'url',
 		'secret',
 		'eventTypes',
+		'apiVersion',
 	];
 
 	public function setEventTypes(array $eventTypes): self
