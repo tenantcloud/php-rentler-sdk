@@ -54,8 +54,8 @@ class ListCommand extends Command
 				'id'       => $webhookEndpoint->getWebhookEndpointId(),
 				'host'     => $url->getHost(),
 				'endpoint' => $url->getPath(),
-				'version'  => $webhookEndpoint->getApiVersion(),
 				'secret'   => $webhookEndpoint->getSecret(),
+				'version'  => $webhookEndpoint->getApiVersion(),
 				'events'   => implode(', ', $webhookEndpoint->getEventTypes()),
 			];
 		}, $webhookEndpoints));
