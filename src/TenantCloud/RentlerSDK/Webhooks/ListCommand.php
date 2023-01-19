@@ -45,6 +45,7 @@ class ListCommand extends Command
 			'host',
 			'endpoint',
 			'secret',
+			'version',
 			'events',
 		], array_map(function (WebhookEndpointDTO $webhookEndpoint) {
 			$url = Http::createFromString($webhookEndpoint->getUrl());
@@ -54,6 +55,7 @@ class ListCommand extends Command
 				'host'     => $url->getHost(),
 				'endpoint' => $url->getPath(),
 				'secret'   => $webhookEndpoint->getSecret(),
+				'version'  => $webhookEndpoint->getApiVersion(),
 				'events'   => implode(', ', $webhookEndpoint->getEventTypes()),
 			];
 		}, $webhookEndpoints));
