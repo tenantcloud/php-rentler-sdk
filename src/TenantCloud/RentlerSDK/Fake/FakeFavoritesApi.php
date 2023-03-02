@@ -32,11 +32,16 @@ class FakeFavoritesApi implements FavoritesApi
 	{
 		$response = PaginatedFavoritesResponseDTO::create();
 
+		$items = Arr::where(
+			$this->fakeItems(),
+			fn ($item) => $tenantId === (int) $item->getTenantId(),
+		);
+
 		$response->setLimit($filtersDTO->getLimit() ?? 10)
 			->setPage($filtersDTO->getPage() ?? 1)
-			->setTotalItems(2)
+			->setTotalItems(count($items))
 			->setTotalPages(1)
-			->setItems($this->fakeItems());
+			->setItems($items);
 
 		return $response;
 	}

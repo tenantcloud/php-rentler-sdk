@@ -60,7 +60,7 @@ class FakeTenantsApi implements TenantsApi
 
 	public function create(UpsertTenantDTO $tenant): TenantDTO
 	{
-		return TenantDTO::from(self::FIRST_TENANT);
+		return TenantDTO::from(self::FIRST_TENANT)->setTenantId((int) $tenant->getPartnerTenantId() ?? 1);
 	}
 
 	public function update(UpsertTenantDTO $tenant): TenantDTO
