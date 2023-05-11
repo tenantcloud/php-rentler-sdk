@@ -24,4 +24,4 @@ Go to directory `tools/php-cs-fixer` and install dependencies:
 `docker run -it --rm -v $PWD:/app -w /app composer install`
 
 Run php-cs-fixer on self:
-`docker run -it --rm -v $PWD:/app -w /app composer cs-fix`
+`docker run -it --rm -v $PWD:/app -w /app composer:2.2.0 cs-fix`

@@ -8,24 +8,36 @@ use TenantCloud\RentlerSDK\Organizations\SearchOrganizationsDTO;
 
 class FakeOrganizationsApi implements OrganizationsApi
 {
-	public const FAKE_ITEM = [
-		'organizationId' => 'string1',
-		'partnerId'      => 'string2',
-		'createDateUtc'  => '2023-05-10T11:17:18.370Z',
-		'updateDateUtc'  => '2023-05-10T11:17:18.370Z',
+	public const FAKE_ITEMS = [
+		[
+			'organizationId' => 'TC-R',
+			'partnerId'      => 'tc',
+			'createDateUtc'  => '2023-05-10T11:17:18.370Z',
+			'updateDateUtc'  => '2023-05-10T11:17:18.370Z',
+		],
+		[
+			'organizationId' => 'TC-CP',
+			'partnerId'      => 'tc',
+			'createDateUtc'  => '2023-05-10T11:17:18.370Z',
+			'updateDateUtc'  => '2023-05-10T11:17:18.370Z',
+		],
+		[
+			'organizationId' => 'TC-TC',
+			'partnerId'      => 'tc',
+			'createDateUtc'  => '2023-05-10T11:17:18.370Z',
+			'updateDateUtc'  => '2023-05-10T11:17:18.370Z',
+		],
 	];
 
 	public function list(SearchOrganizationsDTO $filters): PaginatedOrganizationsResponseDTO
 	{
-		$items = [self::FAKE_ITEM];
-
 		$response = PaginatedOrganizationsResponseDTO::create();
 
 		$response->setLimit(25)
 			->setPage(1)
-			->setTotalItems(count($items))
+			->setTotalItems(count(self::FAKE_ITEMS))
 			->setTotalPages(1)
-			->setItems($items);
+			->setItems(self::FAKE_ITEMS);
 
 		return $response;
 	}
