@@ -34,11 +34,13 @@ class FakeOrganizationsApi implements OrganizationsApi
 		$response = PaginatedOrganizationsResponseDTO::create();
 
 		$response->setLimit(25)
-			->setPage(1)
-			->setTotalItems(count(self::FAKE_ITEMS))
-			->setTotalPages(1)
-			->setItems(self::FAKE_ITEMS);
+			->setPage($filters->getPage())
+			->setTotalItems(3)
+			->setTotalPages(1);
 
-		return $response;
+		return match ($filters->getPage()) {
+			1       => $response->setItems(self::FAKE_ITEMS),
+			default => $response->setItems([]),
+		};
 	}
 }
