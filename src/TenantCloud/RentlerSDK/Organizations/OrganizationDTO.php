@@ -5,6 +5,14 @@ namespace TenantCloud\RentlerSDK\Organizations;
 use Carbon\Carbon;
 use TenantCloud\DataTransferObjects\CamelDataTransferObject;
 
+/**
+ * @method self   setOrganizationId(string $organizationId)
+ * @method string getOrganizationId()
+ * @method bool   hasOrganizationId()
+ * @method self   setPartnerId(string $partnerId)
+ * @method string getPartnerId()
+ * @method bool   hasPartnerId()
+ */
 class OrganizationDTO extends CamelDataTransferObject
 {
 	protected array $fields = [
