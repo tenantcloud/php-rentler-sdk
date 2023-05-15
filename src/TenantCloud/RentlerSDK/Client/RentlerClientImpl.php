@@ -34,6 +34,8 @@ use TenantCloud\RentlerSDK\Locations\LocationsApi;
 use TenantCloud\RentlerSDK\Locations\LocationsApiImpl;
 use TenantCloud\RentlerSDK\Messages\MessagesApi;
 use TenantCloud\RentlerSDK\Messages\MessagesApiImpl;
+use TenantCloud\RentlerSDK\Organizations\OrganizationsApi;
+use TenantCloud\RentlerSDK\Organizations\OrganizationsApiImpl;
 use TenantCloud\RentlerSDK\Partners\PartnersApi;
 use TenantCloud\RentlerSDK\Partners\PartnersApiImpl;
 use TenantCloud\RentlerSDK\Preferences\PreferencesApi;
@@ -216,5 +218,10 @@ class RentlerClientImpl implements RentlerClient
 	public function tenantProfiles(): TenantProfilesApi
 	{
 		return new TenantProfilesApiImpl($this->httpClient);
+	}
+
+	public function organizations(): OrganizationsApi
+	{
+		return new OrganizationsApiImpl($this->httpClient);
 	}
 }

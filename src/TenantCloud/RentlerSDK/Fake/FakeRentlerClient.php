@@ -17,6 +17,7 @@ use TenantCloud\RentlerSDK\Leads\LeadsApi;
 use TenantCloud\RentlerSDK\Listings\ListingsApi;
 use TenantCloud\RentlerSDK\Locations\LocationsApi;
 use TenantCloud\RentlerSDK\Messages\MessagesApi;
+use TenantCloud\RentlerSDK\Organizations\OrganizationsApi;
 use TenantCloud\RentlerSDK\Partners\PartnersApi;
 use TenantCloud\RentlerSDK\Preferences\PreferencesApi;
 use TenantCloud\RentlerSDK\ProfileShares\ProfileSharesApi;
@@ -141,5 +142,10 @@ class FakeRentlerClient implements RentlerClient
 	public function tenantProfiles(): TenantProfilesApi
 	{
 		return new FakeTenantProfilesApi();
+	}
+
+	public function organizations(): OrganizationsApi
+	{
+		return new FakeOrganizationsApi();
 	}
 }

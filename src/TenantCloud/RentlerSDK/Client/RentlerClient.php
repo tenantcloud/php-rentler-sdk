@@ -13,6 +13,7 @@ use TenantCloud\RentlerSDK\Leads\LeadsApi;
 use TenantCloud\RentlerSDK\Listings\ListingsApi;
 use TenantCloud\RentlerSDK\Locations\LocationsApi;
 use TenantCloud\RentlerSDK\Messages\MessagesApi;
+use TenantCloud\RentlerSDK\Organizations\OrganizationsApi;
 use TenantCloud\RentlerSDK\Partners\PartnersApi;
 use TenantCloud\RentlerSDK\Preferences\PreferencesApi;
 use TenantCloud\RentlerSDK\ProfileShares\ProfileSharesApi;
@@ -67,4 +68,6 @@ interface RentlerClient
 	public function properties(): PropertiesApi;
 
 	public function tenantProfiles(): TenantProfilesApi;
+
+	public function organizations(): OrganizationsApi;
 }
