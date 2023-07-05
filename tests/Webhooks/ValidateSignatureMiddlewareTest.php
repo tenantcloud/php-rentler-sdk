@@ -2,7 +2,6 @@
 
 namespace Tests\Webhooks;
 
-use Generator;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use TenantCloud\RentlerSDK\Webhooks\ValidateSignatureMiddleware;
@@ -38,7 +37,7 @@ class ValidateSignatureMiddlewareTest extends TestCase
 		$this->assertTrue($proceeded);
 	}
 
-	public function proceedsProvider(): Generator
+	public static function proceedsProvider(): iterable
 	{
 		yield ['', 't=777,v1=d0f7d40d985d7e02b8b40ff3520fe280c541d75e4e758fc5adb7261e4c4a2cbb'];
 
@@ -73,7 +72,7 @@ class ValidateSignatureMiddlewareTest extends TestCase
 		});
 	}
 
-	public function throwsUnauthorizedProvider(): Generator
+	public static function throwsUnauthorizedProvider(): iterable
 	{
 		yield ['s', null];
 
