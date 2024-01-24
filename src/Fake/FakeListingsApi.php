@@ -415,8 +415,8 @@ class FakeListingsApi implements ListingsApi
 				'geometry' => [
 					'type'        => 'Point',
 					'coordinates' => $item->getCoordinates() ?? [
-							-82.6444125, 38.4749055,
-						],
+						-82.6444125, 38.4749055,
+					],
 				],
 				'properties' => [
 					'price' => [
