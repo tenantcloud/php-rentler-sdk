@@ -370,7 +370,7 @@ class FakeListingsApi implements ListingsApi
 
 		if ($filters->getMinPrice()) {
 			/** @var ListingDTO $listing */
-			$items = Arr::where($items, fn ($listing) => (int) $filters->getMinPrice() <= (int) $listing->getMinPrice());
+			$items = Arr::where($items, fn ($listing) => (int) $filters->getMinPrice() === (int) $listing->getMinPrice());
 		}
 
 		if ($filters->getBounds()) {
@@ -405,7 +405,7 @@ class FakeListingsApi implements ListingsApi
 
 		if ($filters->getMinPrice()) {
 			/** @var ListingDTO $listing */
-			$items = Arr::where($items, fn ($listing) => (int) $filters->getMinPrice() <= (int) $listing->getMinPrice());
+			$items = Arr::where($items, fn ($listing) => (int) $filters->getMinPrice() === (int) $listing->getMinPrice());
 		}
 
 		if ($filters->getBounds()) {
