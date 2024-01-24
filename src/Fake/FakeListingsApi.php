@@ -377,10 +377,6 @@ class FakeListingsApi implements ListingsApi
 			$items = $this->filterByBound($items, $filters->getBounds());
 		}
 
-		if ($filters->getBounds()) {
-			$items = $this->filterByBound($items, $filters->getBounds());
-		}
-
 		$response->setLimit(10)
 			->setPage(1)
 			->setTotalItems(count($items))
@@ -412,10 +408,6 @@ class FakeListingsApi implements ListingsApi
 			$items = $this->filterByBound($items, $filters->getBounds());
 		}
 
-		if ($filters->getBounds()) {
-			$items = $this->filterByBound($items, $filters->getBounds());
-		}
-
 		foreach ($items as $item) {
 			/* @var ListingDTO $item */
 			$features[] = [
@@ -423,8 +415,8 @@ class FakeListingsApi implements ListingsApi
 				'geometry' => [
 					'type'        => 'Point',
 					'coordinates' => $item->getCoordinates() ?? [
-						-82.6444125, 38.4749055,
-					],
+							-82.6444125, 38.4749055,
+						],
 				],
 				'properties' => [
 					'price' => [
