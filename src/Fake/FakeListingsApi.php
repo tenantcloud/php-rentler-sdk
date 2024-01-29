@@ -19,6 +19,12 @@ use TenantCloud\RentlerSDK\Reports\ReportDTO;
 
 class FakeListingsApi implements ListingsApi
 {
+	/** Default coordinates */
+	public const COORDINATE_EAST = 180;
+	public const COORDINATE_NORTH = 85;
+	public const COORDINATE_WEST = -180;
+	public const COORDINATE_SOUTH = -85;
+
 	public const CACHE_KEY = ':listings_list';
 
 	public const FIRST_LISTING = [
@@ -367,6 +373,10 @@ class FakeListingsApi implements ListingsApi
 			$items = Arr::where($items, fn ($listing) => (int) $filters->getMinPrice() === (int) $listing->getMinPrice());
 		}
 
+		if ($filters->getBounds()) {
+			$items = $this->filterByBound($items, $filters->getBounds());
+		}
+
 		$response->setLimit(10)
 			->setPage(1)
 			->setTotalItems(count($items))
@@ -392,6 +402,10 @@ class FakeListingsApi implements ListingsApi
 		if ($filters->getMinPrice()) {
 			/** @var ListingDTO $listing */
 			$items = Arr::where($items, fn ($listing) => (int) $filters->getMinPrice() === (int) $listing->getMinPrice());
+		}
+
+		if ($filters->getBounds()) {
+			$items = $this->filterByBound($items, $filters->getBounds());
 		}
 
 		foreach ($items as $item) {
@@ -628,5 +642,22 @@ class FakeListingsApi implements ListingsApi
 		}
 
 		return $listing;
+	}
+
+	private function filterByBound(array $items, array $coordinates): array
+	{
+		$coordinates = [
+			'north' => $coordinates[3] ?? self::COORDINATE_NORTH,
+			'south' => $coordinates[1] ?? self::COORDINATE_SOUTH,
+			'west'  => $coordinates[0] ?? self::COORDINATE_WEST,
+			'east'  => $coordinates[2] ?? self::COORDINATE_EAST,
+		];
+
+		/** @var ListingDTO $listing */
+		return Arr::where($items, fn ($listing) => $listing->getCoordinates() &&
+			$coordinates['west'] <= $listing->getCoordinates()[0] &&
+			$coordinates['east'] >= $listing->getCoordinates()[0] &&
+			$coordinates['north'] >= $listing->getCoordinates()[1] &&
+			$coordinates['south'] <= $listing->getCoordinates()[1]);
 	}
 }
