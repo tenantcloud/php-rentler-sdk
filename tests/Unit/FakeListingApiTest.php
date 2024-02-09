@@ -47,10 +47,10 @@ class FakeListingApiTest extends TestCase
 
 		yield 'x_out_and_y_in_bounds_for_both_listings' => ['-70.123456,31.124555,-60.123456,43.124555', 0];
 
-		yield 'x_in_and_y_in_bounds_for_both_listings' => ['-90.123456,31.124555,-70.123456,43.124555', 2];
+		yield 'x_in_and_y_in_bounds_for_both_listings' => ['-112.123456,31.124555,-70.123456,43.124555', 2];
 
-		yield 'x_in_and_y_in_bounds_for_first_listings' => ['-90.123456,31.124555,-80.123456,43.124555', 1];
+		yield 'x_in_and_y_in_bounds_for_first_listings' => ['-112.123456,40.124555,-80.123456,43.124555', 1];
 
-		yield 'x_in_and_y_in_bounds_for_second_listings' => ['-90.123456,39.124555,-70.123456,43.124555', 1];
+		yield 'x_in_and_y_in_bounds_for_second_listings' => ['-112.123456,39.124555,-70.123456,40.124555', 1];
 	}
 }
