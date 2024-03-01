@@ -53,4 +53,12 @@ class FakeListingApiTest extends TestCase
 
 		yield 'x_in_and_y_in_bounds_for_second_listings' => ['-112.123456,39.124555,-70.123456,40.124555', 1];
 	}
+
+	public function testSearchByIds(): void
+	{
+		$fakeListings = new FakeListingsApi($this->app->make(CacheRepository::class), $this->app->make(ConfigRepository::class));
+
+		self::assertCount(1, $fakeListings->ids(['1']));
+		self::assertCount(1, $fakeListings->ids([1]));
+	}
 }
