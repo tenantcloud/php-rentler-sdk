@@ -388,9 +388,11 @@ class FakeListingsApi implements ListingsApi
 
 	public function ids(array $ids): array
 	{
+		$castedIds = array_map(fn ($id) => (string) $id, $ids);
+
 		return array_filter(
 			$this->fakeItems(),
-			fn (ListingDTO $listing) => in_array($listing->getListingId(), $ids, true),
+			fn (ListingDTO $listing) => in_array((string) $listing->getListingId(), $castedIds, true),
 		);
 	}
 
