@@ -643,6 +643,10 @@ class FakeListingsApi implements ListingsApi
 			$listing->setIsVerified(true);
 		}
 
+		if ($listing->getDepositRefundable()) {
+			$listing->setDepositRefundable((float) $listing->getDepositRefundable());
+		}
+
 		return $listing;
 	}
 

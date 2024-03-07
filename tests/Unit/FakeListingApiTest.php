@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use Illuminate\Config\Repository as ConfigRepository;
 use Illuminate\Contracts\Cache\Repository as CacheRepository;
 use TenantCloud\RentlerSDK\Fake\FakeListingsApi;
+use TenantCloud\RentlerSDK\Listings\ListingDTO;
 use TenantCloud\RentlerSDK\Listings\SearchListingsDTO;
 use Tests\TestCase;
 
@@ -60,5 +61,16 @@ class FakeListingApiTest extends TestCase
 
 		self::assertCount(1, $fakeListings->ids(['1']));
 		self::assertCount(1, $fakeListings->ids([1]));
+	}
+
+	public function testCastDepositRefundable(): void
+	{
+		$fakeListings = new FakeListingsApi($this->app->make(CacheRepository::class), $this->app->make(ConfigRepository::class));
+		$listing = ListingDTO::create()->setDepositRefundable('1.25');
+
+		$createdListing = $fakeListings->create($listing);
+
+		self::assertIsFloat($createdListing->getDepositRefundable());
+		self::assertEquals(1.25, $createdListing->getDepositRefundable());
 	}
 }
