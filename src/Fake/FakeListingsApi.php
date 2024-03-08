@@ -30,8 +30,8 @@ class FakeListingsApi implements ListingsApi
 	public const FIRST_LISTING = [
 		'listingId'                      => 1,
 		'partnerId'                      => 'tc',
-		'partnerListingId'               => 1,
-		'partnerPropertyId'              => 1,
+		'partnerListingId'               => '1',
+		'partnerPropertyId'              => '1',
 		'contactName'                    => 'Barbara Greenlee Hoffstettler',
 		'contactCompanyName'             => null,
 		'contactEmail'                   => 'barbara@test.com',
@@ -191,9 +191,9 @@ class FakeListingsApi implements ListingsApi
 	public const SECOND_LISTING = [
 		'listingId'                      => 2,
 		'partnerId'                      => 'r',
-		'partnerListingId'               => 2,
+		'partnerListingId'               => '2',
 		'partnerUserId'                  => 1,
-		'partnerPropertyId'              => 1,
+		'partnerPropertyId'              => '1',
 		'contactName'                    => 'Lisa',
 		'contactCompanyName'             => '',
 		'contactEmail'                   => null,
@@ -641,6 +641,10 @@ class FakeListingsApi implements ListingsApi
 
 		if (!$listing->hasIsVerified()) {
 			$listing->setIsVerified(true);
+		}
+
+		if ($listing->getDepositRefundable()) {
+			$listing->setDepositRefundable((float) $listing->getDepositRefundable());
 		}
 
 		return $listing;
