@@ -51,7 +51,7 @@ class EnableCommand extends Command
 		];
 
 		foreach ($combinations as [$eventType, $routeName]) {
-			$url = Http::createFromString($urlGenerator->route($routeName))
+			$url = Http::new($urlGenerator->route($routeName))
 				->withHost($webhooksHost);
 
 			$webhookEndpoint = $client->webhookEndpoints()->create(
