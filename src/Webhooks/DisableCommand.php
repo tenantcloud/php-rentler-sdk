@@ -32,7 +32,7 @@ class DisableCommand extends Command
 		// Delete all existing webhook endpoints for this host
 		foreach ($webhookEndpoints as $webhookEndpoint) {
 			/** @var WebhookEndpointDTO $webhookEndpoint */
-			if ($webhooksHost !== Http::createFromString($webhookEndpoint->getUrl())->getHost()) {
+			if ($webhooksHost !== Http::new($webhookEndpoint->getUrl())->getHost()) {
 				continue;
 			}
 

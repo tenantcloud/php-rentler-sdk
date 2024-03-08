@@ -31,7 +31,7 @@ class ListCommand extends Command
 		if ($webhooksHost) {
 			$webhookEndpoints = array_filter(
 				$webhookEndpoints,
-				fn (WebhookEndpointDTO $webhookEndpoint) => $webhooksHost === Http::createFromString($webhookEndpoint->getUrl())->getHost()
+				fn (WebhookEndpointDTO $webhookEndpoint) => $webhooksHost === Http::new($webhookEndpoint->getUrl())->getHost()
 			);
 		}
 
@@ -43,7 +43,7 @@ class ListCommand extends Command
 			'version',
 			'events',
 		], array_map(function (WebhookEndpointDTO $webhookEndpoint) {
-			$url = Http::createFromString($webhookEndpoint->getUrl());
+			$url = Http::new($webhookEndpoint->getUrl());
 
 			return [
 				'id'       => $webhookEndpoint->getWebhookEndpointId(),
