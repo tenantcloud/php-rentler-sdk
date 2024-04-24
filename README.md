@@ -1,8 +1,11 @@
 ## About
+
 Laravel package for https://partner.rentler.com/swagger/index.html Rentler(c) Partner API.
 
 ## Installation
+
 In your `composer.json`, add this repository:
+
 ```
 "repositories": [
     {
@@ -11,9 +14,11 @@ In your `composer.json`, add this repository:
     }
 ],
 ```
+
 Then do `composer require tenantcloud/rentler-sdk` to install the package.
 
 ### Commands
+
 Install dependencies:
 `docker run -it --rm -v $PWD:/app -w /app composer install`
 
