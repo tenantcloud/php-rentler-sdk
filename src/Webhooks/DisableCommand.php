@@ -14,7 +14,7 @@ use Webmozart\Assert\Assert;
 
 class DisableCommand extends Command
 {
-	protected $signature = 'rentler:webhooks:disable {--H|host= : Filter by host. If not specified, used from the config}';
+	protected $signature = 'rentler:webhooks:disable {--H|host= : Filter by host. If not specified, used from the config.}';
 
 	protected $description = 'Delete webhook endpoints on Rentler side.';
 
