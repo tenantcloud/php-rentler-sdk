@@ -14,13 +14,13 @@ use Webmozart\Assert\Assert;
 
 class DisableCommand extends Command
 {
-	protected $signature = 'rentler:webhooks:disable';
+	protected $signature = 'rentler:webhooks:disable {--H|host= : Filter by host. If not specified, used from the config}';
 
 	protected $description = 'Delete webhook endpoints on Rentler side.';
 
 	public function handle(RentlerClient $client, Repository $config, UrlGenerator $urlGenerator): void
 	{
-		$webhooksHost = $config->get('rentler.webhooks.host');
+		$webhooksHost = $this->parseHost($config);
 		Assert::notEmpty($webhooksHost);
 
 		$webhookEndpoints = new PageIterator(
@@ -42,5 +42,16 @@ class DisableCommand extends Command
 		}
 
 		$this->info("Deleted all webhooks for host {$webhooksHost}");
+	}
+
+	private function parseHost(Repository $config): ?string
+	{
+		$host = $this->option('host');
+
+		if (!$host) {
+			return $config->get('rentler.webhooks.host');
+		}
+
+		return $host;
 	}
 }
