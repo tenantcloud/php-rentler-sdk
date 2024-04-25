@@ -1,3 +1,10 @@
+# [2.5.0](https://github.com/tenantcloud/php-rentler-sdk/compare/v2.4.0...v2.5.0) (2024-04-25)
+
+
+### Features
+
+* Template sync ([#48](https://github.com/tenantcloud/php-rentler-sdk/issues/48)) ([a94518b](https://github.com/tenantcloud/php-rentler-sdk/commit/a94518be0aaaa55ca2fe1d84b75bd8667d30cd9d)), closes [#47](https://github.com/tenantcloud/php-rentler-sdk/issues/47)
+
 # [2.4.0](https://github.com/tenantcloud/php-rentler-sdk/compare/v2.3.4...v2.4.0) (2024-04-24)
 
 
