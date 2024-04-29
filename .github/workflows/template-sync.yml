@@ -52,7 +52,7 @@ jobs:
     workflow-keepalive:
         name: Workflow keepalive
         runs-on: packages
-        container: serveside/gh:v2.48.0
+        container: maniator/gh:v2.48.0
         if: github.event_name == 'schedule'
 
         permissions:
