@@ -10,12 +10,7 @@ class FeedsApiImpl implements FeedsApi
 {
 	public const FEEDS_ENDPOINT = '/api/feeds';
 
-	private Client $httpClient;
-
-	public function __construct(Client $httpClient)
-	{
-		$this->httpClient = $httpClient;
-	}
+	public function __construct(private Client $httpClient) {}
 
 	public function get(): FeedDTO
 	{

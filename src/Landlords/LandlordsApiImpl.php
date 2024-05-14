@@ -15,12 +15,7 @@ class LandlordsApiImpl implements LandlordsApi
 	private const LANDLORDS_ENDPOINT = '/api/landlords';
 	private const LANDLORDS_BY_IDS_ENDPOINT = '/api/landlords/ids';
 
-	private Client $httpClient;
-
-	public function __construct(Client $httpClient)
-	{
-		$this->httpClient = $httpClient;
-	}
+	public function __construct(private Client $httpClient) {}
 
 	public function list(LandlordsFiltersDTO $filters): PaginatedLandlordsResponseDTO
 	{

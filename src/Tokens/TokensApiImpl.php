@@ -11,15 +11,10 @@ class TokensApiImpl implements TokensApi
 {
 	private const CREATE_TOKEN_API_PATH = '/connect/token';
 
-	private Client $httpClient;
-
-	private string $baseAuthUrl;
-
-	public function __construct(Client $httpClient, string $baseAuthUrl)
-	{
-		$this->httpClient = $httpClient;
-		$this->baseAuthUrl = $baseAuthUrl;
-	}
+	public function __construct(
+		private Client $httpClient,
+		private string $baseAuthUrl
+	) {}
 
 	public function create(string $clientId, string $clientSecret): Token
 	{

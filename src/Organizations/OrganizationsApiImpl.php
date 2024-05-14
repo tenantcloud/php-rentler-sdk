@@ -11,12 +11,7 @@ class OrganizationsApiImpl implements OrganizationsApi
 {
 	private const ORGANIZATIONS_ENDPOINT = '/api/organizations';
 
-	private Client $httpClient;
-
-	public function __construct(Client $httpClient)
-	{
-		$this->httpClient = $httpClient;
-	}
+	public function __construct(private Client $httpClient) {}
 
 	public function list(SearchOrganizationsDTO $filters): PaginatedOrganizationsResponseDTO
 	{

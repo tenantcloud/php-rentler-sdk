@@ -14,12 +14,7 @@ class TenantsApiImpl implements TenantsApi
 {
 	private const TENANTS_ENDPOINT = '/api/tenants';
 
-	private Client $httpClient;
-
-	public function __construct(Client $httpClient)
-	{
-		$this->httpClient = $httpClient;
-	}
+	public function __construct(private Client $httpClient) {}
 
 	public function list(TenantFiltersDTO $filters): PaginatedTenantsResponseDTO
 	{

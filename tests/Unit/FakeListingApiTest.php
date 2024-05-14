@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use Illuminate\Config\Repository as ConfigRepository;
 use Illuminate\Contracts\Cache\Repository as CacheRepository;
+use PHPUnit\Framework\Attributes\DataProvider;
 use TenantCloud\RentlerSDK\Fake\FakeListingsApi;
 use TenantCloud\RentlerSDK\Listings\ListingDTO;
 use TenantCloud\RentlerSDK\Listings\SearchListingsDTO;
@@ -24,9 +25,7 @@ class FakeListingApiTest extends TestCase
 		self::assertCount(0, $fakeListings->points(SearchListingsDTO::create()->setMinPrice(1001))->getFeatures());
 	}
 
-	/**
-	 * @dataProvider filterByCoordinatesProvider
-	 */
+	#[DataProvider('filterByCoordinatesProvider')]
 	public function testFilterByCoordinates(string $bounds, int $assertCount): void
 	{
 		$fakeListings = new FakeListingsApi($this->app->make(CacheRepository::class), $this->app->make(ConfigRepository::class));

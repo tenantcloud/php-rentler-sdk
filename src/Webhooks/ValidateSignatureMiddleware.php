@@ -17,12 +17,7 @@ use Throwable;
  */
 class ValidateSignatureMiddleware
 {
-	private string $secret;
-
-	public function __construct(string $secret)
-	{
-		$this->secret = $secret;
-	}
+	public function __construct(private string $secret) {}
 
 	public function handle(Request $request, Closure $next)
 	{

@@ -11,15 +11,10 @@ use TenantCloud\RentlerSDK\Tokens\Token;
  */
 class LaravelCacheTokenCache implements TokenCache
 {
-	private Repository $repository;
-
-	private string $prefix;
-
-	public function __construct(Repository $repository, string $prefix = 'rentler:tokens:')
-	{
-		$this->repository = $repository;
-		$this->prefix = $prefix;
-	}
+	public function __construct(
+		private Repository $repository,
+		private string $prefix = 'rentler:tokens:'
+	) {}
 
 	public function get(string $clientId): ?Token
 	{

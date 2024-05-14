@@ -11,12 +11,7 @@ class LocationsApiImpl implements LocationsApi
 {
 	public const LOCATIONS_ENDPOINT = '/api/locations';
 
-	private Client $httpClient;
-
-	public function __construct(Client $httpClient)
-	{
-		$this->httpClient = $httpClient;
-	}
+	public function __construct(private Client $httpClient) {}
 
 	public function find(FindLocationFiltersDTO $filters): LocationDTO
 	{
@@ -33,7 +28,7 @@ class LocationsApiImpl implements LocationsApi
 	}
 
 	/**
-	 * @return LocationDTO[]
+	 * @return list<LocationDTO>
 	 */
 	public function autocomplete(FindLocationFiltersDTO $filters): array
 	{

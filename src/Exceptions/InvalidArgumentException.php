@@ -2,6 +2,4 @@
 
 namespace TenantCloud\RentlerSDK\Exceptions;
 
-class InvalidArgumentException extends \InvalidArgumentException implements RentlerException
-{
-}
+class InvalidArgumentException extends \InvalidArgumentException implements RentlerException {}

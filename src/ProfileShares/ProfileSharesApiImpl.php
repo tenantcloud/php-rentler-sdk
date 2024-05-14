@@ -11,12 +11,7 @@ class ProfileSharesApiImpl implements ProfileSharesApi
 {
 	private const PROFILE_SHARES_ENDPOINT = '/api/profile-shares';
 
-	private Client $httpClient;
-
-	public function __construct(Client $httpClient)
-	{
-		$this->httpClient = $httpClient;
-	}
+	public function __construct(private Client $httpClient) {}
 
 	public function create(int $tenantId, int $landlordId, int $propertyId): ProfileShareDTO
 	{

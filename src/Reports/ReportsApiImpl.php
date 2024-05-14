@@ -14,12 +14,7 @@ class ReportsApiImpl implements ReportsApi
 {
 	private const REPORTS_ENDPOINT = '/api/reports';
 
-	private Client $httpClient;
-
-	public function __construct(Client $httpClient)
-	{
-		$this->httpClient = $httpClient;
-	}
+	public function __construct(private Client $httpClient) {}
 
 	public function list(ReportsFiltersDTO $filters): PaginatedReportsResponseDTO
 	{

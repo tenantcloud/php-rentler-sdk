@@ -14,12 +14,7 @@ class FavoritesApiImpl implements FavoritesApi
 {
 	public const ENDPOINT_PREFIX = '/api/tenants';
 
-	private Client $httpClient;
-
-	public function __construct(Client $httpClient)
-	{
-		$this->httpClient = $httpClient;
-	}
+	public function __construct(private Client $httpClient) {}
 
 	public function list(int $tenantId, FavoriteFiltersDTO $filtersDTO): PaginatedFavoritesResponseDTO
 	{

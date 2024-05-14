@@ -65,17 +65,14 @@ class RentlerClientImpl implements RentlerClient
 
 	private Client $httpClient;
 
-	private string $authBaseUrl;
-
 	public function __construct(
 		string $baseUrl,
-		string $authBaseUrl,
+		private string $authBaseUrl,
 		string $clientId,
 		string $clientSecret,
 		TokenCache $cache,
-		LoggerInterface $logger = null
+		?LoggerInterface $logger = null
 	) {
-		$this->authBaseUrl = $authBaseUrl;
 		$tokenResolver = new TokenResolver($this, $cache);
 
 		$stack = HandlerStack::create();

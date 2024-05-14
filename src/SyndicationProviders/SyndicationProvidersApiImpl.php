@@ -11,12 +11,7 @@ class SyndicationProvidersApiImpl implements SyndicationProvidersApi
 {
 	public const ENDPOINT_PREFIX = '/api/syndication-providers';
 
-	private Client $httpClient;
-
-	public function __construct(Client $httpClient)
-	{
-		$this->httpClient = $httpClient;
-	}
+	public function __construct(private Client $httpClient) {}
 
 	public function list(SyndicationProvidersFiltersDTO $filtersDTO): PaginatedSyndicationProvidersResponseDTO
 	{

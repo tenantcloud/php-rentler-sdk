@@ -12,12 +12,7 @@ use function TenantCloud\RentlerSDK\psr_response_to_json;
 
 class PreferencesApiImpl implements PreferencesApi
 {
-	private Client $httpClient;
-
-	public function __construct(Client $httpClient)
-	{
-		$this->httpClient = $httpClient;
-	}
+	public function __construct(private Client $httpClient) {}
 
 	public function list(int $tenantId, PreferencesFiltersDTO $filtersDTO): PaginatedPreferencesResponseDTO
 	{
@@ -83,7 +78,7 @@ class PreferencesApiImpl implements PreferencesApi
 		}
 	}
 
-	private function makeEndpointUrl(int $tenantId, int $preferenceId = null): string
+	private function makeEndpointUrl(int $tenantId, ?int $preferenceId = null): string
 	{
 		$url = "api/{$tenantId}/preferences";
 

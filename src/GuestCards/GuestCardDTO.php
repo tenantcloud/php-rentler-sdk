@@ -40,7 +40,7 @@ use TenantCloud\DataTransferObjects\CamelDataTransferObject;
  */
 class GuestCardDTO extends CamelDataTransferObject
 {
-	protected array$fields = [
+	protected array $fields = [
 		'listingId',
 		'syndicationProviderId',
 		'firstName',
