@@ -4,6 +4,7 @@ namespace Tests\Webhooks;
 
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
+use PHPUnit\Framework\Attributes\DataProvider;
 use TenantCloud\RentlerSDK\Webhooks\ValidateSignatureMiddleware;
 use Tests\TestCase;
 
@@ -12,9 +13,7 @@ use Tests\TestCase;
  */
 class ValidateSignatureMiddlewareTest extends TestCase
 {
-	/**
-	 * @dataProvider proceedsProvider
-	 */
+	#[DataProvider('proceedsProvider')]
 	public function testProceeds(string $content, string $signature): void
 	{
 		$proceeded = false;
@@ -46,9 +45,7 @@ class ValidateSignatureMiddlewareTest extends TestCase
 		yield ['{"key":"value"}', 't=777,v1=097ec99d5d451a698bdad9454dc7f6c5176bb5742630bd01e4964c5d8c419948'];
 	}
 
-	/**
-	 * @dataProvider throwsUnauthorizedProvider
-	 */
+	#[DataProvider('throwsUnauthorizedProvider')]
 	public function testThrowsUnauthorized(string $content, ?string $signature): void
 	{
 		$this->expectException(AuthorizationException::class);

@@ -10,12 +10,7 @@ class PropertiesApiImpl implements PropertiesApi
 {
 	private const PROPERTIES_ENDPOINT = '/api/leads';
 
-	private Client $httpClient;
-
-	public function __construct(Client $httpClient)
-	{
-		$this->httpClient = $httpClient;
-	}
+	public function __construct(private Client $httpClient) {}
 
 	public function create(PropertyDTO $data): PropertyDTO
 	{

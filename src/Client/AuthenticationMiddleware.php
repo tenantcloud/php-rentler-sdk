@@ -20,18 +20,13 @@ class AuthenticationMiddleware
 	/** @var callable Guzzle's handler which Guzzle passes to first closure in HandlerStack */
 	private $handler;
 
-	private TokenResolver $tokenResolver;
-
-	private string $clientId;
-
-	private string $clientSecret;
-
-	public function __construct(callable $handler, TokenResolver $tokenResolver, string $clientId, string $clientSecret)
-	{
+	public function __construct(
+		callable $handler,
+		private TokenResolver $tokenResolver,
+		private string $clientId,
+		private string $clientSecret
+	) {
 		$this->handler = $handler;
-		$this->tokenResolver = $tokenResolver;
-		$this->clientId = $clientId;
-		$this->clientSecret = $clientSecret;
 	}
 
 	/**

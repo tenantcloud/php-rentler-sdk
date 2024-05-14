@@ -14,7 +14,7 @@ interface ListingsApi
 	/**
 	 * Get all listings by ids.
 	 *
-	 * @return ListingDTO[]
+	 * @return list<ListingDTO>
 	 */
 	public function ids(array $ids): array;
 

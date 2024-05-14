@@ -9,16 +9,12 @@ use TenantCloud\RentlerSDK\Tokens\Token;
  */
 class CombinedTokenCache implements TokenCache
 {
-	/** @var TokenCache[] */
-	private array $caches;
-
 	/**
-	 * @param TokenCache[] $caches
+	 * @param list<TokenCache> $caches
 	 */
-	public function __construct(array $caches)
-	{
-		$this->caches = $caches;
-	}
+	public function __construct(/** @var list<TokenCache> */
+		private array $caches
+	) {}
 
 	public function get(string $clientId): ?Token
 	{

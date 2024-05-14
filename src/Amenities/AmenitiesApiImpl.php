@@ -10,15 +10,10 @@ class AmenitiesApiImpl implements AmenitiesApi
 {
 	private const AMENITIES_ENDPOINT = '/api/amenities';
 
-	private Client $httpClient;
-
-	public function __construct(Client $httpClient)
-	{
-		$this->httpClient = $httpClient;
-	}
+	public function __construct(private Client $httpClient) {}
 
 	/**
-	 * @return AmenityDTO[]
+	 * @return list<AmenityDTO>
 	 */
 	public function list(): array
 	{

@@ -5,11 +5,11 @@ namespace TenantCloud\RentlerSDK\TenantProfiles;
 use TenantCloud\DataTransferObjects\CamelDataTransferObject;
 
 /**
- * @method self                         setExamId(int $examId)
- * @method int                          getExamId()
- * @method bool                         hasExamId()
- * @method TenantProfileExamAnswerDTO[] getAnswers()
- * @method bool                         hasAnswers()
+ * @method self                             setExamId(int $examId)
+ * @method int                              getExamId()
+ * @method bool                             hasExamId()
+ * @method list<TenantProfileExamAnswerDTO> getAnswers()
+ * @method bool                             hasAnswers()
  */
 class TenantProfileVerificationAnswerExamDTO extends CamelDataTransferObject
 {

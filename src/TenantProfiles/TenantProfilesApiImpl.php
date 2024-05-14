@@ -13,12 +13,7 @@ class TenantProfilesApiImpl implements TenantProfilesApi
 {
 	public const TENANT_PROFILES_ENDPOINT = '/api/tenants/:tenantId/profile';
 
-	private Client $httpClient;
-
-	public function __construct(Client $httpClient)
-	{
-		$this->httpClient = $httpClient;
-	}
+	public function __construct(private Client $httpClient) {}
 
 	public function create(int $tenantId, TenantProfileDTO $data): TenantProfileDTO
 	{

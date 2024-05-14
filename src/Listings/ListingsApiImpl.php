@@ -18,12 +18,7 @@ class ListingsApiImpl implements ListingsApi
 
 	private const LISTINGS_BY_IDS_ENDPOINT = '/api/listings/ids';
 
-	private Client $httpClient;
-
-	public function __construct(Client $httpClient)
-	{
-		$this->httpClient = $httpClient;
-	}
+	public function __construct(private Client $httpClient) {}
 
 	public function list(SearchListingsDTO $filters): PaginatedListingsResponseDTO
 	{

@@ -10,12 +10,7 @@ class PartnersApiImpl implements PartnersApi
 {
 	public const PARTNERS_ENDPOINT = '/api/partners';
 
-	private Client $httpClient;
-
-	public function __construct(Client $httpClient)
-	{
-		$this->httpClient = $httpClient;
-	}
+	public function __construct(private Client $httpClient) {}
 
 	public function get(string $id): PartnerDTO
 	{

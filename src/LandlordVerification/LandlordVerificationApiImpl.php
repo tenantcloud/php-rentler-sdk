@@ -8,12 +8,7 @@ use function TenantCloud\RentlerSDK\psr_response_to_json;
 
 class LandlordVerificationApiImpl implements LandlordVerificationApi
 {
-	private Client $httpClient;
-
-	public function __construct(Client $httpClient)
-	{
-		$this->httpClient = $httpClient;
-	}
+	public function __construct(private Client $httpClient) {}
 
 	public function verify(int $landlordId, LandlordVerificationDTO $data): LandlordVerificationDTO
 	{

@@ -7,15 +7,10 @@ use TenantCloud\RentlerSDK\Tokens\Cache\TokenCache;
 
 class TokenResolver
 {
-	private RentlerClient $client;
-
-	private TokenCache $cache;
-
-	public function __construct(RentlerClient $client, TokenCache $cache)
-	{
-		$this->client = $client;
-		$this->cache = $cache;
-	}
+	public function __construct(
+		private RentlerClient $client,
+		private TokenCache $cache
+	) {}
 
 	public function resolve(string $clientId, string $clientSecret): Token
 	{

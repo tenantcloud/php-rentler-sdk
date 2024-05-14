@@ -6,20 +6,20 @@ use TenantCloud\DataTransferObjects\CamelDataTransferObject;
 use TenantCloud\RentlerSDK\Enums\EventType;
 
 /**
- * @method self        setUrl(string $url)
- * @method string      getUrl()
- * @method bool        hasUrl()
- * @method self        setSecret(string $secret)
- * @method string      getSecret()
- * @method bool        hasSecret()
- * @method self        setWebhookEndpointId(int $webhookEndpointId)
- * @method int         getWebhookEndpointId()
- * @method bool        hasWebhookEndpointId()
- * @method EventType[] getEventTypes()
- * @method bool        hasEventTypes()
- * @method self        setApiVersion(string $version)
- * @method string      getApiVersion()
- * @method bool        hasApiVersion()
+ * @method self            setUrl(string $url)
+ * @method string          getUrl()
+ * @method bool            hasUrl()
+ * @method self            setSecret(string $secret)
+ * @method string          getSecret()
+ * @method bool            hasSecret()
+ * @method self            setWebhookEndpointId(int $webhookEndpointId)
+ * @method int             getWebhookEndpointId()
+ * @method bool            hasWebhookEndpointId()
+ * @method list<EventType> getEventTypes()
+ * @method bool            hasEventTypes()
+ * @method self            setApiVersion(string $version)
+ * @method string          getApiVersion()
+ * @method bool            hasApiVersion()
  */
 class WebhookEndpointDTO extends CamelDataTransferObject
 {

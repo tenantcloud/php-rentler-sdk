@@ -18,15 +18,10 @@ class FakeFavoritesApi implements FavoritesApi
 
 	public const NOT_EXISTING_FAVORITES_ID = 10000;
 
-	private Repository $repository;
-
-	private ConfigRepository $config;
-
-	public function __construct(Repository $repository, ConfigRepository $config)
-	{
-		$this->repository = $repository;
-		$this->config = $config;
-	}
+	public function __construct(
+		private Repository $repository,
+		private ConfigRepository $config
+	) {}
 
 	public function list(int $tenantId, FavoriteFiltersDTO $filtersDTO): PaginatedFavoritesResponseDTO
 	{

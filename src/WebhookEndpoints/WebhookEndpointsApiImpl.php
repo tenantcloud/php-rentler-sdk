@@ -14,12 +14,7 @@ class WebhookEndpointsApiImpl implements WebhookEndpointsApi
 {
 	private const WEBHOOK_ENDPOINTS_ENDPOINT = '/api/webhook-endpoints';
 
-	private Client $httpClient;
-
-	public function __construct(Client $httpClient)
-	{
-		$this->httpClient = $httpClient;
-	}
+	public function __construct(private Client $httpClient) {}
 
 	public function list(WebhookEndpointsFiltersDTO $filters): PaginatedWebhookEndpointsResponseDTO
 	{

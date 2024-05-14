@@ -10,12 +10,7 @@ class CoffeeApiImpl implements CoffeeApi
 {
 	public const COFFEE_ENDPOINT = '/api/coffee';
 
-	private Client $httpClient;
-
-	public function __construct(Client $httpClient)
-	{
-		$this->httpClient = $httpClient;
-	}
+	public function __construct(private Client $httpClient) {}
 
 	public function get(): array
 	{

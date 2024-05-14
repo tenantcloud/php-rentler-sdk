@@ -150,16 +150,12 @@ class ListingAmenity extends ValueEnum
 
 	public static self $AIR_CONDITIONING_NONE;
 
-	private string $label;
-
-	private string $group;
-
-	protected function __construct($value, string $label, string $group = self::GROUP_DEFAULT)
-	{
+	protected function __construct(
+		$value,
+		private string $label,
+		private string $group = self::GROUP_DEFAULT
+	) {
 		parent::__construct($value);
-
-		$this->label = $label;
-		$this->group = $group;
 	}
 
 	public function label(): string

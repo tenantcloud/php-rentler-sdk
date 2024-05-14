@@ -6,10 +6,10 @@ use TenantCloud\DataTransferObjects\CamelDataTransferObject;
 use TenantCloud\RentlerSDK\Enums\GeoType;
 
 /**
- * @method GeoType              getType()
- * @method bool                 hasType()
- * @method ListingGeoPointDTO[] getFeatures()
- * @method bool                 hasFeatures()
+ * @method GeoType                  getType()
+ * @method bool                     hasType()
+ * @method list<ListingGeoPointDTO> getFeatures()
+ * @method bool                     hasFeatures()
  */
 class ListingPointsResponseDTO extends CamelDataTransferObject
 {

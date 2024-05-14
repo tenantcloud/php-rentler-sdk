@@ -2,6 +2,4 @@
 
 namespace TenantCloud\RentlerSDK\Exceptions;
 
-interface RentlerException
-{
-}
+interface RentlerException {}

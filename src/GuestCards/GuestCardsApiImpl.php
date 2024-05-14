@@ -11,12 +11,7 @@ class GuestCardsApiImpl implements GuestCardsApi
 {
 	private const GUEST_CARDS_ENDPOINT = '/api/guest-cards';
 
-	private Client $httpClient;
-
-	public function __construct(Client $httpClient)
-	{
-		$this->httpClient = $httpClient;
-	}
+	public function __construct(private Client $httpClient) {}
 
 	public function create(GuestCardDTO $data): GuestCardDTO
 	{

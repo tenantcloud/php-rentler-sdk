@@ -14,12 +14,7 @@ class MessagesApiImpl implements MessagesApi
 {
 	private const MESSAGES_ENDPOINT = '/api/messages';
 
-	private Client $httpClient;
-
-	public function __construct(Client $httpClient)
-	{
-		$this->httpClient = $httpClient;
-	}
+	public function __construct(private Client $httpClient) {}
 
 	public function list(MessagesFiltersDTO $filters): PaginatedMessagesResponseDTO
 	{

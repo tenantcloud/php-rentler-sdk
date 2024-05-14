@@ -9,7 +9,7 @@ interface LandlordsApi
 	/**
 	 * Get all landlords by ids.
 	 *
-	 * @return LandlordDTO[]
+	 * @return list<LandlordDTO>
 	 */
 	public function ids(array $ids): array;
 

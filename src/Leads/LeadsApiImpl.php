@@ -14,12 +14,7 @@ class LeadsApiImpl implements LeadsApi
 {
 	private const LEADS_ENDPOINT = '/api/leads';
 
-	private Client $httpClient;
-
-	public function __construct(Client $httpClient)
-	{
-		$this->httpClient = $httpClient;
-	}
+	public function __construct(private Client $httpClient) {}
 
 	public function list(LeadsFiltersDTO $filters): PaginatedLeadsResponseDTO
 	{

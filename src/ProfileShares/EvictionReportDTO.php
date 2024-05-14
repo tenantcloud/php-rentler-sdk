@@ -18,7 +18,7 @@ use TenantCloud\RentlerSDK\Enums\ScreeningStatus;
  * @method array|null           getRecords()
  * @method bool                 hasRecords()
  * @method self                 setDisclaimers(?array $disclaimers)
- * @method string[]|null        getDisclaimers()
+ * @method list<string>|null    getDisclaimers()
  * @method bool                 hasDisclaimers()
  */
 class EvictionReportDTO extends CamelDataTransferObject
