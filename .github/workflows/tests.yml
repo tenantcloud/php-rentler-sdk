@@ -3,6 +3,13 @@ name: Tests
 on:
     workflow_dispatch:
     pull_request:
+    push:
+        branches:
+            - master
+            - next
+            - next-major
+            - beta
+            - alpha
 
 jobs:
     phpunit:
@@ -22,7 +29,7 @@ jobs:
               uses: actions/cache@v3
               with:
                   path: vendor
-                  key: composer-${{ runner.os }}-${{ hashFiles('composer.json') }}
+                  key: composer-${{ hashFiles('composer.json') }}
 
             - name: Install dependencies
               run: composer install --prefer-dist --no-progress
@@ -42,7 +49,7 @@ jobs:
               uses: actions/cache@v3
               with:
                   path: vendor
-                  key: composer-${{ runner.os }}-${{ hashFiles('composer.json') }}
+                  key: composer-${{ hashFiles('composer.json') }}
 
             - name: Install dependencies
               run: composer install --prefer-dist --no-progress
@@ -81,7 +88,7 @@ jobs:
               uses: actions/cache@v3
               with:
                   path: vendor
-                  key: composer-${{ runner.os }}-${{ hashFiles('composer.json') }}
+                  key: composer-${{ hashFiles('composer.json') }}
 
             - name: Install dependencies
               run: composer install --prefer-dist --no-progress
