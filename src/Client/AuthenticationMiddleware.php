@@ -43,12 +43,10 @@ class AuthenticationMiddleware
 	public static function retry(): callable
 	{
 		return Middleware::retry(
-			function (int $retries, RequestInterface $request, ?ResponseInterface $response, ?Throwable $exception) {
-				return $retries <= 2 &&
-					$exception instanceof RequestException &&
-					$exception->hasResponse() &&
-					$exception->getResponse()->getStatusCode() === Response::HTTP_UNAUTHORIZED;
-			},
+			fn (int $retries, RequestInterface $request, ?ResponseInterface $response, ?Throwable $exception) => $retries <= 2 &&
+				$exception instanceof RequestException &&
+				$exception->hasResponse() &&
+				$exception->getResponse()->getStatusCode() === Response::HTTP_UNAUTHORIZED,
 			fn () => 500
 		);
 	}
