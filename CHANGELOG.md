@@ -1,3 +1,10 @@
+# [2.6.0](https://github.com/tenantcloud/php-rentler-sdk/compare/v2.5.0...v2.6.0) (2025-01-23)
+
+
+### Features
+
+* Improved LeadAttributionDTO ([#58](https://github.com/tenantcloud/php-rentler-sdk/issues/58)) ([75e6aa2](https://github.com/tenantcloud/php-rentler-sdk/commit/75e6aa2e1c649464d5be58421992fc6150ed7c62))
+
 # [2.5.0](https://github.com/tenantcloud/php-rentler-sdk/compare/v2.4.0...v2.5.0) (2024-04-25)
 
 
