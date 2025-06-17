@@ -1,3 +1,10 @@
+## [2.6.1](https://github.com/tenantcloud/php-rentler-sdk/compare/v2.6.0...v2.6.1) (2025-06-17)
+
+
+### Bug Fixes
+
+* Allow Laravel 11|12 ([05597d3](https://github.com/tenantcloud/php-rentler-sdk/commit/05597d3e6870b4c457e1d943f3b817d9f0d3f197))
+
 # [2.6.0](https://github.com/tenantcloud/php-rentler-sdk/compare/v2.5.0...v2.6.0) (2025-01-23)
 
 
