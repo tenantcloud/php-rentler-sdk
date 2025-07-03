@@ -1,3 +1,10 @@
+## [3.0.1](https://github.com/tenantcloud/php-rentler-sdk/compare/v3.0.0...v3.0.1) (2025-07-03)
+
+
+### Bug Fixes
+
+* CLean up for Laravel 12 ([0821f87](https://github.com/tenantcloud/php-rentler-sdk/commit/0821f878ac9ff1165a054ff7c479925617df5948))
+
 ## [2.6.1](https://github.com/tenantcloud/php-rentler-sdk/compare/v2.6.0...v2.6.1) (2025-06-17)
 
 
