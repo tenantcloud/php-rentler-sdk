@@ -33,6 +33,18 @@ final class ListingType extends ValueEnum
 
 	public static self $OTHER;
 
+	public static self $COMMERCIAL;
+
+	public static self $SUITE;
+
+	public static self $STORAGE;
+
+	public static self $PARKING_SPACE;
+
+	public static self $MOBILE_HOME;
+
+	public static self $VILLA;
+
 	protected static function initializeInstances(): void
 	{
 		self::$UNDEFINED = new self('Undefined');
@@ -47,5 +59,11 @@ final class ListingType extends ValueEnum
 		self::$UNIVERSITY_APARTMENT = new self('UniversityApartment');
 		self::$RESIDENCE_HALL = new self('ResidenceHall');
 		self::$OTHER = new self('Other');
+		self::$COMMERCIAL = new self('Commercial');
+		self::$SUITE = new self('Suite');
+		self::$STORAGE = new self('Storage');
+		self::$PARKING_SPACE = new self('ParkingSpace');
+		self::$MOBILE_HOME = new self('MobileHome');
+		self::$VILLA = new self('Villa');
 	}
 }
