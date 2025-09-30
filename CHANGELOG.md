@@ -1,3 +1,10 @@
+## [3.0.2](https://github.com/tenantcloud/php-rentler-sdk/compare/v3.0.1...v3.0.2) (2025-09-30)
+
+
+### Bug Fixes
+
+* Add new listing types ([#62](https://github.com/tenantcloud/php-rentler-sdk/issues/62)) ([615928e](https://github.com/tenantcloud/php-rentler-sdk/commit/615928e81d6ad2f8dd8afdf336674ab2dd8191ec))
+
 ## [3.0.1](https://github.com/tenantcloud/php-rentler-sdk/compare/v3.0.0...v3.0.1) (2025-07-03)
 
 
