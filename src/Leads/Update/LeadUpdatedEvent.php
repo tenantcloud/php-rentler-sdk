@@ -6,7 +6,5 @@ use TenantCloud\RentlerSDK\Leads\LeadDTO;
 
 class LeadUpdatedEvent
 {
-	public function __construct(
-		public readonly LeadDTO $lead,
-	) {}
+	public function __construct(public readonly LeadDTO $lead) {}
 }
